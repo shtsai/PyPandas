@@ -86,7 +86,8 @@ Dataset 2: Statistical Summary Period Attendance Reporting (PAR)
 Dataset 3: DOB Job Application Filings
 \begin{itemize}
 	\item{Summary: A list of job applications filed for a particular day and associated data. Prior weekly and monthly reports are archived at DOB and are not available on NYC Open Data.}
-	\item{Source URL: https://data.cityofnewyork.us/Housing-Development/DOB-Job-Application-Filings/ic3t-wcy2}
+	\item{Source URL: https://data.cityofnewyork.us/Housing-Development
+	/DOB-Job-Application-Filings/ic3t-wcy2}
 	\item{Data Property: categorical dataset}
 	\item{Rows: 5,260,437, Columns: 89}
 	\item{Size: 2.88G}
@@ -94,10 +95,13 @@ Dataset 3: DOB Job Application Filings
 	\item{Reason to choose the data: In this dataset, there are 89 columns which satisfies the categorical property we need in this project.}
 \end{itemize}
 \subsection{Evaluation}
-We will evaluate our project by comparing it against other existing open-source libraries, including Optimus\cite{optimus}, Dask\cite{dask}, and SparkingPandas\cite{sparklingpandas}. We will compare our data cleaning features with Optimus, particularly those frequently used functionality in data science such as null value handling, duplicate detection, etc. Furthermore, we will evaluate the performance of our implementation of parallel data management by measuring the time and space consumed because it is important to have an efficient implementation to make this library useful in production. We will also examine and compare the overall software architecture of the project. We might perform a survey to assess the usability of the library.
+We will evaluate our project by comparing it against other existing open-source libraries, including Optimus\cite{optimus}, Dask\cite{dask}, and SparkingPandas\cite{sparklingpandas}. 
 \subsubsection{Features}
+We will compare our data cleaning features with Optimus, particularly those frequently used functionality in data science such as null value handling, special character removal, duplicate detection, etc. 
 \subsubsection{Performance}
+We will evaluate the performance of our library by measuring the time and space consumed and drawing comparison with existing libraries. This performance evaluation will show that this library can be useful in production. 
 \subsubsection{Userbility}
+We might assess the usability of our library by doing a survey among a random group of users. We will compare the installation process and APIs provided and generate scores of user experience.
 
 \section{Conclusions}
 Due to the lack of useful scalable data cleaning library on Spark, we propose PySpark, a scalable data cleaning library. We provide basic data cleaning features such as missing value handling, duplicated data removing and data scaling. Moreover, our library supports text cleaning feature with regular expression.
