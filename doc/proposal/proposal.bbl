@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{17}
+\begin{thebibliography}{20}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -47,6 +47,20 @@
 \newblock \bibinfo{publisher}{O'Reilly Media, Inc.}
 \newblock
 \showISBNx{0596516495, 9780596516499}
+
+
+\bibitem[\protect\citeauthoryear{Cai and Zhu}{Cai and Zhu}{2015}]%
+        {dataquality}
+\bibfield{author}{\bibinfo{person}{Li Cai} {and} \bibinfo{person}{Yangyong
+  Zhu}.} \bibinfo{year}{2015}\natexlab{}.
+\newblock \showarticletitle{The Challenges of Data Quality and Data Quality
+  Assessment in the Big Data Era}.
+\newblock \bibinfo{journal}{\emph{Data Science Journal}} \bibinfo{volume}{14},
+  \bibinfo{number}{2} (\bibinfo{year}{2015}), \bibinfo{pages}{1--10}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.5334/dsj-2015-002}
+\showDOI{\tempurl}
 
 
 \bibitem[\protect\citeauthoryear{Chu, Ilyas, Krishnan, and Wang}{Chu
@@ -156,6 +170,20 @@
 \tempurl}
 
 
+\bibitem[\protect\citeauthoryear{Katal, Wazid, and Goudar}{Katal
+  et~al\mbox{.}}{2013}]%
+        {bigdata}
+\bibfield{author}{\bibinfo{person}{A. Katal}, \bibinfo{person}{M. Wazid}, {and}
+  \bibinfo{person}{R.~H. Goudar}.} \bibinfo{year}{2013}\natexlab{}.
+\newblock \showarticletitle{Big data: Issues, challenges, tools and Good
+  practices}. In \bibinfo{booktitle}{\emph{2013 Sixth International Conference
+  on Contemporary Computing (IC3)}}. \bibinfo{pages}{404--409}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1109/IC3.2013.6612229}
+\showDOI{\tempurl}
+
+
 \bibitem[\protect\citeauthoryear{McKinney}{McKinney}{[n. d.]}]%
         {pandas}
 \bibfield{author}{\bibinfo{person}{Wes McKinney}.} \bibinfo{year}{[n.
@@ -246,6 +274,18 @@
   Huff} {and} \bibinfo{person}{James Bergstra}} (Eds.). \bibinfo{pages}{130 --
   136}.
 \newblock
+
+
+\bibitem[\protect\citeauthoryear{Vapnik}{Vapnik}{1995}]%
+        {ml}
+\bibfield{author}{\bibinfo{person}{Vladimir~N. Vapnik}.}
+  \bibinfo{year}{1995}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{The Nature of Statistical Learning
+  Theory}}.
+\newblock \bibinfo{publisher}{Springer-Verlag New York, Inc.},
+  \bibinfo{address}{New York, NY, USA}.
+\newblock
+\showISBNx{0-387-94559-8}
 
 
 \bibitem[\protect\citeauthoryear{White}{White}{2009}]%
