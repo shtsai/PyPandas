@@ -24,48 +24,42 @@
 \email{st3127@nyu.edu}
 
 \begin{abstract}
-This is abstract. 
-This is abstract. 
-This is abstract. 
-This is abstract.
-This is abstract.
-This is abstract.
+Data cleaning become a challenge\cite{datacleaning} in data mining and machine learning tasks. In this paper, we propose PyPandas, a scalable library running on Spark\cite{spark} to solve data cleaning tasks. PyPandas provides basic cleaning features such as missing values handling, outlier detection and data scaling. Morevoer, advanced features like text cleaning are supported as well.   
 
 \end{abstract}
 
 \maketitle
 
 \section{Introduction}
-
-\subsection{Problem description and goal}
-	In recent days, as storage devices become cheaper, storing big data in thousands of computers become easier. At that time people start to think how to mine big value from the huge dataset. The term, Big Data, was created to describe the phenomenon. As the result, data mining \cite{Han} \cite{MMD} and machine learning get popular in recent years. In these fields the quality of data is the key point to mine good value in the huge dataset. Hence, data cleaning become a challenge in the first step of data management and analysis \cite{datacleaning} \cite{DBS-045} \cite{PW}.
+In recent years, as storage devices become cheaper and cheaper, storing big data in thousands of computers is easier than before. People start to think how to obtain big value from the huge dataset. The term, Big Data, was created to describe this phenomenon\cite{bigdata}. As the result, data mining\cite{Han, MMD} and machine learning\cite{ml} get popular nowadays. The quality of data is one of the key points to mine good value in the huge dataset\cite{dataquality}. Hence, data cleaning become a challenge in the first step of data management and analysis\cite{datacleaning, DBS-045, PW}.
 	
-	To process huge dataset efficiently, distributed systems and frameworks \cite{mapreduce} \cite{gfs} \cite{hadoop} are introduced. Spark \cite{spark} is one of the popular open source project used in industry and academia. It is built on Hadoop \cite{hadoop} and provide a way to manage distributed memory. PySpark \cite{pyspark} is an extended library for Python users to use Spark.
+To process huge dataset efficiently, distributed systems and parallel computing frameworks\cite{mapreduce, gfs, hadoop} are introduced. Spark\cite{spark} is one of the most popular open source projects for industry and academia. It is built on Hadoop\cite{hadoop} and provides a way to manage distributed memory. PySpark\cite{pyspark} is an extended library for Python programmers.
 	
-	In the Python machine learning and data mining environment, Pandas \cite{pandas} is the most popular data management library. Pandas dataframe provides a way to collect data and the data can be transform into Python primitive data structures or Numpy \cite{numpy} array easily. Moreover, Pandas provides several data management methods such as missing value filling, data indexing and data profiling. 
+In the Python machine learning and data mining ecosystem, Pandas\cite{pandas} is the most popular data management library. Pandas dataframe provides a way to collect data and the data can be transformed from Python primitive data structures or Numpy\cite{numpy} array easily. Moreover, Pandas provides several data management methods such as missing value filling, data indexing and data profiling. 
 	
-	However, Pandas can only be used in a single machine and could not be scaled to manage huge dataset. In this paper, we propose PyPandas, a library built on PySpark, which support basic data management features, missing value handling or replication removing. Moreover, we add more data processing features into our library to provide user friendly functions such as outlier detection and numerical data scaling. These features are important for the machine learning tasks and are supported in Scikit-Learn \cite{scikit-learn}, a mainstream machine learning library.
+However, Pandas can only be used in a single machine and could not be scaled to manage huge dataset. In this paper, we propose PyPandas, a library built on PySpark, which support basic data management features, missing value handling or duplicated data removing. Moreover, we add common data processing features into our library to provide user friendly usage such as outlier detection and numerical data scaling. These features are important for the machine learning tasks and are supported in Scikit-Learn\cite{scikit-learn}, a mainstream machine learning library, as well.
 	
-	Furthermore, text data is another common data type in our storage. Text data are hard to clean because of multiple languages, new word, typo, abbreviation, url and emoji etc. Although we have NLTK \cite{nltk}, a popular text cleaning library, there is no scalable text cleaning library. In this paper, we also provide tools for users to clean text easily. 
+Furthermore, text data is another common data type in our storage. Text data are hard to process because of multiple languages, newly invented word, typo, abbreviation, url and emoji etc. Although we have NLTK\cite{nltk}, a popular text cleaning library, there is no scalable text cleaning library. In this paper, we also provide tools for users to clean text easily. 
 	
-	The features of our library is summarized below.
-	\begin{itemize}
-		\item{Data management library runs on Spark}
-		\item{Support missing value handling, replicated data removing, outlier detection and numerical data scaling}
-		\item{Text processing such as url detection, punctuation removing, pattern searching and replacement. }
-	\end{itemize}
-	
-
-
-
+The features of our library is summarized below.
+\begin{itemize}
+	\item{Saclable data management library runs on Spark}
+	\item{Missing value handling, duplicated data removing, outlier detection and numerical data scaling}
+	\item{Text processing such as url detection, punctuation removing, pattern searching and replacement. }
+\end{itemize}	
 
 \section{Related Work}
-\subsection{Previous work}
-There exists a number of open-source library for data cleaning and parallel data frames. Optimus \cite{optimus} is framework that can perform distributed data cleaning and preprocessing. This framework works well with Spark and its DataFrame can scale in big cluster. It comes with helpful tools such as removing special characters and replacing null values. Dask \cite{dask} is another open-source library that supports parallel analytic computing. It provides scalable parallel data structures that extend interfaces like pandas. At the same time, it offers low latency and high responsiveness. SparklingPandas\cite{sparklingpandas} library attempts to combine the power of spark and pandas to scale data analysis. It provides a Pandas-like API that is built using Spark?s DataFrame class. Unfortunately, it only support spark v1.4 and Python 2.7, and its development has ended.
+There exists a number of open-source library for data cleaning and parallel data computing. 
+\begin{itemize}
+	\item{Optimus}\cite{optimus} is a framework that can perform distributed data cleaning and preprocessing. This framework works well with Spark and its DataFrame can scale in big cluster. Optimus comes with helpful tools such as removing special characters and replacing null values.
+	\item{Dask}\cite{dask} is another open-source library that supports parallel analytic computing. It provides scalable parallel data structures that extend interfaces like pandas. At the same time, it offers low latency and high responsiveness.
+	\item{SparklingPandas}\cite{sparklingpandas} attempts to combine the power of spark and pandas to scale data analysis. It provides a Pandas-like API that is built using Spark's DataFrame class. Unfortunately, it only support spark v1.4 and Python 2.7, and its development has ended.
+\end{itemize}
 
 
 
 \section{Proposed Methods}
+In this project, we prepare to build our library on top of the PySpark\cite{pyspark, spark}. We will handle RDD data structure and implement useful data cleaning fucntions in our library. The ways to do that are collecting common cleaning functions into library and customizing map functions to do advanced cleaning task such as pattern searching and replacement with regular expression. We will survey the Pandas\cite{pandas} and Scikit-Learn\cite{scikit-learn} libraries to find out key features and create Pandas-liked and Scikit-Learn-liked API to let users start with easily.
 
 \section{Experiment}
 \subsection{Dataset}
@@ -78,16 +72,12 @@ This is the dataset we will use.
 
 \subsection{Evaluation}
 We will evaluate our project by comparing it against other existing open-source libraries, including Optimus\cite{optimus}, Dask\cite{dask}, and SparkingPandas\cite{sparklingpandas}. We will compare our data cleaning features with Optimus, particularly those frequently used functionality in data science such as null value handling, duplicate detection, etc. Furthermore, we will evaluate the performance of our implementation of parallel data management by measuring the time and space consumed because it is important to have an efficient implementation to make this library useful in production. We will also examine and compare the overall software architecture of the project. We might perform a survey to assess the usability of the library.
-
+\subsubsection{Features}
+\subsubsection{Performance}
+\subsubsection{Userbility}
 
 \section{Conclusions}
-This is our conclusion.
-This is our conclusion.
-This is our conclusion.
-This is our conclusion.
-This is our conclusion.
-This is our conclusion.
-
+Due to the lack of useful scalable data cleaning library on Spark, we propose PySpark, a scalable data cleaning library. We provide basic data cleaning features such as missing value handling, duplicated data removing and data scaling. Moreover, our library supports text cleaning feature with regular expression.
 
 \section{reference}
 \bibliographystyle{ACM-Reference-Format}
