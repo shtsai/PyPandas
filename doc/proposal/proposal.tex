@@ -63,13 +63,36 @@ In this project, we prepare to build our library on top of the PySpark\cite{pysp
 
 \section{Experiment}
 \subsection{Dataset}
-This is the dataset we will use.
-This is the dataset we will use.
-This is the dataset we will use.
-This is the dataset we will use.
-This is the dataset we will use.
-This is the dataset we will use.
-
+Dataset 1: 311 Service Requests from 2010 to Present
+\begin{itemize}
+	\item{Summary: All 311 Service Requests from 2010 to present.}
+	\item{Source URL: https://data.cityofnewyork.us/Social-Services/311-Service-Requests-from-2010-to-Present/erm2-nwe9}
+	\item{Data property: text is majority}
+	\item{Rows: 9,063,486, Columns: 53}
+	\item{Size: 6.01G}
+	\item{Missing value: There are about 15 out of 53 columns with null value which is about 28.3\%}
+	\item{Reason to choose the data: In this dataset, most of the data is consisted of alphabetical words which is one of the data property we are looking for. Besides, the column named "Resolution Description" contains the description about the service status notes which are all alphabetical words we need. }
+\end{itemize}
+Dataset 2: Statistical Summary Period Attendance Reporting (PAR)
+\begin{itemize}
+	\item{Summary: Statistical report on attendance by borough, grade. Alternate views of same data by grade level and enrollment (register). All students including YABC, adults, LYFE babies and charters, home instruction, home/hospital, CBO UPK.}
+	\item{Source URL: https://data.cityofnewyork.us/Education/Statistical-Summary-Period-Attendance-Reporting-PA/hrsu-3w2q}
+	\item{Data property: number is majority}
+	\item{Rows: 24,421, Columns: 39}
+	\item{Size: 2.8Mb}
+	\item{Missing value: There are about 5 out of 39 columns with null value which is about 13\%}
+	\item{Reason to choose the data: In this dataset, most of the data is consisted of numbers which is also one of the data property we are looking for.}
+\end{itemize}
+Dataset 3: DOB Job Application Filings
+\begin{itemize}
+	\item{Summary: A list of job applications filed for a particular day and associated data. Prior weekly and monthly reports are archived at DOB and are not available on NYC Open Data.}
+	\item{Source URL: https://data.cityofnewyork.us/Housing-Development/DOB-Job-Application-Filings/ic3t-wcy2}
+	\item{Data Property: categorical dataset}
+	\item{Rows: 5,260,437, Columns: 89}
+	\item{Size: 2.88G}
+	\item{Missing Value: There are about 36 out of 89 columns with null value which is about 40\%.}
+	\item{Reason to choose the data: In this dataset, there are 89 columns which satisfies the categorical property we need in this project.}
+\end{itemize}
 \subsection{Evaluation}
 We will evaluate our project by comparing it against other existing open-source libraries, including Optimus\cite{optimus}, Dask\cite{dask}, and SparkingPandas\cite{sparklingpandas}. We will compare our data cleaning features with Optimus, particularly those frequently used functionality in data science such as null value handling, duplicate detection, etc. Furthermore, we will evaluate the performance of our implementation of parallel data management by measuring the time and space consumed because it is important to have an efficient implementation to make this library useful in production. We will also examine and compare the overall software architecture of the project. We might perform a survey to assess the usability of the library.
 \subsubsection{Features}
