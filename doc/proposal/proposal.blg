@@ -5,6 +5,8 @@ Warning--empty address in nltk
 Warning--numpages field, but no articleno or eid field, in datacleaning
 Warning--numpages field, but no articleno or eid field, in mapreduce
 Warning--numpages field, but no articleno or eid field, in gfs
+Warning--empty publisher in bigdata
+Warning--empty address in bigdata
 Warning--empty year in pandas
 Warning--no journal in pandas
 Warning--no number and no volume in pandas
@@ -15,4 +17,4 @@ Warning--empty publisher in dask
 Warning--empty address in dask
 Warning--empty address in hadoop
 Warning--numpages field, but no articleno or eid field, in spark
-(There were 14 warnings)
+(There were 16 warnings)
