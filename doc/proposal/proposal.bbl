@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{20}
+\begin{thebibliography}{00}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -42,7 +42,7 @@
         {nltk}
 \bibfield{author}{\bibinfo{person}{Steven Bird}, \bibinfo{person}{Ewan Klein},
   {and} \bibinfo{person}{Edward Loper}.} \bibinfo{year}{2009}\natexlab{}.
-\newblock \bibinfo{booktitle}{\emph{Natural Language Processing with Python}
+\newblock \bibinfo{booktitle}{{\em Natural Language Processing with Python\/}
   (\bibinfo{edition}{1st} ed.)}.
 \newblock \bibinfo{publisher}{O'Reilly Media, Inc.}
 \newblock
@@ -55,12 +55,11 @@
   Zhu}.} \bibinfo{year}{2015}\natexlab{}.
 \newblock \showarticletitle{The Challenges of Data Quality and Data Quality
   Assessment in the Big Data Era}.
-\newblock \bibinfo{journal}{\emph{Data Science Journal}} \bibinfo{volume}{14},
+\newblock \bibinfo{journal}{{\em Data Science Journal\/}} \bibinfo{volume}{14},
   \bibinfo{number}{2} (\bibinfo{year}{2015}), \bibinfo{pages}{1--10}.
 \newblock
-\urldef\tempurl%
-\url{https://doi.org/10.5334/dsj-2015-002}
-\showDOI{\tempurl}
+\showDOI{%
+\url{https://doi.org/10.5334/dsj-2015-002}}
 
 
 \bibitem[\protect\citeauthoryear{Chu, Ilyas, Krishnan, and Wang}{Chu
@@ -70,15 +69,14 @@
   \bibinfo{person}{Sanjay Krishnan}, {and} \bibinfo{person}{Jiannan Wang}.}
   \bibinfo{year}{2016}\natexlab{}.
 \newblock \showarticletitle{Data Cleaning: Overview and Emerging Challenges}.
-  In \bibinfo{booktitle}{\emph{Proceedings of the 2016 International Conference
-  on Management of Data}} \emph{(\bibinfo{series}{SIGMOD '16})}.
+  In \bibinfo{booktitle}{{\em Proceedings of the 2016 International Conference
+  on Management of Data}} {\em (\bibinfo{series}{SIGMOD '16})}.
   \bibinfo{publisher}{ACM}, \bibinfo{address}{New York, NY, USA},
   \bibinfo{pages}{2201--2206}.
 \newblock
 \showISBNx{978-1-4503-3531-7}
-\urldef\tempurl%
-\url{https://doi.org/10.1145/2882903.2912574}
-\showDOI{\tempurl}
+\showDOI{%
+\url{https://doi.org/10.1145/2882903.2912574}}
 
 
 \bibitem[\protect\citeauthoryear{Dean and Ghemawat}{Dean and Ghemawat}{2008}]%
@@ -87,14 +85,13 @@
   Ghemawat}.} \bibinfo{year}{2008}\natexlab{}.
 \newblock \showarticletitle{MapReduce: Simplified Data Processing on Large
   Clusters}.
-\newblock \bibinfo{journal}{\emph{Commun. ACM}} \bibinfo{volume}{51},
+\newblock \bibinfo{journal}{{\em Commun. ACM\/}} \bibinfo{volume}{51},
   \bibinfo{number}{1} (\bibinfo{date}{Jan.} \bibinfo{year}{2008}),
   \bibinfo{pages}{107--113}.
 \newblock
 \showISSN{0001-0782}
-\urldef\tempurl%
-\url{https://doi.org/10.1145/1327452.1327492}
-\showDOI{\tempurl}
+\showDOI{%
+\url{https://doi.org/10.1145/1327452.1327492}}
 
 
 \bibitem[\protect\citeauthoryear{Ghemawat, Gobioff, and Leung}{Ghemawat
@@ -104,15 +101,47 @@
   Gobioff}, {and} \bibinfo{person}{Shun-Tak Leung}.}
   \bibinfo{year}{2003}\natexlab{}.
 \newblock \showarticletitle{The Google File System}. In
-  \bibinfo{booktitle}{\emph{Proceedings of the Nineteenth ACM Symposium on
-  Operating Systems Principles}} \emph{(\bibinfo{series}{SOSP '03})}.
+  \bibinfo{booktitle}{{\em Proceedings of the Nineteenth ACM Symposium on
+  Operating Systems Principles}} {\em (\bibinfo{series}{SOSP '03})}.
   \bibinfo{publisher}{ACM}, \bibinfo{address}{New York, NY, USA},
   \bibinfo{pages}{29--43}.
 \newblock
 \showISBNx{1-58113-757-5}
-\urldef\tempurl%
-\url{https://doi.org/10.1145/945445.945450}
-\showDOI{\tempurl}
+\showDOI{%
+\url{https://doi.org/10.1145/945445.945450}}
+
+
+\bibitem[\protect\citeauthoryear{government}{government}{2018a}]%
+        {nycopendata1}
+\bibfield{author}{\bibinfo{person}{NYC government}.}
+  \bibinfo{year}{2018}\natexlab{a}.
+\newblock \bibinfo{title}{NYC OpenData}.
+\newblock   (\bibinfo{year}{2018}).
+\newblock
+\showURL{%
+\url{https://data.cityofnewyork.us/Social-Services/311-Service-Requests-from-2010-to-Present/erm2-nwe9}}
+
+
+\bibitem[\protect\citeauthoryear{government}{government}{2018b}]%
+        {nycopendata2}
+\bibfield{author}{\bibinfo{person}{NYC government}.}
+  \bibinfo{year}{2018}\natexlab{b}.
+\newblock \bibinfo{title}{NYC OpenData}.
+\newblock   (\bibinfo{year}{2018}).
+\newblock
+\showURL{%
+\url{https://data.cityofnewyork.us/Housing-Development/DOB-Permit-Issuance/ipu4-2q9a/data}}
+
+
+\bibitem[\protect\citeauthoryear{government}{government}{2018c}]%
+        {nycopendata3}
+\bibfield{author}{\bibinfo{person}{NYC government}.}
+  \bibinfo{year}{2018}\natexlab{c}.
+\newblock \bibinfo{title}{NYC OpenData}.
+\newblock   (\bibinfo{year}{2018}).
+\newblock
+\showURL{%
+\url{https://data.cityofnewyork.us/Housing-Development/DOB-Job-Application-Filings/ic3t-wcy2}}
 
 
 \bibitem[\protect\citeauthoryear{Han, Kamber, and Pei}{Han
@@ -120,7 +149,7 @@
         {Han}
 \bibfield{author}{\bibinfo{person}{Jiawei Han}, \bibinfo{person}{Micheline
   Kamber}, {and} \bibinfo{person}{Jian Pei}.} \bibinfo{year}{2011}\natexlab{}.
-\newblock \bibinfo{booktitle}{\emph{Data Mining: Concepts and Techniques}
+\newblock \bibinfo{booktitle}{{\em Data Mining: Concepts and Techniques\/}
   (\bibinfo{edition}{3rd} ed.)}.
 \newblock \bibinfo{publisher}{Morgan Kaufmann Publishers Inc.},
   \bibinfo{address}{San Francisco, CA, USA}.
@@ -134,14 +163,13 @@
   Chu}.} \bibinfo{year}{2015}\natexlab{}.
 \newblock \showarticletitle{Trends in Cleaning Relational Data: Consistency and
   Deduplication}.
-\newblock \bibinfo{journal}{\emph{Foundations and Trends® in Databases}}
+\newblock \bibinfo{journal}{{\em Foundations and Trends® in Databases\/}}
   \bibinfo{volume}{5}, \bibinfo{number}{4} (\bibinfo{year}{2015}),
   \bibinfo{pages}{281--393}.
 \newblock
 \showISSN{1931-7883}
-\urldef\tempurl%
-\url{https://doi.org/10.1561/1900000045}
-\showDOI{\tempurl}
+\showDOI{%
+\url{https://doi.org/10.1561/1900000045}}
 
 
 \bibitem[\protect\citeauthoryear{Iron}{Iron}{2018}]%
@@ -150,10 +178,8 @@
 \newblock \bibinfo{title}{Optimus}.
 \newblock   (\bibinfo{year}{2018}).
 \newblock
-\urldef\tempurl%
-\url{https://github.com/ironmussa/Optimus}
 \showURL{%
-\tempurl}
+\url{https://github.com/ironmussa/Optimus}}
 
 
 \bibitem[\protect\citeauthoryear{Karau and Hougland}{Karau and
@@ -164,10 +190,8 @@
 \newblock \bibinfo{title}{SparklingPandas}.
 \newblock   (\bibinfo{year}{2015}).
 \newblock
-\urldef\tempurl%
-\url{https://github.com/sparklingpandas/sparklingpandas}
 \showURL{%
-\tempurl}
+\url{https://github.com/sparklingpandas/sparklingpandas}}
 
 
 \bibitem[\protect\citeauthoryear{Katal, Wazid, and Goudar}{Katal
@@ -176,21 +200,19 @@
 \bibfield{author}{\bibinfo{person}{A. Katal}, \bibinfo{person}{M. Wazid}, {and}
   \bibinfo{person}{R.~H. Goudar}.} \bibinfo{year}{2013}\natexlab{}.
 \newblock \showarticletitle{Big data: Issues, challenges, tools and Good
-  practices}. In \bibinfo{booktitle}{\emph{2013 Sixth International Conference
+  practices}. In \bibinfo{booktitle}{{\em 2013 Sixth International Conference
   on Contemporary Computing (IC3)}}. \bibinfo{pages}{404--409}.
 \newblock
-\urldef\tempurl%
-\url{https://doi.org/10.1109/IC3.2013.6612229}
-\showDOI{\tempurl}
+\showDOI{%
+\url{https://doi.org/10.1109/IC3.2013.6612229}}
 
 
-\bibitem[\protect\citeauthoryear{McKinney}{McKinney}{[n. d.]}]%
+\bibitem[\protect\citeauthoryear{McKinney}{McKinney}{}]%
         {pandas}
-\bibfield{author}{\bibinfo{person}{Wes McKinney}.} \bibinfo{year}{[n.
-  d.]}\natexlab{}.
+\bibfield{author}{\bibinfo{person}{Wes McKinney}.}
 \newblock \showarticletitle{pandas: a Foundational Python Library for Data
   Analysis and Statistics}.
-\newblock  (\bibinfo{year}{[n. d.]}).
+\newblock  (\bibinfo{year}{????}).
 \newblock
 
 
@@ -198,7 +220,7 @@
         {pyspark}
 \bibfield{author}{\bibinfo{person}{Amit Nandi}.}
   \bibinfo{year}{2015}\natexlab{}.
-\newblock \bibinfo{booktitle}{\emph{Spark for Python Developers}}.
+\newblock \bibinfo{booktitle}{{\em Spark for Python Developers}}.
 \newblock \bibinfo{publisher}{Packt Publishing}.
 \newblock
 \showISBNx{1784399698, 9781784399696}
@@ -208,7 +230,7 @@
         {numpy}
 \bibfield{author}{\bibinfo{person}{Travis~E. Oliphant}.}
   \bibinfo{year}{2015}\natexlab{}.
-\newblock \bibinfo{booktitle}{\emph{Guide to NumPy} (\bibinfo{edition}{2nd}
+\newblock \bibinfo{booktitle}{{\em Guide to NumPy\/} (\bibinfo{edition}{2nd}
   ed.)}.
 \newblock \bibinfo{publisher}{CreateSpace Independent Publishing Platform},
   \bibinfo{address}{USA}.
@@ -229,7 +251,7 @@
   \bibinfo{person}{M. Brucher}, \bibinfo{person}{M. Perrot}, {and}
   \bibinfo{person}{E. Duchesnay}.} \bibinfo{year}{2011}\natexlab{}.
 \newblock \showarticletitle{Scikit-learn: Machine Learning in {P}ython}.
-\newblock \bibinfo{journal}{\emph{Journal of Machine Learning Research}}
+\newblock \bibinfo{journal}{{\em Journal of Machine Learning Research\/}}
   \bibinfo{volume}{12} (\bibinfo{year}{2011}), \bibinfo{pages}{2825--2830}.
 \newblock
 
@@ -239,7 +261,7 @@
         {MMD}
 \bibfield{author}{\bibinfo{person}{Anand Rajaraman} {and}
   \bibinfo{person}{Jeffrey~David Ullman}.} \bibinfo{year}{2011}\natexlab{}.
-\newblock \bibinfo{booktitle}{\emph{Mining of Massive Datasets}}.
+\newblock \bibinfo{booktitle}{{\em Mining of Massive Datasets}}.
 \newblock \bibinfo{publisher}{Cambridge University Press},
   \bibinfo{address}{New York, NY, USA}.
 \newblock
@@ -252,16 +274,14 @@
 \bibfield{author}{\bibinfo{person}{Vijayshankar Raman} {and}
   \bibinfo{person}{Joseph~M. Hellerstein}.} \bibinfo{year}{2001}\natexlab{}.
 \newblock \showarticletitle{Potter's Wheel: An Interactive Data Cleaning
-  System}. In \bibinfo{booktitle}{\emph{Proceedings of the 27th International
-  Conference on Very Large Data Bases}} \emph{(\bibinfo{series}{VLDB '01})}.
+  System}. In \bibinfo{booktitle}{{\em Proceedings of the 27th International
+  Conference on Very Large Data Bases}} {\em (\bibinfo{series}{VLDB '01})}.
   \bibinfo{publisher}{Morgan Kaufmann Publishers Inc.}, \bibinfo{address}{San
   Francisco, CA, USA}, \bibinfo{pages}{381--390}.
 \newblock
 \showISBNx{1-55860-804-4}
-\urldef\tempurl%
-\url{http://dl.acm.org/citation.cfm?id=645927.672045}
 \showURL{%
-\tempurl}
+\url{http://dl.acm.org/citation.cfm?id=645927.672045}}
 
 
 \bibitem[\protect\citeauthoryear{Rocklin}{Rocklin}{2015}]%
@@ -269,7 +289,7 @@
 \bibfield{author}{\bibinfo{person}{Matthew Rocklin}.}
   \bibinfo{year}{2015}\natexlab{}.
 \newblock \showarticletitle{Dask: Parallel Computation with Blocked algorithms
-  and Task Scheduling}. In \bibinfo{booktitle}{\emph{Proceedings of the 14th
+  and Task Scheduling}. In \bibinfo{booktitle}{{\em Proceedings of the 14th
   Python in Science Conference}}, \bibfield{editor}{\bibinfo{person}{Kathryn
   Huff} {and} \bibinfo{person}{James Bergstra}} (Eds.). \bibinfo{pages}{130 --
   136}.
@@ -280,8 +300,7 @@
         {ml}
 \bibfield{author}{\bibinfo{person}{Vladimir~N. Vapnik}.}
   \bibinfo{year}{1995}\natexlab{}.
-\newblock \bibinfo{booktitle}{\emph{The Nature of Statistical Learning
-  Theory}}.
+\newblock \bibinfo{booktitle}{{\em The Nature of Statistical Learning Theory}}.
 \newblock \bibinfo{publisher}{Springer-Verlag New York, Inc.},
   \bibinfo{address}{New York, NY, USA}.
 \newblock
@@ -292,7 +311,7 @@
         {hadoop}
 \bibfield{author}{\bibinfo{person}{Tom White}.}
   \bibinfo{year}{2009}\natexlab{}.
-\newblock \bibinfo{booktitle}{\emph{Hadoop: The Definitive Guide}
+\newblock \bibinfo{booktitle}{{\em Hadoop: The Definitive Guide\/}
   (\bibinfo{edition}{1st} ed.)}.
 \newblock \bibinfo{publisher}{O'Reilly Media, Inc.}
 \newblock
@@ -307,15 +326,13 @@
   Shenker}, {and} \bibinfo{person}{Ion Stoica}.}
   \bibinfo{year}{2010}\natexlab{}.
 \newblock \showarticletitle{Spark: Cluster Computing with Working Sets}. In
-  \bibinfo{booktitle}{\emph{Proceedings of the 2Nd USENIX Conference on Hot
-  Topics in Cloud Computing}} \emph{(\bibinfo{series}{HotCloud'10})}.
+  \bibinfo{booktitle}{{\em Proceedings of the 2Nd USENIX Conference on Hot
+  Topics in Cloud Computing}} {\em (\bibinfo{series}{HotCloud'10})}.
   \bibinfo{publisher}{USENIX Association}, \bibinfo{address}{Berkeley, CA,
   USA}, \bibinfo{pages}{10--10}.
 \newblock
-\urldef\tempurl%
-\url{http://dl.acm.org/citation.cfm?id=1863103.1863113}
 \showURL{%
-\tempurl}
+\url{http://dl.acm.org/citation.cfm?id=1863103.1863113}}
 
 
 \end{thebibliography}
