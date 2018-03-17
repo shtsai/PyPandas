@@ -24,26 +24,26 @@
 \email{st3127@nyu.edu}
 
 \begin{abstract}
-Data cleaning become a challenge\cite{datacleaning} in data mining and machine learning tasks. In this paper, we propose PyPandas, a scalable library running on Spark\cite{spark} to solve data cleaning tasks. PyPandas provides basic cleaning features such as missing values handling, outlier detection and data scaling. Morevoer, advanced features like text cleaning are supported as well.   
+Data cleaning become a challenge\cite{datacleaning} in data mining and machine learning tasks. In this paper, we propose PyPandas, a scalable library running on Spark\cite{spark}, to provide better solutions to data cleaning tasks. PyPandas provides basic cleaning features such as missing values handling, outlier detection and data scaling. Morevoer, advanced features like text cleaning are supported as well.   
 
 \end{abstract}
 
 \maketitle
 
 \section{Introduction}
-In recent years, as storage devices become cheaper and cheaper, storing big data in thousands of computers is easier than before. People start to think how to obtain big value from the huge dataset. The term, Big Data, was created to describe this phenomenon\cite{bigdata}. As the result, data mining\cite{Han, MMD} and machine learning\cite{ml} get popular nowadays. The quality of data is one of the key points to mine good value in the huge dataset\cite{dataquality}. Hence, data cleaning become a challenge in the first step of data management and analysis\cite{datacleaning, DBS-045, PW}.
+In recent years, as storage devices become cheaper and cheaper, storing big data in thousands of computers is easier than before. People start thinking about how to extract useful information from the huge datasets. The term, Big Data, was created to describe this phenomenon\cite{bigdata}. As the result, data mining\cite{Han, MMD} and machine learning\cite{ml} get popular nowadays. The quality of data is one of the key factors to successful data mining\cite{dataquality}. Hence, data cleaning becomes a challenge in the first step of data management and analysis\cite{datacleaning, DBS-045, PW}.
 	
-To process huge dataset efficiently, distributed systems and parallel computing frameworks\cite{mapreduce, gfs, hadoop} are introduced. Spark\cite{spark} is one of the most popular open source projects for industry and academia. It is built on Hadoop\cite{hadoop} and provides a way to manage distributed memory. PySpark\cite{pyspark} is an extended library for Python programmers.
+To process huge dataset efficiently, distributed systems and parallel computing frameworks\cite{mapreduce, gfs, hadoop} are introduced. Spark\cite{spark} is one of the most popular open source projects for industry and academia. It is built on Hadoop\cite{hadoop} and provides a way to manage distributed memory. PySpark\cite{pyspark} is an extended library for Python programmers to work with Spark.
 	
-In the Python machine learning and data mining ecosystem, Pandas\cite{pandas} is the most popular data management library. Pandas dataframe provides a way to collect data and the data can be transformed from Python primitive data structures or Numpy\cite{numpy} array easily. Moreover, Pandas provides several data management methods such as missing value filling, data indexing and data profiling. 
+In the Python machine learning and data mining ecosystem, Pandas\cite{pandas} is the most popular data management library. Pandas dataframe provides convenient ways to collect data and transform data from Python primitive data structures or Numpy\cite{numpy} array. Moreover, Pandas provides several data management methods such as missing value filling, data indexing and data profiling. 
 	
-However, Pandas can only be used in a single machine and could not be scaled to manage huge dataset. In this paper, we propose PyPandas, a library built on PySpark, which support basic data management features, missing value handling or duplicated data removing. Moreover, we add common data processing features into our library to provide user friendly usage such as outlier detection and numerical data scaling. These features are important for the machine learning tasks and are supported in Scikit-Learn\cite{scikit-learn}, a mainstream machine learning library, as well.
+However, Pandas can only be used in a single machine and could not be scaled to manage huge dataset. In this paper, we propose PyPandas, a library built on top of PySpark, that support basic data management features, missing value handling or duplicated data removing. Moreover, we add common data processing features into our library to provide user friendly usage such as outlier detection and numerical data scaling. These features are important for the machine learning tasks and are supported in Scikit-Learn\cite{scikit-learn}, a mainstream machine learning library, as well.
 	
-Furthermore, text data is another common data type in our storage. Text data are hard to process because of multiple languages, newly invented word, typo, abbreviation, url and emoji etc. Although we have NLTK\cite{nltk}, a popular text cleaning library, there is no scalable text cleaning library. In this paper, we also provide tools for users to clean text easily. 
+Furthermore, text data is another common data type in our storage. Text data are hard to process because of different languages, newly invented words, typos, abbreviations, urls and emoji etc. Although we have NLTK\cite{nltk}, a popular text cleaning library, there is no scalable text cleaning library. In this paper, we also provide tools for users to clean text easily. 
 	
 The features of our library is summarized below.
 \begin{itemize}
-	\item{Saclable data management library runs on Spark}
+	\item{Scalable data management library runs on Spark}
 	\item{Missing value handling, duplicated data removing, outlier detection and numerical data scaling}
 	\item{Text processing such as url detection, punctuation removing, pattern searching and replacement. }
 \end{itemize}	
@@ -59,7 +59,7 @@ There exists a number of open-source library for data cleaning and parallel data
 
 
 \section{Proposed Methods}
-In this project, we prepare to build our library on top of the PySpark\cite{pyspark, spark}. We will handle RDD data structure and implement useful data cleaning fucntions in our library. The ways to do that are collecting common cleaning functions into library and customizing map functions to do advanced cleaning task such as pattern searching and replacement with regular expression. We will survey the Pandas\cite{pandas} and Scikit-Learn\cite{scikit-learn} libraries to find out key features and create Pandas-liked and Scikit-Learn-liked API to let users start with easily.
+In this project, we will to build our library on top of PySpark\cite{pyspark, spark}. We will handle RDD data structure and implement useful data cleaning fucntions in our library. The ways to do that are collecting common cleaning functions into library and customizing map functions to do advanced cleaning task such as pattern searching and replacement with regular expression. We will survey the Pandas\cite{pandas} and Scikit-Learn\cite{scikit-learn} libraries to find out key features and create Pandas-like and Scikit-Learn-like API to provide easy usage and seamless adaptation.
 
 \section{Experiment}
 \subsection{Dataset}
@@ -97,9 +97,9 @@ Dataset 3: DOB Job Application Filings
 \subsection{Evaluation}
 We will evaluate our project by comparing it against other existing open-source libraries, including Optimus\cite{optimus}, Dask\cite{dask}, and SparkingPandas\cite{sparklingpandas}. 
 \subsubsection{Features}
-We will compare our data cleaning features with Optimus, particularly those frequently used functionality in data science such as null value handling, special character removal, duplicate detection, etc. 
+We will compare our data cleaning features with previous works, particularly those frequently used functionality in data science such as null value handling, special character removal, duplicate detection, etc. 
 \subsubsection{Performance}
-We will evaluate the performance of our library by measuring the time and space consumed and drawing comparison with existing libraries. This performance evaluation will show that this library can be useful in production. 
+We will evaluate the performance of our library by measuring the time and space consumed and drawing comparison with existing libraries. This performance evaluation will show that this library is efficient and can be useful in production. 
 \subsubsection{Userbility}
 We might assess the usability of our library by doing a survey among a random group of users. We will compare the installation process and APIs provided and generate scores of user experience.
 
