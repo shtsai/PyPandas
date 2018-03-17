@@ -16,14 +16,14 @@
 \gdef\HyperFirstAtBeginDocument#1{#1}
 \providecommand\HyField@AuxAddToFields[1]{}
 \providecommand\HyField@AuxAddToCoFields[2]{}
-\citation{Han}
-\citation{MMD}
 \citation{datacleaning}
-\citation{DBS-045}
-\citation{PW}
-\citation{mapreduce}
-\citation{gfs}
-\citation{hadoop}
+\citation{spark}
+\citation{bigdata}
+\citation{Han,MMD}
+\citation{ml}
+\citation{dataquality}
+\citation{datacleaning,DBS-045,PW}
+\citation{mapreduce,gfs,hadoop}
 \citation{spark}
 \citation{hadoop}
 \citation{pyspark}
@@ -34,43 +34,50 @@
 \citation{optimus}
 \citation{dask}
 \citation{sparklingpandas}
+\citation{pyspark,spark}
+\citation{pandas}
+\citation{scikit-learn}
+\@writefile{toc}{\contentsline {section}{Abstract}{1}{section*.1}}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Related Work}{1}{section.2}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Proposed Methods}{1}{section.3}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Experiment}{1}{section.4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Dataset}{1}{subsection.4.1}}
 \citation{optimus}
 \citation{dask}
 \citation{sparklingpandas}
 \bibstyle{ACM-Reference-Format}
 \bibdata{citation}
 \bibcite{nltk}{{1}{2009}{{Bird et~al\unhbox \voidb@x \hbox {.}}}{{Bird, Klein, and Loper}}}
-\bibcite{datacleaning}{{2}{2016}{{Chu et~al\unhbox \voidb@x \hbox {.}}}{{Chu, Ilyas, Krishnan, and Wang}}}
-\bibcite{mapreduce}{{3}{2008}{{Dean and Ghemawat}}{{Dean and Ghemawat}}}
-\@writefile{toc}{\contentsline {section}{Abstract}{1}{section*.1}}
-\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.1}Problem description and goal}{1}{subsection.1.1}}
-\@writefile{toc}{\contentsline {section}{\numberline {2}Related Work}{1}{section.2}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Previous work}{1}{subsection.2.1}}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Proposed Methods}{1}{section.3}}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Experiment}{1}{section.4}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Dataset}{1}{subsection.4.1}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Evaluation}{1}{subsection.4.2}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Conclusions}{1}{section.5}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}reference}{1}{section.6}}
-\@writefile{toc}{\contentsline {section}{References}{1}{section*.4}}
-\bibcite{gfs}{{4}{2003}{{Ghemawat et~al\unhbox \voidb@x \hbox {.}}}{{Ghemawat, Gobioff, and Leung}}}
-\bibcite{Han}{{5}{2011}{{Han et~al\unhbox \voidb@x \hbox {.}}}{{Han, Kamber, and Pei}}}
-\bibcite{DBS-045}{{6}{2015}{{Ilyas and Chu}}{{Ilyas and Chu}}}
-\bibcite{optimus}{{7}{2018}{{Iron}}{{Iron}}}
-\bibcite{sparklingpandas}{{8}{2015}{{Karau and Hougland}}{{Karau and Hougland}}}
-\bibcite{pandas}{{9}{[n. d.]}{{McKinney}}{{McKinney}}}
-\bibcite{pyspark}{{10}{2015}{{Nandi}}{{Nandi}}}
-\bibcite{numpy}{{11}{2015}{{Oliphant}}{{Oliphant}}}
-\bibcite{scikit-learn}{{12}{2011}{{Pedregosa et~al\unhbox \voidb@x \hbox {.}}}{{Pedregosa, Varoquaux, Gramfort, Michel, Thirion, Grisel, Blondel, Prettenhofer, Weiss, Dubourg, Vanderplas, Passos, Cournapeau, Brucher, Perrot, and Duchesnay}}}
-\bibcite{MMD}{{13}{2011}{{Rajaraman and Ullman}}{{Rajaraman and Ullman}}}
-\bibcite{PW}{{14}{2001}{{Raman and Hellerstein}}{{Raman and Hellerstein}}}
-\bibcite{dask}{{15}{2015}{{Rocklin}}{{Rocklin}}}
-\bibcite{hadoop}{{16}{2009}{{White}}{{White}}}
-\bibcite{spark}{{17}{2010}{{Zaharia et~al\unhbox \voidb@x \hbox {.}}}{{Zaharia, Chowdhury, Franklin, Shenker, and Stoica}}}
+\bibcite{dataquality}{{2}{2015}{{Cai and Zhu}}{{Cai and Zhu}}}
+\bibcite{datacleaning}{{3}{2016}{{Chu et~al\unhbox \voidb@x \hbox {.}}}{{Chu, Ilyas, Krishnan, and Wang}}}
+\bibcite{mapreduce}{{4}{2008}{{Dean and Ghemawat}}{{Dean and Ghemawat}}}
+\bibcite{gfs}{{5}{2003}{{Ghemawat et~al\unhbox \voidb@x \hbox {.}}}{{Ghemawat, Gobioff, and Leung}}}
+\bibcite{Han}{{6}{2011}{{Han et~al\unhbox \voidb@x \hbox {.}}}{{Han, Kamber, and Pei}}}
+\bibcite{DBS-045}{{7}{2015}{{Ilyas and Chu}}{{Ilyas and Chu}}}
+\bibcite{optimus}{{8}{2018}{{Iron}}{{Iron}}}
+\bibcite{sparklingpandas}{{9}{2015}{{Karau and Hougland}}{{Karau and Hougland}}}
+\bibcite{bigdata}{{10}{2013}{{Katal et~al\unhbox \voidb@x \hbox {.}}}{{Katal, Wazid, and Goudar}}}
+\bibcite{pandas}{{11}{[n. d.]}{{McKinney}}{{McKinney}}}
+\bibcite{pyspark}{{12}{2015}{{Nandi}}{{Nandi}}}
+\bibcite{numpy}{{13}{2015}{{Oliphant}}{{Oliphant}}}
+\bibcite{scikit-learn}{{14}{2011}{{Pedregosa et~al\unhbox \voidb@x \hbox {.}}}{{Pedregosa, Varoquaux, Gramfort, Michel, Thirion, Grisel, Blondel, Prettenhofer, Weiss, Dubourg, Vanderplas, Passos, Cournapeau, Brucher, Perrot, and Duchesnay}}}
+\bibcite{MMD}{{15}{2011}{{Rajaraman and Ullman}}{{Rajaraman and Ullman}}}
+\bibcite{PW}{{16}{2001}{{Raman and Hellerstein}}{{Raman and Hellerstein}}}
+\bibcite{dask}{{17}{2015}{{Rocklin}}{{Rocklin}}}
+\bibcite{ml}{{18}{1995}{{Vapnik}}{{Vapnik}}}
+\bibcite{hadoop}{{19}{2009}{{White}}{{White}}}
+\bibcite{spark}{{20}{2010}{{Zaharia et~al\unhbox \voidb@x \hbox {.}}}{{Zaharia, Chowdhury, Franklin, Shenker, and Stoica}}}
 \newlabel{tocindent-1}{0pt}
 \newlabel{tocindent0}{0pt}
 \newlabel{tocindent1}{4.185pt}
 \newlabel{tocindent2}{10.34999pt}
-\newlabel{tocindent3}{0pt}
+\newlabel{tocindent3}{18.198pt}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Evaluation}{2}{subsection.4.2}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.1}Features}{2}{subsubsection.4.2.1}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.2}Performance}{2}{subsubsection.4.2.2}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.3}Userbility}{2}{subsubsection.4.2.3}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Conclusions}{2}{section.5}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}reference}{2}{section.6}}
+\@writefile{toc}{\contentsline {section}{References}{2}{section*.4}}
 \newlabel{TotPages}{{2}{2}{}{page.2}{}}
