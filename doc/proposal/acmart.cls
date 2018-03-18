@@ -1061,7 +1061,7 @@ Computing Machinery]
   \ifx\acmConference@shortname\@empty
     \gdef\acmConference@shortname{#2}%
   \fi}
-\acmConference[Conference'17]{ACM Conference}{July 2017}{Washington,
+\acmConference[Big Data]{ACM Conference}{July 2017}{Washington,
   DC, USA}
 \def\acmBooktitle#1{\gdef\@acmBooktitle{#1}}
 \acmBooktitle{}
@@ -2110,8 +2110,7 @@ Computing Machinery]
     \fancyfoot[C]{\if@ACM@printfolios\footnotesize\thepage\fi}%
     \fancyhead[LO]{\ACM@linecountL\@headfootfont\shorttitle}%
     \fancyhead[RE]{\@headfootfont\@shortauthors\ACM@linecountR}%
-    \fancyhead[LE]{\ACM@linecountL\@headfootfont\acmConference@shortname,
-      \acmConference@date, \acmConference@venue}%
+    \fancyhead[LE]{}%
     \fancyhead[RO]{\@headfootfont\acmConference@shortname,
       \acmConference@date, \acmConference@venue\ACM@linecountR}%
   \fi
