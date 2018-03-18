@@ -63,11 +63,11 @@ In this project, we will to build our library on top of PySpark\cite{pyspark, sp
 
 \section{Experiment}
 \subsection{Dataset}
-We find three different kinds of dataset to do our experiments. The data summary could be found in table \ref{tab:dataset}.
+Three datasets are chosen for the experiments. Each of them has different properties and can be used to test different aspects of the library. The summary of datasets could be found in table \ref{tab:dataset}.
 \begin{itemize}
-	\item{311 Service Requests}\cite{nycopendata1} This is a dataset containing all 311 Service Requests from 2010 to present. In this dataset, most of the data is consisted of alphabetical words which is one of the data property we are looking for. Besides, the column named "Resolution Description" contains the description about the service status notes.
-	\item{DOB Permit Issuance}\cite{nycopendata2} The data is a list of permits issued by Department of Building for particular borough, street, house in NYC. In this dataset, most of the data is consisted of numbers such as columns containing Bin numbers, job numbers and so on. We would like to test data scaling and outlier detection on this dataset.
-	\item{DOB Job Application Filings}\cite{nycopendata3} The data is a list of job applications filed for a particular day in NYC and this dataset is submitted through the Borough Offices, through eFiling, or through the Department HUB. This dataset does not include jobs submitted through DOB now. In this dataset, there are 89 columns which satisfies the categorical property we need in this project.
+	\item{311 Service Requests}\cite{nycopendata1} This dataset contains all 311 Service Requests from 2010 to present. The majority of data has string type, including both categorical  data (e.g. City, Status) and variable length data (e.g. Address, Description). This can be useful in testing the string-related features of the library.
+	\item{DOB Permit Issuance}\cite{nycopendata2} The dataset consists of a list of permits for buildings in NYC issued by Department of Building. It has diverse data types, including categorical, string, numerical, and geographical data. Hence, it provides a good test case for the versatility of the library. 
+	\item{DOB Job Application Filings}\cite{nycopendata3} The dataset stores job applications filed through the Borough Offices in NYC for a particular day. There are many columns containing numerical data, such as fee and number of stories. It can be used to test the data scaling and outlier detection features. 
 \end{itemize}
 
 \begin{table}
