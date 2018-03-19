@@ -24,18 +24,18 @@
 \email{st3127@nyu.edu}
 
 \begin{abstract}
-Data cleaning become a challenge\cite{datacleaning} in data mining and machine learning tasks. In this paper, we propose PyPandas, a scalable library running on Spark\cite{spark}, to provide better solutions to data cleaning tasks. PyPandas provides basic cleaning features such as missing values handling, outlier detection and data scaling. Morevoer, advanced features like text cleaning are supported as well.   
+Data cleaning become a challenge in data mining and machine learning tasks. In this paper, we propose PyPandas, a scalable library running on Spark, to provide better solutions to data cleaning tasks. PyPandas provides basic cleaning features such as missing values handling, outlier detection and data scaling. Morevoer, advanced features like text cleaning are supported as well.   
 
 \end{abstract}
 
 \maketitle
 
 \section{Introduction}
-In recent years, as storage devices become cheaper and cheaper, storing big data in thousands of computers is easier than before. People start thinking about how to extract useful information from the huge datasets. The term, Big Data, was created to describe this phenomenon\cite{bigdata}. As the result, data mining\cite{Han, MMD} and machine learning\cite{ml} get popular nowadays. The quality of data is one of the key factors to successful data mining\cite{dataquality}. Hence, data cleaning becomes a challenge in the first step of data management and analysis\cite{datacleaning, DBS-045, PW}.
+In recent years, as storage devices become cheaper, storing big data in thousands of computers is easier than before. People start thinking about how to extract useful information from the huge datasets. The term, Big Data, was created to describe this phenomenon\cite{bigdata}. As the result, data mining\cite{Han, MMD} and machine learning\cite{ml} get popular nowadays. The quality of data is one of the key factors to successful data mining\cite{dataquality}. Hence, data cleaning becomes a challenge in the first step of data management and analysis\cite{datacleaning, DBS-045, PW}.
 	
 To process huge dataset efficiently, distributed systems and parallel computing frameworks\cite{mapreduce, gfs, hadoop} are introduced. Spark\cite{spark} is one of the most popular open source projects for industry and academia. It is built on Hadoop\cite{hadoop} and provides a way to manage distributed memory. PySpark\cite{pyspark} is an extended library for Python programmers to work with Spark.
 	
-In the Python machine learning and data mining ecosystem, Pandas\cite{pandas} is the most popular data management library. Pandas dataframe provides convenient ways to collect data and transform data from Python primitive data structures or Numpy\cite{numpy} array. Moreover, Pandas provides several data management methods such as missing value filling, data indexing and data profiling. 
+In the Python machine learning and data mining ecosystem, Pandas\cite{pandas} is the most popular data management library. Pandas dataframe provides convenient ways to collect data and several data management methods for missing value filling, data indexing and data profiling. 
 	
 However, Pandas can only be used in a single machine and could not be scaled to manage huge dataset. In this paper, we propose PyPandas, a library built on top of PySpark, that support basic data management features, missing value handling or duplicated data removing. Moreover, we add common data processing features into our library to provide user friendly usage such as outlier detection and numerical data scaling. These features are important for the machine learning tasks and are supported in Scikit-Learn\cite{scikit-learn}, a mainstream machine learning library, as well.
 	
@@ -96,7 +96,7 @@ We might assess the usability of our library by doing a survey among a random gr
 \section{Conclusions}
 Due to the lack of useful scalable data cleaning library on Spark, we propose PySpark, a scalable data cleaning library. We provide basic data cleaning features such as missing value handling, duplicated data removing and data scaling. Moreover, our library supports text cleaning feature with regular expression.
 
-\section{reference}
+%\section{reference}
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{citation}
 
