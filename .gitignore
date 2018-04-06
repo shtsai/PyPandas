@@ -101,9 +101,8 @@ ENV/
 .mypy_cache/
 
 # Latex
-.aux
-.bbl
-.blg
-.out
-.gz
-.synctex\(busy\)
+*.aux
+*.bbl
+*.blg
+*.out
+*.synctex*
