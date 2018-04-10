@@ -106,3 +106,7 @@ ENV/
 *.blg
 *.out
 *.synctex*
+
+
+# Data files
+data/
