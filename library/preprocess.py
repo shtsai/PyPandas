@@ -6,9 +6,11 @@ def info():
     print("Load library successfully!")
 
 def load_data():
+    '''Short cut function for loading testing dataset'''
     spark = SparkSession.builder.appName("Test").config("spark.some.config.option", "some-value").getOrCreate()
     datafile = "DOB_Job_Application_Filings.csv"
     df = spark.read.format("csv").option("header", "true").option("inferSchema", "true").load(datafile)
+    df = cast_to_double(remove_char(df, "Initial Cost", "$"), "Initial Cost")
     return df 
 
 def drop_null(df, column):
