@@ -1,6 +1,6 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.types import DoubleType, IntegerType, StringType
-from pyspark.sql.functions import col, length
+from pyspark.sql.functions import col, length, regexp_replace
 
 def info():
     print("Load library successfully!")
@@ -57,6 +57,16 @@ def cast_to_string(df, columns):
 def limit_length(df, column, k):
     '''Filter out all rows whose column does not have length k. '''
     return df.where(length(col(column)) == k)
+
+def remove_char(df, column, char):
+    '''Remove all occurrence of char from the given column'''
+    if len(char) != 1:
+        raise ValueError("Invalid character, must have length 1 ")
+    
+    # precede special characters with a backslash
+    if char in ['*', '+', '?', '\\', '.', '^', '[', ']', '$', '&', '|']:
+        char = '\\' + char
+    return df.withColumn(column, regexp_replace(column, char, ""))
 
 if __name__ == "__main__":
     spark = SparkSession.builder.appName("Test").config("spark.some.config.option", "some-value").getOrCreate()
