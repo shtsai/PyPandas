@@ -10,7 +10,9 @@ def load_data():
     spark = SparkSession.builder.appName("Test").config("spark.some.config.option", "some-value").getOrCreate()
     datafile = "DOB_Job_Application_Filings.csv"
     df = spark.read.format("csv").option("header", "true").option("inferSchema", "true").load(datafile)
-    df = cast_to_double(remove_char(df, "Initial Cost", "$"), "Initial Cost")
+    df = clean_column_names(df)
+    columns_to_clean = ["Initial Cost", "Total Est Fee"]
+    df = cast_to_double(remove_char(df, columns_to_clean, "$"), columns_to_clean)
     return df 
 
 def drop_null(df, column):
@@ -60,19 +62,32 @@ def limit_length(df, column, k):
     '''Filter out all rows whose column does not have length k. '''
     return df.where(length(col(column)) == k)
 
-def remove_char(df, column, char):
-    '''Remove all occurrence of char from the given column'''
+def remove_char(df, columns, char):
+    '''Remove all occurrence of char from the given column(s)'''
     if len(char) != 1:
-        raise ValueError("Invalid character, must have length 1 ")
-    
+        raise ValueError("Invalid character, must have length 1 ") 
     # precede special characters with a backslash
     if char in ['*', '+', '?', '\\', '.', '^', '[', ']', '$', '&', '|']:
         char = '\\' + char
+
+    if type(columns) is str:
+        return _remove_char(df, columns, char)
+    elif type(columns) is list:
+        for column in columns:
+            df = _remove_char(df, column, char)
+        return df
+    else:
+        raise ValueError("Invalid columns, use str or str list")
+
+def _remove_char(df, column, char):
+    '''Remove all occurrence of char from the given column'''
     return df.withColumn(column, regexp_replace(column, char, ""))
 
-if __name__ == "__main__":
-    spark = SparkSession.builder.appName("Test").config("spark.some.config.option", "some-value").getOrCreate()
-
-    datafile = "DOB_Job_Application_Filings.csv"
-    df = spark.read.format("csv").option("header", "true").option("inferSchema", "true").load(datafile)
-    df.printSchema()
+def clean_column_names(df):
+    '''Remove dot (.) in column names'''
+    columns = df.columns
+    for column in columns:
+        if "." in column:
+            newname = column.replace(".", "")
+            df = df.withColumnRenamed(column, newname)
+    return df
