@@ -12,7 +12,7 @@ def init():
     km.fit(df, "Initial Cost")
     return km
 
-class Kmeans():
+class KMeansOutlierRemover:
     '''Perform KMean clustering on the given columns of the dataframe'''
     def __init__(self, k=3):
         self.k = k
