@@ -1,14 +1,16 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.types import DoubleType, IntegerType, StringType
-from pyspark.sql.functions import col, length
+from pyspark.sql.functions import col, length, regexp_replace
 
 def info():
     print("Load library successfully!")
 
 def load_data():
+    '''Short cut function for loading testing dataset'''
     spark = SparkSession.builder.appName("Test").config("spark.some.config.option", "some-value").getOrCreate()
     datafile = "DOB_Job_Application_Filings.csv"
     df = spark.read.format("csv").option("header", "true").option("inferSchema", "true").load(datafile)
+    df = cast_to_double(remove_char(df, "Initial Cost", "$"), "Initial Cost")
     return df 
 
 def drop_null(df, column):
@@ -57,6 +59,16 @@ def cast_to_string(df, columns):
 def limit_length(df, column, k):
     '''Filter out all rows whose column does not have length k. '''
     return df.where(length(col(column)) == k)
+
+def remove_char(df, column, char):
+    '''Remove all occurrence of char from the given column'''
+    if len(char) != 1:
+        raise ValueError("Invalid character, must have length 1 ")
+    
+    # precede special characters with a backslash
+    if char in ['*', '+', '?', '\\', '.', '^', '[', ']', '$', '&', '|']:
+        char = '\\' + char
+    return df.withColumn(column, regexp_replace(column, char, ""))
 
 if __name__ == "__main__":
     spark = SparkSession.builder.appName("Test").config("spark.some.config.option", "some-value").getOrCreate()
