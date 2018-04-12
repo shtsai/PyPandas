@@ -10,7 +10,6 @@ def init():
     df = load_data()
     km = Kmeans(5)
     km.fit(df, "Initial Cost")
-    km.show_cluster(1)
     return km
 
 class Kmeans():
@@ -58,6 +57,10 @@ class Kmeans():
         columns.extend(self.columns)
         self.df.where(col("prediction") == cluster_index).select(columns).show()
 
+    def filter(self, cluster_index, distance):
+        '''Filter out rows which are too far away from its cluster center'''
+        self.df = self.df.where(~((col("prediction") == cluster_index) & (col("distance to cluster center") > distance)))
+
     def summary(self):
         return self.summary
 
@@ -67,5 +70,5 @@ class Kmeans():
     def cluster_sizes(self):
         return self.summary.clusterSizes
 
-    def new_dataframe(self):
-        return self.newdf
+    def get_dataframe(self):
+        return self.df
