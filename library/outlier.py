@@ -6,10 +6,15 @@ from pyspark.sql.types import *
 import math
 from library.preprocess import *
 
+from pyspark.context import SparkContext
+from pyspark.sql.session import SparkSession
+spark = SparkSession.builder.appName("Python Spark SQL basic example").config("spark.some.config.option", "some-value").getOrCreate()
+
 def init():
     df = load_data()
-    km = Kmeans(5)
+    km = KMeansOutlierRemover(5)
     km.fit(df, "Initial Cost")
+    km.summary()
     return km
 
 class KMeansOutlierRemover:
@@ -36,7 +41,7 @@ class KMeansOutlierRemover:
         self.model = self.km.fit(df_with_features)
         # Append features and predictions to the original dataframe
         newdf = self.model.transform(df_with_features)        
-        self.summary = self.model.summary
+        self._summary = self.model.summary
         
         centers = self.model.clusterCenters()
         compute_distance = self._udf_compute_distance(centers)
@@ -62,13 +67,31 @@ class KMeansOutlierRemover:
         self.df = self.df.where(~((col("prediction") == cluster_index) & (col("distance to cluster center") > distance)))
 
     def summary(self):
-        return self.summary
+        '''Show summary of the clustering and provide information to help filter outliers'''
+        # Compute average distance to cluster center
+        data = self.df.select(["prediction", "distance to cluster center"])
+        data = data.withColumnRenamed("prediction", "cluster index")
+        avg = data.groupBy("cluster index").agg({"distance to cluster center": "avg"})
+ 
+        # format cluster sizes
+        size = self.cluster_sizes()
+        size = [[i, size[i]] for i in range(len(size))]
+        size_df = spark.createDataFrame(size, ["cluster index","size"])
+
+        # format cluster centers
+        center = self.cluster_centers()
+        center = [[i, float(center[i][0])] for i in range(len(center))]
+        center_df = spark.createDataFrame(center, ["cluster index","cluster center"])
+        
+        result = size_df.join(center_df, "cluster index").join(avg, "cluster index").orderBy("cluster index")
+        result.show()
+        return result
 
     def cluster_centers(self):
         return self.model.clusterCenters()
 
     def cluster_sizes(self):
-        return self.summary.clusterSizes
+        return self._summary.clusterSizes
 
     def get_dataframe(self):
         return self.df
