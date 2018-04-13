@@ -59,6 +59,12 @@ There exists a number of open-source library for data cleaning and parallel data
 
 \section{Methods, Architecture and Design}
 In this project, we will to build our library on top of PySpark\cite{pyspark, spark}. We will handle RDD data structure and implement useful data cleaning fucntions in our library. The ways to do that are collecting common cleaning functions into library and customizing map functions to perform advanced cleaning task such as pattern searching and replacement with regular expression. We will survey the Pandas\cite{pandas} and Scikit-Learn\cite{scikit-learn} libraries to find out key features and create Pandas-like and Scikit-Learn-like API to provide easy usage and seamless adaptation.
+\subsection{Outlier Detection}
+\subsubsection{Design} Outlier detection is a common problem in data cleaning. Outliers affects the experiment results and can lead to false conclusions. The data cleaning library we develop provide user-friendly solution to this problem.
+\subsubsection{Methods}
+The data cleaning library uses K-Means clustering method to detect outliers. Users can specify the number of clusters to use based their knowledge about the dataset. The system will choose random initial values, and perform 20 iterations of updates. Finally, a summary of the clusterings will be generated, which includes cluster centers, cluster sizes, distances, etc. User can then filter out outliers in each cluster by specifying a minimum distance from the cluster center, and all data points that are beyond that distance will be removed from the dataset.
+\subsubsection{Architecture}
+The implementation of the outlier detection functionality integrates the PySpark ml package. It is based on the KMeans clustering module, and it is very efficient and scalable. In addition, our data cleaning library implements User Defined Functions to compute distance between data points and cluster centers, as well as other summary statistics. The architecture of this feature hides the complexity of K-Means clustering, while it exposes easily accessible APIs for users to remove outliers.
 
 \section{Experiment}
 \subsection{Dataset}
