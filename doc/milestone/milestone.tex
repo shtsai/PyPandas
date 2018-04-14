@@ -56,6 +56,47 @@ There exists a number of open-source library for data cleaning and parallel data
 \end{itemize}
 
 \section{Problem Formulation}
+In this paper, we focus on three major tasks, outlier detection, data scaling, and text pattern searching and replacement.
+\subsection{Outlier Detection}
+Outlier or anomalies detection is a challenging task in the filed of data cleaning\cite{anomal}. In this paper, we simply define outlier as the data that is far away from data centroid. Hence, given a dataset $X$, a clustering algorithm $A$\cite{MMD}, a distance measurement $d$, and the user-defined threshold $t$, the outlier is simply defined as following.
+
+\[ outlier = \{x | x \in X, d( x, x_{A_X(x)} ) > t \}  \]
+
+where $A_X(x)$ cluster $x$ into a cluster given the dataset $X$ and $x_c$  is the centroid of cluster $c$.
+
+\subsection{Scaling and Normalization}
+Scaling and normalization are common preprocess in data cleaning. It is crucial to several machine learning models or optimization methods. Scaling increases the convergence speed and chance to find good optimal\cite{convex}. The scaling problem could be formulated as below.
+Given an one dimensional numberical dataset $X$, we provide a scaling method $S$ such that scaled elements are bouned in same reasonable range $[a, b]$.
+
+\[ S_X(x) \in [a, b]\] 
+
+where $x \in X$ and $|a - b|$ should not be large.
+
+To define the problem formally, we consider and implement several specific scaling methods.
+\begin{itemize}
+	\item{Standard scale}
+		\[ S(X) = \dfrac{X-\mu}{\sigma} \in \text{proper deviation range}\]
+		where $\mu$ is the mean of $X$ and $\sigma$ is the standard deviation of $X$
+	\item{Min-Max scale}
+		\[ S(X) = \dfrac{X-min(X)}{max(X) - min(X)}\in [0.0, 1.0] \]
+	\item{Max-Abs scale}
+		\[ S(X) = \dfrac{X}{max(X)} \in [-1.0, 1.0] \]
+	\item{P-norm Normalization}
+		\[ S(X) = \dfrac{X}{\|X\|_{p}} \in [-1.0, 1.0]\]
+\end{itemize}
+
+\subsection{Pattern Searching and Replacment}
+Pattern searching and replacement is a common technique in cleaning text data. Given a string $t$ and a regular expression\cite{theory_com} $re$, we replace the matched pattern with a user-defined string $s$. The replacement function $R$ could be defined as following.
+Consider $t$ as a concatenation of non-overlaped substrings $t = t_1...t_n$.
+
+\[ R(t) =  r(t_1)...r(t_i)...r(t_n)\]
+
+\[r(t) = \begin{cases} s & \text{if $M$ accept $t$} \\ t & \text{otherwise} \end{cases}\]
+
+\[\text{such that $M$ does not accept any substring of } R(t)\]
+
+where $M$ is the generalized nondeterministic finite automaton\cite{theory_com} corrsponding to the regular expression $re$. We do not define replacement order and simply ignore it.
+
 
 \section{Methods, Architecture and Design}
 In this project, we will to build our library on top of PySpark\cite{pyspark, spark}. We will handle RDD data structure and implement useful data cleaning fucntions in our library. The ways to do that are collecting common cleaning functions into library and customizing map functions to perform advanced cleaning task such as pattern searching and replacement with regular expression. We will survey the Pandas\cite{pandas} and Scikit-Learn\cite{scikit-learn} libraries to find out key features and create Pandas-like and Scikit-Learn-like API to provide easy usage and seamless adaptation.
