@@ -58,7 +58,7 @@ There exists a number of open-source library for data cleaning and parallel data
 \section{Problem Formulation}
 In this paper, we focus on three major tasks, outlier detection, data scaling, and text pattern searching and replacement.
 \subsection{Outlier Detection}
-Outlier or anomalies detection is a challenging task in the filed of data cleaning\cite{anomal}. In this paper, we simply define outlier as the data that is far away from data centroid. Hence, given a dataset $X$, a clustering algorithm $A$, a distance measurement $d$, and the user-defined threshold $t$, the outlier is simply defined as following.
+Outlier or anomalies detection is a challenging task in the filed of data cleaning\cite{anomal}. In this paper, we simply define outlier as the data that is far away from data centroid. Hence, given a dataset $X$, a clustering algorithm $A$\cite{MMD}, a distance measurement $d$, and the user-defined threshold $t$, the outlier is simply defined as following.
 
 \[ outlier = \{x | x \in X, d( x, x_{A_X(x)} ) > t \}  \]
 
