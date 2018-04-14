@@ -99,7 +99,7 @@ where $M$ is the generalized nondeterministic finite automaton\cite{theory_com} 
 
 
 \section{Methods, Architecture and Design}
-In this project, we will to build our library on top of PySpark\cite{pyspark, spark}. We will handle RDD data structure and implement useful data cleaning fucntions in our library. The ways to do that are collecting common cleaning functions into library and customizing map functions to perform advanced cleaning task such as pattern searching and replacement with regular expression. We will survey the Pandas\cite{pandas} and Scikit-Learn\cite{scikit-learn} libraries to find out key features and create Pandas-like and Scikit-Learn-like API to provide easy usage and seamless adaptation.
+In this project, we build our library on top of PySpark. We handle the DataFrame data structure and implement useful data cleaning fucntions in our library. The ways to do that are intergrating PySpark ML module and customizing user define functions to perform advanced cleaning features such as pattern searching and replacement with regular expression. We survey the PySpark\cite{pyspark}, Pandas\cite{pandas} and Scikit-Learn\cite{scikit-learn} libraries to find out key features and create Pandas-like and Scikit-Learn-like API to provide easy usage and seamless adaptation.
 \subsection{Outlier Detection}
 \subsubsection{Design} Outlier detection is a common problem in data cleaning. Outliers affects the experiment results and can lead to false conclusions. The data cleaning library we develop provide user-friendly solution to this problem.
 \subsubsection{Methods}
