@@ -66,11 +66,24 @@ where $A_X(x)$ cluster $x$ into a cluster given the dataset $X$ and $x_c$  is th
 
 \subsection{Scaling and Normalization}
 Scaling and normalization are common preprocess in data cleaning. It is crucial to several machine learning models or optimization methods. Scaling increases the convergence speed and chance to find good optimal \cite{convex}. The scaling problem could be formulated as below.
-Given an one dimensional numberical dataset $X$, we provide a scaling method $S$ such that each scaled element is bouned in range $[a, b]$.
+Given an one dimensional numberical dataset $X$, we provide a scaling method $S$ such that scaled elements are bouned in same reasonable range $[a, b]$.
 
-\[ a < S_X(x) < b\] 
+\[ S_X(x) \in [a, b]\] 
 
-where $x \in X$ and $|a - b| < |min(X) - max(X)|$.
+where $x \in X$ and $|a - b|$ should not be large.
+
+To define the problem formally, we consider and implement several specific scaling methods.
+\begin{itemize}
+	\item{Standard scale}
+		\[ S(X) = \dfrac{X-\mu}{\sigma} \in \text{proper deviation range}\]
+		where $\mu$ is the mean of $X$ and $\sigma$ is the standard deviation of $X$
+	\item{Min-Max scale}
+		\[ S(X) = \dfrac{X-min(X)}{max(X) - min(X)}\in [0.0, 1.0] \]
+	\item{Max-Abs scale}
+		\[ S(X) = \dfrac{X}{max(X)} \in [-1.0, 1.0] \]
+	\item{P-norm Normalization}
+		\[ S(X) = \dfrac{X}{\|X\|_{p}} \in [-1.0, 1.0]\]
+\end{itemize}
 
 \subsection{Pattern Searching and Replacment}
 
