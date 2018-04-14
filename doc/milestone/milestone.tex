@@ -56,6 +56,16 @@ There exists a number of open-source library for data cleaning and parallel data
 \end{itemize}
 
 \section{Problem Formulation}
+In this paper, we focus on three major tasks, outlier detection, data scaling, and text pattern searching and replacement.
+\subsection{Outlier Detection}
+Outlier or anomalies detection is a challenging task in the filed of data cleaning\cite{anomal}. In this paper, we simply define outlier as the data that is far away from data centroid. Hence, given a dataset $X$, a clustering algorithm $A$, a distance measurement $d$, and the user defined threshold $t$, the outlier is simply defined as following.
+
+\[ outlier = \{x | x \in X, d( x, x_{A_X(x)} ) > t \}  \]
+
+where $A_X(x)$ cluster $x$ into a cluster given the dataset $X$ and $x_c$  is the centroid of cluster $c$.
+
+\subsection{Scaling and Normalization}
+\subsection{Pattern Searching and Replacment}
 
 \section{Methods, Architecture and Design}
 In this project, we will to build our library on top of PySpark\cite{pyspark, spark}. We will handle RDD data structure and implement useful data cleaning fucntions in our library. The ways to do that are collecting common cleaning functions into library and customizing map functions to perform advanced cleaning task such as pattern searching and replacement with regular expression. We will survey the Pandas\cite{pandas} and Scikit-Learn\cite{scikit-learn} libraries to find out key features and create Pandas-like and Scikit-Learn-like API to provide easy usage and seamless adaptation.
