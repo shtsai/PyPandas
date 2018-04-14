@@ -3,7 +3,7 @@
 \usepackage{booktabs} % For formal tables
 
 \begin{document}
-\title{PyPandas: A scalable data cleaning library}
+\title{SparkCleaner: A data cleaning toolkits for Spark}
 
 \author{Pei-Lun Liao}
 \affiliation{%
@@ -24,7 +24,7 @@
 \email{st3127@nyu.edu}
 
 \begin{abstract}
-Data cleaning becomes a challenge in data mining and machine learning tasks. In this paper, we propose PyPandas, a scalable library running on Spark, to provide better solutions to data cleaning tasks. PyPandas provides basic cleaning features such as missing values handling, outlier detection and data scaling. Morevoer, advanced features like text cleaning are supported as well.   
+Data cleaning becomes a challenge in data mining and machine learning tasks. In this paper, we propose SparkCleaner, a data cleaning toolkits running on Spark, to provide further solutions to data cleaning tasks. SparkCleaner provides advance cleaning features such as outlier detection, data scaling and text pattern searching and replacement.   
 \end{abstract}
 
 \maketitle
@@ -34,16 +34,16 @@ In recent years, as storage devices become cheaper, storing big data in thousand
 	
 To process huge dataset efficiently, distributed systems and parallel computing frameworks\cite{mapreduce, gfs, hadoop} were introduced. Spark\cite{spark} is one of the most popular open source projects for industry and academia. It is built on Hadoop\cite{hadoop} and provides a way to manage distributed memory. PySpark\cite{pyspark} is an extended library for Python programmers to work with Spark.
 	
-In the Python machine learning and data mining ecosystem, Pandas\cite{pandas} is the most popular data management library. Pandas dataframe provides convenient ways to collect data and several data management methods for missing value filling, data indexing and data profiling. 
+In the Python machine learning and data mining ecosystem, Pandas\cite{pandas} is the most popular data management library. Pandas dataframe provides convenient ways to collect data and several data management methods for missing value filling, data indexing and data profiling. In PySpark SQL module, PySpark provides Pandas-liked DataFrame to handle data indexing, data intergation, and simple data cleaning tasks such as missing value handling and duplication removing.
 	
-However, Pandas can only be used in a single machine and could not be scaled to manage huge dataset. In this paper, we propose PyPandas, a library built on top of PySpark, that supports basic data management features, missing value handling or duplicated data removing. Moreover, we add common data processing features into our library to provide user friendly usage such as outlier detection and numerical data scaling. These features are important for the machine learning tasks and are supported in Scikit-Learn\cite{scikit-learn}, a mainstream machine learning library, as well.
+However, PySpark DataFrame does not support advance data processing features like outlier detection and data scaling. Although in PySpark ML module, we have several clustering and scaling algorithms, the intergation with PySpark DataFrame is not helpful. User has to go back and forth to handle their dataset.  In this paper, we propose SparkCleaner, a data cleaning toolkits built on top of PySpark, that intergrates PySpark ML module to supports user friendly data processing features such as outlier detection and numerical data scaling. These features are important for the machine learning tasks and are supported in Scikit-Learn\cite{scikit-learn}, a mainstream machine learning library, as well.
 	
-Furthermore, text data is another common data type in our storage. Text data is hard to process because of different languages, newly invented words, typos, abbreviations, urls and emoji etc. Although we have NLTK\cite{nltk}, a popular text cleaning library, there is no scalable text cleaning library. In this paper, we also provide tools for users to clean text easily. 
+Furthermore, text data is another common data type in our storage. Text data is hard to process because of different languages, newly invented words, typos, abbreviations, urls and emoji etc. Although we have NLTK\cite{nltk}, a popular text cleaning library, there is no intergation with PySpark DataFrame. In this paper, we also intergate NLTK within our toolkits and provide customized tools for users to clean text easily. 
 	
 The features of our library are summarized below.
 \begin{itemize}
-	\item{Scalable data management library runs on Spark}
-	\item{Missing value handling, duplicated data removing, outlier detection and numerical data scaling}
+	\item{User friendly data cleaning toolkits built on PySpark}
+	\item{Outlier detection and numerical data scaling}
 	\item{Text processing such as url detection, punctuation removing, pattern searching and replacement. }
 \end{itemize}	
 
