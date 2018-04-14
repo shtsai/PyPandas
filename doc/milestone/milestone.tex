@@ -65,6 +65,13 @@ Outlier or anomalies detection is a challenging task in the filed of data cleani
 where $A_X(x)$ cluster $x$ into a cluster given the dataset $X$ and $x_c$  is the centroid of cluster $c$.
 
 \subsection{Scaling and Normalization}
+Scaling and normalization are common preprocess in data cleaning. It is crucial to several machine learning models or optimization methods. Scaling increases the convergence speed and chance to find good optimal \cite{convex}. The scaling problem could be formulated as below.
+Given an one dimensional numberical dataset $X$, we provide a scaling method $S$ such that each scaled element is bouned in range $[a, b]$.
+
+\[ a < S_X(x) < b\] 
+
+where $x \in X$ and $|a - b| < |min(X) - max(X)|$.
+
 \subsection{Pattern Searching and Replacment}
 
 \section{Methods, Architecture and Design}
