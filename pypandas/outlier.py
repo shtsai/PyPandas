@@ -11,7 +11,7 @@ from pyspark.sql.session import SparkSession
 spark = SparkSession.builder.appName("Python Spark SQL basic example").config("spark.some.config.option", "some-value").getOrCreate()
 
 def init():
-    df = load_data()
+    df = load_data_job()
     km = KMeansOutlierRemover(5)
     km.fit(df, "Initial Cost")
     km.summary()
