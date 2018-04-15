@@ -124,8 +124,28 @@ The implementation of the scaling and normalization functionality integrates the
 
 \subsection{Pattern Searching and Replacement}
 \subsubsection{Design} 
-\subsubsection{Methods}
+To provide a useful text cleaning toolkits, we are supposed to have flexibility for user to search any pattern and replace the matched one to any user defined string. Also, we have to provide common patterns to prevent recreation of the wheels. For example, url pattern, leading space, trailing space or numbers are common searching patterns that we should provide. Moreover, we would like to intergrate NLTK\cite{nltk}, a popular natural language toolkit, into our library. With NLTK, we would be able to provide advance cleaning tasks or feature transformation.
+
 \subsubsection{Architecture}
+In order to achieve those design issues, we extract the common featrue, column feature transformation, into a single function. We design an architecture to apply user defined functions on a single or multiple columns to obtain a new DataFrame. The user defined function could be a regualr expression substitution function, a column scaling function or natural language processing function in NLTK. Our architecture ensure the flexibility to customized user's processing methods.
+
+\subsubsection{Methods}
+We define several common regular expression patterns in table \ref{tab:reg}.
+\begin{table}
+\caption{Common Regular Expression Pattern}   
+\label{tab:reg}
+\begin{tabular}{lc}
+	Common Pattern & Regular Expression \\
+\hline
+	URL & URL regular expression\cite{url} \\
+	Leading space & \verb!'^ +'! \\
+	Trailing space & \verb!' +$'! \\
+	Consecutive space & \verb!' +'! \\
+	Number & \verb!'\d+'!  \\
+	Not a word & \verb!'\W+'! \\
+\end{tabular}   
+\end{table}
+
 
 \section{Experiment}
 \subsection{Dataset}
