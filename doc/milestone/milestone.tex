@@ -117,8 +117,15 @@ The implementation of the outlier detection functionality integrates the PySpark
 \subsection{Scaling and Normalization}
 \subsubsection{Design} 
 Standardization of datasets is a common requirement for many machine learning algorithms, since objective functions will not work properly without scaling or normalization. Therefore, we provide several useful scaling functions and normalizing function. These functions can help standardize the  specified columns and improve the performance of learning algorithms.
+
 \subsubsection{Methods}
-The standard\_scale() function performs basic scaling on a particular column or a list of columns in a dataframe so that the values have unit standard deviation and/or zero mean. The min\_max\_scale() rescales columns to a user-defined range(e.g. [0, 1]) using min max scaling. Another scaling function max\_abs\_scale() transforms columns to range between -1 and 1 by dividing through the maximum absolute value in the columns. This operation does not shift/center the data, and thus does not destroy any sparsity. In addition, we provide normalize() function in our library. The normalize function can transform the given column(s) to have unit norm. The default p-norm value for normalization is 2.0, yet users can optionally specify the p-norm value.  
+\begin{itemize}
+	\item{The standard\_scale()} : Performs basic scaling on a particular column or a list of columns in a dataframe so that the values have unit standard deviation and/or zero mean. 
+	\item{The min\_max\_scale()}: Rescales columns to a user\-defined range(e.g. [0, 1]) using min max scaling.
+	\item{The max\_abs\_scale()}: Transforms columns to range between -1 and 1 by dividing through the maximum absolute value in the columns. This operation does not shift/center the data, and thus does not destroy any sparsity. 
+	\item{The normalize()}: Given a list of columns, the normalize function can generate a normalized feature vector having unit norm. The default p-norm value for normalization is 2.0, yet users can optionally specify the p-norm value.
+\end{itemize}
+
 \subsubsection{Architecture}
 The implementation of the scaling and normalization functionality integrates the PySpark ml package as well. We include three the most commonly used scaling functions and one normalize function. The architecture and the API design is based on scikit-learn, the most popular machine learning library for the Python, so it is intuitive and easy to use. 
 
@@ -160,6 +167,21 @@ We will evaluate the performance of our library by measuring the time and space 
 We might assess the usability of our library by doing a survey among a random group of users. We will compare the installation process and APIs provided and generate scores of user experience.
 
 \subsection{Result}
+In the experiments on scaling and normalization functions, we chose three columns in each dataset as input to do scaling, normalization and time for each experiment. The experiment results can be found in table \ref{tab:Experiment result}.
+
+\begin{table}
+\caption{Experiment result}   
+\label{tab:Experiment result}
+\begin{tabular}{lccc}   
+ 	                      &  311 Service  &  Permit    &  Job Application \\ &Requests&Issuance&Filings   \\  
+\hline
+standard\_scale()   & 1 m 51 s     & 48.36 s & 41.58 s            \\ 
+min\_max\_scale()  &  1 m 50 s   & 48.74 s  & 41.69 s             \\  
+max\_abs\_scale()  & 1 m 50 s     &  47.27 s  & 41.52 s             \\ 
+normalize()           &  1.8 s     &  1.2 s & 1.1 s             \\ 
+
+\end{tabular}   
+\end{table}
 
 \section{Conclusions}
 Due to the lack of useful scalable data cleaning library on Spark, we propose PySpark, a scalable data cleaning library. We provide basic data cleaning features such as missing value handling, duplicated data removing and data scaling. Moreover, our library supports text cleaning feature with regular expression.
