@@ -1,7 +1,14 @@
 #!/bin/bash
 
+HADOOP_EXE='/usr/bin/hadoop'
+HADOOP_LIBPATH='/opt/cloudera/parcels/CDH/lib'
+HADOOP_STREAMING='hadoop-mapreduce/hadoop-streaming.jar'
+
+hfs="$HADOOP_EXE fs"
+hjs="$HADOOP_EXE jar $HADOOP_LIBPATH/$HADOOP_STREAMING"
+
 # Create directory for data if not exist
-DATA_DIR="../data"
+DATA_DIR="$SCRATCH/data"
 if [ ! -d "$DATA_DIR" ]
 then
     mkdir $DATA_DIR
@@ -33,3 +40,29 @@ echo "Please be patient"
 wait
 
 echo "All downloads completed!!"
+echo "=========================================="
+echo "Now uploading data to HDFS"
+
+# upload data to hfs
+echo "Uploading 311_Service_Requests.csv"
+$hfs -test -e "311_Service_Requests.csv"
+if [ $? -ne 0 ]; then
+	$hfs -put $DATA_DIR/311_Service_Requests.csv 
+fi
+echo "Complete"
+
+echo "Uploading DOB_Permit_Issuance.csv"
+$hfs -test -e "DOB_Permit_Issuance.csv"
+if [ $? -ne 0 ]; then
+	$hfs -put $DATA_DIR/DOB_Permit_Issuance.csv
+fi
+echo "Complete"
+
+echo "Uploading DOB_Job_Application_Filings.csv"
+$hfs -test -e "DOB_Job_Application_Filings.csv"
+if [ $? -ne 0 ]; then
+	$hfs -put $DATA_DIR/DOB_Job_Application_Filings.csv
+fi
+echo "Complete"
+
+echo "Your data is ready!"
