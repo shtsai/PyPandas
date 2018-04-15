@@ -21,6 +21,8 @@ def load_data_311():
     datafile = "311_Service_Requests.csv"
     df = spark.read.format("csv").option("header", "true").option("inferSchema", "true").load(datafile)
     df = clean_column_names(df)
+    df = drop_null(df, "Latitude")
+    df = drop_null(df, "Longitude")
     return df 
 
 def load_data_permit():
@@ -29,6 +31,8 @@ def load_data_permit():
     datafile = "DOB_Permit_Issuance.csv"
     df = spark.read.format("csv").option("header", "true").option("inferSchema", "true").load(datafile)
     df = clean_column_names(df)
+    df = drop_null(df, "LATITUDE")
+    df = drop_null(df, "LONGITUDE")
     return df 
 
 def drop_null(df, column):
