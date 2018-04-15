@@ -6,6 +6,7 @@ from pyspark.ml.feature import MaxAbsScaler
 from pyspark.ml.feature import Normalizer
 from pyspark.sql.functions import udf
 from pyspark.sql.types import FloatType
+
 def load_test():
     print("Load scale functions successfully.")
 
@@ -125,46 +126,25 @@ def normalize(dataFrame, inputColNames, p_norm=2.0):
             p_norm = float('inf')
         else:
             raise ValueError("The p_norm has to be float or 'inf'.")
-    if type(inputColNames) is str:
-        outputColName = "normalized " + inputColNames
-        assembler = VectorAssembler(inputCols=[inputColNames], \
+    if type(inputColNames) is list:
+        outputColName = "normalized features"
+        assembler = VectorAssembler(inputCols=inputColNames, \
                 outputCol="features")
         assembledDF = assembler.transform(dataFrame)
         normalizer=Normalizer(inputCol="features", \
-                outputCol=outputColName, \
-                p = p_norm)
-        normalizedDF = normalizer.transform(assembledDF).drop("features")
-        normalizedDF.select(outputColName).show(20, False)
-        castVectorToFloat = udf(lambda v : float(v[0]), FloatType())
-        normalizedDF = normalizedDF.withColumn(outputColName, castVectorToFloat(outputColName))
-        if(p_norm == float('inf')):
-            print ("Successfully normalized the column '{0:s}' using L^inf norm and create a new column '{1:s}'."\
-                .format(inputColNames, outputColName))
-        else:
-            print ("Successfully normalized the column '{0:s}' using L^{1:f} norm and create a new column '{2:s}'."\
-                .format(inputColNames, p_norm, outputColName))
-        return normalizedDF
-    elif type(inputColNames) is list:
-        normalizedDF = dataFrame
+            outputCol=outputColName, \
+            p = p_norm)
+        normalizedDF = normalizer.transform(assembledDF)
+        colList=""
         for inputColName in inputColNames:
-            outputColName = "normalized " + inputColName
-            assembler = VectorAssembler(inputCols=[inputColName], \
-                    outputCol="features")
-            assembledDF = assembler.transform(normalizedDF)
-            normalizer=Normalizer(inputCol="features", \
-                outputCol=outputColName, \
-                p = p_norm)
-            normalizedDF = normalizer.transform(assembledDF).drop("features")
-            castVectorToFloat = udf(lambda v : float(v[0]), FloatType())
-            normalizedDF = normalizedDF.withColumn(outputColName, castVectorToFloat(outputColName))
-            if(p_norm == float('inf')):
-                print ("Successfully normalized the column '{0:s}' using L^inf norm and create a new column '{1:s}'."\
-                    .format(inputColName, outputColName))
-            else:
-                print ("Successfully normalized the column '{0:s}' using L^{1:f} norm and create a new column '{2:s}'."\
-                    .format(inputColName, p_norm, outputColName))
+            colList += " '"+inputColName+"' "
+        if(p_norm == float('inf')):
+            print ("Successfully assembled the column {0:s} to a feature vector and normalized using L^inf norm and create two new columns 'feature' and 'normalized feature'."\
+                .format(colList))
+        else:
+            print ("Successfully assembled the column {0:s} to a feature vector and normalized using L^{1:f} norm and create two new columns 'feature' and 'normalized feature'."\
+                .format(colList, p_norm))
         return normalizedDF
     else:
-         raise ValueError("The inputColNames has to be string or string list.")
-
+         raise ValueError("The inputColNames has to be a list of columns to generate a feature vector and then do normalization.")
 
