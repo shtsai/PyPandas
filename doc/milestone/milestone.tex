@@ -137,7 +137,7 @@ To provide a useful text cleaning toolkits, we are supposed to have flexibility 
 In order to achieve those design issues, we extract the common featrue, column feature transformation, into a single function. We design an architecture to apply user defined functions on a single or multiple columns to obtain a new DataFrame. The user defined function could be a regualr expression substitution function, a column scaling function or natural language processing function in NLTK. Our architecture ensure the flexibility to customized user's processing methods.
 
 \subsubsection{Methods}
-We define several common regular expression patterns in table \ref{tab:reg}.
+We define several common regular expression patterns in table \ref{tab:reg} and provide simple cleaning functions to handle those patterns in text.
 \begin{table}
 \caption{Common Regular Expression Pattern}   
 \label{tab:reg}
@@ -149,7 +149,8 @@ We define several common regular expression patterns in table \ref{tab:reg}.
 	Trailing space & \verb!' +$'! \\
 	Consecutive space & \verb!' +'! \\
 	Number & \verb!'\d+'!  \\
-	Not a word & \verb!'\W+'! \\
+	Not a word & \verb!'[^\w\d\s]+'! \\
+	Blank & \verb!'_+'!
 \end{tabular}   
 \end{table}
 
