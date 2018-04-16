@@ -145,10 +145,10 @@ df.show()
 +---+----+----+----+----+
 '''
 # Use the standard_scale() function
-'''
-withStd: True by default. Scales the data to unit standard deviation.
-withMean: False by default. Centers the data with mean before scaling. It will build a dense output, so take care when applying to sparse input.
-'''
+# Users could optionally set the variable withStd and withMean
+# withStd: True by default. Scales the data to unit standard deviation.
+# withMean: False by default. Centers the data with mean before scaling. It will build a dense output, so take care when applying to sparse input.
+
 scaled_df = standard_scale(df, ["v1", "v2", "v3", "v4"])
 '''
 Successfully scale the column 'v1' and create a new column 'scaled v1'.
@@ -167,10 +167,10 @@ scaled_df.show()
 +---+----+----+----+----+----------+----------+---------+---------+
 '''
 # Use the min_max_scale() function
-'''
-min: 0.0 by default. Lower bound after transformation, shared by all features.
-max: 1.0 by default. Upper bound after transformation, shared by all features.
-'''
+# Users could optionally set the variables min and max
+# min: 0.0 by default. Lower bound after transformation, shared by all features.
+# max: 1.0 by default. Upper bound after transformation, shared by all features.
+
 scaled_df = min_max_scale(df, ["v1", "v2", "v3", "v4"])
 '''
 Successfully scale the column 'v1' to range (0.000000, 1.000000) and create a new column 'scaled v1'.
@@ -207,9 +207,9 @@ scaled_df.show()
 +---+----+----+----+----+----------+----------+---------+----------+
 '''
 # Use the normalize() function
-'''
-By defualt p-norm = 2 used for normalization
-'''
+# Users could optionally set p-norm variable
+# p-norm: 2 by default, used for normalization
+
 normalized_df = normalize(df, ["v1", "v2", "v3", "v4"])
 '''
 Successfully assembled the column  'v1'  'v2'  'v3'  'v4'  to a feature vector and normalized using L^2.000000 norm and create two new columns 'feature' and 'normalized feature'.
