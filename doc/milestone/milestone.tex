@@ -3,7 +3,7 @@
 \usepackage{booktabs} % For formal tables
 
 \begin{document}
-\title{SparkCleaner: A data cleaning toolkits for Spark}
+\title{PyPandas: A data cleaning toolkits for Spark}
 
 \author{Pei-Lun Liao}
 \affiliation{%
@@ -24,7 +24,7 @@
 \email{st3127@nyu.edu}
 
 \begin{abstract}
-Data cleaning is a huge challenge in data mining and machine learning tasks. In this paper, we propose SparkCleaner, a data cleaning toolkits running on Spark, to provide further solutions to data cleaning tasks. SparkCleaner provides advance cleaning features such as outlier detection, data scaling and text pattern searching and replacement. We have released SparkCleaner on GitHub.\footnote{https://github.com/shtsai7/PyPandas}\footnote{Verison 0.2.1 for milestone report}
+Data cleaning is a huge challenge in data mining and machine learning tasks. In this paper, we propose PyPandas, a data cleaning toolkits running on Spark, to provide further solutions to data cleaning tasks. PyPandas provides advance cleaning features such as outlier detection, data scaling and text pattern searching and replacement. We have released PyPandas on GitHub.\footnote{https://github.com/shtsai7/PyPandas}\footnote{Verison 0.2.1 for milestone report}
 \end{abstract}
 
 \maketitle
@@ -38,7 +38,7 @@ In the Python machine learning and data mining ecosystem, Pandas\cite{pandas} is
 	
 However, PySpark DataFrame does not support advance data processing features like outlier detection and data scaling. Although there exists several clustering and scaling algorithms in the PySpark ML module, the integration with PySpark DataFrame is not helpful and can be difficult to use for data cleaning. User has to go back and forth to process their dataset.  
 
-In this paper, we propose SparkCleaner, a data cleaning toolkits built on top of PySpark, that integrates PySpark ML module to support user friendly data processing features such as outlier detection and numerical data scaling. These features are important for the machine learning tasks and are supported in Scikit-Learn\cite{scikit-learn}, a mainstream machine learning library, as well.
+In this paper, we propose PyPandas, a data cleaning toolkits built on top of PySpark, that integrates PySpark ML module to support user friendly data processing features such as outlier detection and numerical data scaling. These features are important for the machine learning tasks and are supported in Scikit-Learn\cite{scikit-learn}, a mainstream machine learning library, as well.
 	
 Furthermore, text data is another common data type in our storage. Text data is hard to process because of different languages, newly invented words, typos, abbreviations, urls and emoji etc. Although we have NLTK\cite{nltk}, a popular text cleaning library, there is no intergation with PySpark DataFrame. In this paper, we also intergate NLTK within our toolkits and provide customized tools for users to clean text data easily. 
 	
@@ -173,7 +173,7 @@ We define several common regular expression patterns in table \ref{tab:reg} and 
 \caption{Evaluation: Features Comparison}   
 \label{tab:features}
 \begin{tabular}{lccccc}
-						&  PySpark DataFrame\cite{pyspark} 	& SparkCleaner 	& Optimus\cite{optimus} 	& SparkingPandas\cite{sparklingpandas} 	& Dask\cite{dask}	\\
+						&  PySpark DataFrame\cite{pyspark} 	& PyPandas 	& Optimus\cite{optimus} 	& SparkingPandas\cite{sparklingpandas} 	& Dask\cite{dask}	\\
 &&&&& \\
 Data manipulation &&&&& \\
 \hline
@@ -237,13 +237,13 @@ We might assess the usability of our library by doing a survey among a random gr
 At current stage, our experiments were run on the Dumbo clusters of NYU. We plan to migrate our settings to AWS since we will have the privileges needed to install other packages there. While on Dumbo, we don't have such privileges. We will perform comparison with other related works after we finish migration.
 
 \subsubsection{Features}
-In this section, we compare our features with previous works. The result is shown in table \ref{tab:features}. We find that PySpark DataFrame provide easy-to-use data manipulation functions. Since SparkCleaner and Optimus extend the DataFrame, both support the same data manipulation features. In SparkingPandas, the project only aims to provide grouping methods on Pandas-liked dataframe and miss other important features in data manipulation. Dask also support many features in data manipulation. 
+In this section, we compare our features with previous works. The result is shown in table \ref{tab:features}. We find that PySpark DataFrame provide easy-to-use data manipulation functions. Since PyPandas and Optimus extend the DataFrame, both support the same data manipulation features. In SparkingPandas, the project only aims to provide grouping methods on Pandas-liked dataframe and miss other important features in data manipulation. Dask also support many features in data manipulation. 
 
-PySpark DataFrame, Optimus, Dask, and our library all provide the basic data cleaning functions like missing value handling. In the outlier detection, Optimus detects outliers by calculating the deviation with the median of data. On the other hand, SparkCleaner provides advance detecting methods with clustering algorithms. Dask do support several clustering algorithms. Nonetheless, they are not integrated in their Dask DataFrame. Users have to train and tune the models to detect the outliers.
+PySpark DataFrame, Optimus, Dask, and our library all provide the basic data cleaning functions like missing value handling. In the outlier detection, Optimus detects outliers by calculating the deviation with the median of data. On the other hand, PyPandas provides advance detecting methods with clustering algorithms. Dask do support several clustering algorithms. Nonetheless, they are not integrated in their Dask DataFrame. Users have to train and tune the models to detect the outliers.
 
-In scaling and normalization, Dask and SparkCleaner provide basic scaling methods like standard scaling or min-max scaling. However, Dask does not provide normalization on their Dask ML preprocessing module.
+In scaling and normalization, Dask and PyPandas provide basic scaling methods like standard scaling or min-max scaling. However, Dask does not provide normalization on their Dask ML preprocessing module.
 
-For the text cleaning, SparkCleaner provides more powerful pattern searching and replacement feature to let user find out any pattern and replace the matched one with their desired value. Moreover, SparkCleaner defines several common patterns for users to clean their text quickly without repeating themselves. In summary, SparkCleaner extends PySpark DataFrame and provides more easy-to-use features for users to clean their data.
+For the text cleaning, PyPandas provides more powerful pattern searching and replacement feature to let user find out any pattern and replace the matched one with their desired value. Moreover, PyPandas defines several common patterns for users to clean their text quickly without repeating themselves. In summary, PyPandas extends PySpark DataFrame and provides more easy-to-use features for users to clean their data.
 
 \subsubsection{Performance} We evaluate the performance of different parts of our library. The total of execution times of each task, including the time for Spark initialization, data loading, and data preprocessing, were all recorded and listed below.
 \begin{itemize}
@@ -281,7 +281,7 @@ Normalization    & 1 m 18.95 s     &  38.41 s & 39.48 s             \\
 \end{table}
 
 \section{Conclusions}
-Due to the lack of advance data cleaning features on Spark, we propose SparkCleaner, a data cleaning toolkit built on PySpark. We provide advance data cleaning features such as outlier detection, data scaling, and text pattern searching and replacement.
+Due to the lack of advance data cleaning features on Spark, we propose PyPandas, a data cleaning toolkit built on PySpark. We provide advance data cleaning features such as outlier detection, data scaling, and text pattern searching and replacement.
 
 %\section{reference}
 \bibliographystyle{ACM-Reference-Format}
