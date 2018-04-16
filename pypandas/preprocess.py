@@ -13,6 +13,7 @@ def load_data_job():
     df = clean_column_names(df)
     columns_to_clean = ["Initial Cost", "Total Est Fee"]
     df = cast_to_double(remove_char(df, columns_to_clean, "$"), columns_to_clean)
+    df = cast_to_int(df, ["Block", "Lot", "Community - Board", "Applicant License #"])
     return df 
 
 def load_data_311():
