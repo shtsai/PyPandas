@@ -8,13 +8,13 @@ except IOError:
 
 setup(
     name="PyPandas",
-    version="0.2.0",
+    version="0.2.1",
     description="A data cleaning framework for Spark",
     license="MIT",
     author="plliao, chiahsienlin, shtsai7",
     author_email="pll273@nyu.edu, clh566@nyu.edu, st3127@nyu.edu",
     url = 'https://github.com/shtsai7/PyPandas',
-    download_url = 'https://github.com/shtsai7/PyPandas/archive/0.2.0.tar.gz',
+    download_url = 'https://github.com/shtsai7/PyPandas/archive/0.2.1.tar.gz',
     packages=find_packages(),
     install_requires=['pyspark'],
     long_description=long_description,
