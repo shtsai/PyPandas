@@ -5,17 +5,9 @@ from pyspark.sql.functions import udf, col
 from pyspark.sql.types import *
 import math
 from pypandas.preprocess import *
-
 from pyspark.context import SparkContext
 from pyspark.sql.session import SparkSession
 spark = SparkSession.builder.appName("Python Spark SQL basic example").config("spark.some.config.option", "some-value").getOrCreate()
-
-def init():
-    df = load_data_job()
-    km = OutlierRemover.factory("bisectingkmeans")
-    km.fit(df, "Initial Cost")
-    km.summary()
-    return km
 
 def init_gm():
     df = load_data_job()
