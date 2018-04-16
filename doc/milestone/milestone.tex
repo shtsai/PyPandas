@@ -189,24 +189,42 @@ We will evaluate the performance of our library by measuring the time and space 
 \subsubsection{Usability}
 We might assess the usability of our library by doing a survey among a random group of users. We will compare the installation process and APIs provided and generate scores of user experience.
 
-\subsection{Result}
-We run our experiments on Dumbo in NYU. For the comparison with other related works, we plan to migrate our setting on AWS since we have the authentication to install other packages on AWS. On Dumbo, we won't have the right to do that.
+\subsection{Preliminary Results}
+At current stage, our experiments were run on the Dumbo clusters of NYU. We plan to migrate our settings to AWS since we will have the privileges needed to install other packages there. While on Dumbo, we don't have such privileges. We will perform comparison with other related works after we finish migration.
 
 \subsubsection{Features}
 
-\subsubsection{Performance}
-In the experiments on scaling and normalization functions, we chose three columns in each dataset as input to do scaling, normalization and time for each experiment. The experiment results can be found in table \ref{tab:Experiment result}.
+\subsubsection{Performance} We evaluate the performance of different parts of our library. The total of execution times of each task, including the time for Spark initialization, data loading, and data preprocessing, were all recorded and listed below.
+\begin{itemize}
+	\item{Outlier Detection Experiment}: This experiment is performed on the DOB Job Application Filings Dataset. 15 columns that contain numerical values are chosen. We use K-Means Outlier Remover with three different k values [1, 2, 3]. With each k value setting, we run the clustering with different number of attributes (dimensions). The results are shown in table \ref{tab:Outlier Detection Experiment Result}.
+	\item{Scaling and Normalization Experiment}: This experiment involves all three testing datasets. We choose three columns with numerical values from each dataset as input. For each input, we test all scaling and normalization operations. The experiment results can be found in table \ref{tab:Scaling and Normalization Experiment Result}.
+\end{itemize}
 
 \begin{table}
-\caption{Experiment result}   
-\label{tab:Experiment result}
+\caption{Outlier Detection Experiment Result}   
+\label{tab:Outlier Detection Experiment Result}
+\begin{tabular}{cccc}   
+Dimension  &  k = 3  &  k = 4  & k = 5  \\  
+\hline
+1   & 1 m 15.15 s  & 1 m 6.48 s   & 1 m 6.27 s             \\ 
+3   & 1 m 7.13 s    & 1 m 4.97 s   & 1 m 5.52 s             \\  
+5   & 1 m 5.94 s    & 1 m 5.30 s   & 1 m 6.82 s             \\ 
+10 & 1 m 7.64 s    & 1 m 12.36 s & 1 m 11.18 s           \\ 
+15 & 1 m 7.57 s    & 1 m 9.12 s   & 1 m 7.92 s             \\ 
+
+\end{tabular}   
+\end{table}
+
+\begin{table}
+\caption{Scaling and Normalization Experiment Result}   
+\label{tab:Scaling and Normalization Experiment Result}
 \begin{tabular}{lccc}   
  	                      &  311 Service  &  Permit    &  Job Application \\ &Requests&Issuance&Filings   \\  
 \hline
-Standard Scale   & 1 m 51 s     & 48.36 s & 41.58 s            \\ 
-Min-max Scale  &  1 m 50 s   & 48.74 s  & 41.69 s             \\  
-Max-abs Scale  & 1 m 50 s     &  47.27 s  & 41.52 s             \\ 
-Normalization           &  1.8 s     &  1.2 s & 1.1 s             \\ 
+Standard Scale   & 3 m 8.15 s     & 1 m 25.57 s & 1 m 19.96 s            \\ 
+Min-max Scale  &  3 m 7.15 s   & 1 m 25.95 s  & 1 m 20.07 s             \\  
+Max-abs Scale  & 3 m 7.15 s     &  1 m 24.48 s  & 1 m 19.90 s             \\ 
+Normalization    & 1 m 18.95 s     &  38.41 s & 39.48 s             \\ 
 
 \end{tabular}   
 \end{table}
