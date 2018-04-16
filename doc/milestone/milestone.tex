@@ -193,22 +193,13 @@ We might assess the usability of our library by doing a survey among a random gr
 At current stage, our experiments were run on the Dumbo clusters of NYU. We plan to migrate our settings to AWS since we will have the privileges needed to install other packages there. While on Dumbo, we don't have such privileges. We will perform comparison with other related works after we finish migration.
 
 \subsubsection{Features}
-In this section, we compare our features with previous works. The result is in table \ref{tab:features}.
+In this section, we compare our features with previous works. The result is shown in table \ref{tab:features}. We can find that PySpark DataFrame provide easy-to-use data manipulation functions. Since SparkCleaner and Optimus extends the DataFrame, both support the same data manipulation features. In SparkingPandas, the project only aims to provide grouping methods on Pandas-liked dataframe and miss other important features in data manipulation. Dask also support many features in data manipulation. 
 
-\begin{table*}
-\caption{Evaluation: Feature Comparison}   
-\label{tab:features}
-\begin{tabular}{lccccc}
-				&  PySpark DataFrame 	& SparkCleaner 	& Optimus 	& SparkingPandas 	& Dask	\\
-\hline
-Missing value handling 	&      \checkmark 	        	& \checkmark   	& 		& 			&	 	\\
-Duplication removing   	&      \checkmark 	       	& \checkmark 	&		&			&		\\
-Outlier Detection		&				& \checkmark	&		&			&		\\
-Scaling and Normalization	&				& \checkmark	&		&			&		\\
-Text cleaning		&				& \checkmark	&		&			&		\\
-\end{tabular}
-\end{table*}
+PySpark DataFrame, Optimus, Dask, and our library all provide the basic data cleaning funcitons like missing value handling. In the outlier detection, Optimus detects outliers by calculating the deviation with the median of data. However, SparkCleaner provides advance detecting methods with clustering algorithms. Dask do support several clustering algorithms. Nonetheless, it is not integrated in their Dask DataFrame. Users have to train and tune the models to find out the outliers.
 
+In scaling and normalization, Dask and SparkCleaner provide basic scaling methods like standard scaling or min-max scaling. However, Dask does not provide normalization on their Dask ML preprocessing module.
+
+For the text cleaning, SparkCleaner provides more powerful pattern searching and replacement feature to let user find out any pattern and replace the matched one with their desired value. Moreover, SparkCleaner defines several common patterns for users to clean their text quickly withour repeating themselves. In summary, SparkCleaner extends PySpark DataFrame and provides more easy-to-use features for users to clean their data.
 
 \subsubsection{Performance} We evaluate the performance of different parts of our library. The total of execution times of each task, including the time for Spark initialization, data loading, and data preprocessing, were all recorded and listed below.
 \begin{itemize}
@@ -244,6 +235,51 @@ Normalization    & 1 m 18.95 s     &  38.41 s & 39.48 s             \\
 
 \end{tabular}   
 \end{table}
+
+\begin{table*}
+\caption{Evaluation: Features Comparison}   
+\label{tab:features}
+\begin{tabular}{lccccc}
+						&  PySpark DataFrame\cite{pyspark} 	& SparkCleaner 	& Optimus\cite{optimus} 	& SparkingPandas\cite{sparklingpandas} 	& Dask\cite{dask}	\\
+&&&&& \\
+Data manipulation &&&&& \\
+\hline
+Data integration				& \checkmark 	        			& \checkmark   	& \checkmark		& 							& \checkmark	 \\
+Data aggregation				& \checkmark 	        			& \checkmark   	& \checkmark		& \checkmark					& \checkmark	 \\
+Data filtering					& \checkmark 	        			& \checkmark   	& \checkmark		& 							& \checkmark	 \\
+Data profiling				& \checkmark 	        			& \checkmark   	& \checkmark		& \checkmark					& \checkmark	 \\
+Data sorting					& \checkmark 	        			& \checkmark   	& \checkmark		& 							&	 		 \\
+
+&&&&& \\
+Basic data cleaning &&&&& \\
+\hline
+Missing value filling	 			& \checkmark 		  	      	& \checkmark   	& \checkmark		& 							& \checkmark	 \\
+Missing value removing			& \checkmark 	 	  	     	& \checkmark   	& \checkmark 		& 							& \checkmark	 \\
+Duplication removing 			& \checkmark 			       	& \checkmark 	& \checkmark		&							& \checkmark	\\	
+
+&&&&& \\
+Outlier Detection &&&&& \\
+\hline
+Deviation with median			&						& 			& \checkmark		&							&			\\
+Clustering algorithms			&						& \checkmark	& 				&							&			\\	
+	
+&&&&& \\
+Scaling and Normalization &&&&& \\
+\hline
+Standard scaling				&						& \checkmark	& 				&							& \checkmark	\\		
+Scale in range				&						& \checkmark	& 				&							& \checkmark	\\
+Normalization				&						& \checkmark	& 				&							& 			\\
+
+
+
+&&&&& \\
+Text Cleaning &&&&& \\
+\hline
+Special character removing		& \checkmark				& \checkmark	& \checkmark		&							&		\\
+Pattern searching 			 	& \checkmark				& \checkmark	& \checkmark		&							&		\\		
+Pattern searching and replacement 	&						& \checkmark	&				&							&		\\
+\end{tabular}
+\end{table*}
 
 \section{Conclusions}
 Due to the lack of advance data cleaning features on Spark, we propose SparkCleaner, a data cleaning toolkit built on PySpark. We provide advance data cleaning features such as outlier detection, data scaling, and text pattern searching and replacement.
