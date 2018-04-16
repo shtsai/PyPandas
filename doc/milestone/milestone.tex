@@ -156,16 +156,6 @@ We define several common regular expression patterns in table \ref{tab:reg} and 
 \end{tabular}   
 \end{table}
 
-
-\section{Experiment}
-\subsection{Dataset}
-Three datasets are chosen for the experiments. Each of them has different properties and can be used to test different parts of the library. The summary of datasets could be found in table \ref{tab:dataset}.
-\begin{itemize}
-	\item{311 Service Requests}\cite{nycopendata1} This dataset contains all 311 Service Requests since 2010. The majority of data has string type, including both categorical  data (e.g. City, Status) and variable length data (e.g. Address, Description). This can be useful in testing the string-related features of the library.
-	\item{DOB Permit Issuance}\cite{nycopendata2} The dataset consists of a list of permits for buildings in NYC issued by Department of Building. It has diverse data types, including categorical, string, numerical, and geographical data. Hence, it provides a good test case for the versatility of the library. 
-	\item{DOB Job Application Filings}\cite{nycopendata3} The dataset stores job applications filed through the Borough Offices in NYC. There are many columns containing numerical data, such as fee and number of stories. It can be used to test the data scaling and outlier detection features. 
-\end{itemize}
-
 \begin{table}
 \caption{Selected dataset}   
 \label{tab:dataset}
@@ -176,9 +166,63 @@ Three datasets are chosen for the experiments. Each of them has different proper
  Permit Issuance            & (3M, 60)     & 1.43 GB  & 20\%             \\  
  Job Application Filings   & (5M, 89)     & 2.88 GB  & 40\%             \\ 
 
-
 \end{tabular}   
 \end{table}
+
+\begin{table*}
+\caption{Evaluation: Features Comparison}   
+\label{tab:features}
+\begin{tabular}{lccccc}
+						&  PySpark DataFrame\cite{pyspark} 	& SparkCleaner 	& Optimus\cite{optimus} 	& SparkingPandas\cite{sparklingpandas} 	& Dask\cite{dask}	\\
+&&&&& \\
+Data manipulation &&&&& \\
+\hline
+Data integration				& \checkmark 	        			& \checkmark   	& \checkmark		& 							& \checkmark	 \\
+Data aggregation				& \checkmark 	        			& \checkmark   	& \checkmark		& \checkmark					& \checkmark	 \\
+Data filtering					& \checkmark 	        			& \checkmark   	& \checkmark		& 							& \checkmark	 \\
+Data profiling				& \checkmark 	        			& \checkmark   	& \checkmark		& \checkmark					& \checkmark	 \\
+Data sorting					& \checkmark 	        			& \checkmark   	& \checkmark		& 							&	 		 \\
+
+&&&&& \\
+Basic data cleaning &&&&& \\
+\hline
+Missing value filling	 			& \checkmark 		  	      	& \checkmark   	& \checkmark		& 							& \checkmark	 \\
+Missing value removing			& \checkmark 	 	  	     	& \checkmark   	& \checkmark 		& 							& \checkmark	 \\
+Duplication removing 			& \checkmark 			       	& \checkmark 	& \checkmark		&							& \checkmark	\\	
+
+&&&&& \\
+Outlier Detection &&&&& \\
+\hline
+Deviation with median			&						& 			& \checkmark		&							&			\\
+Clustering algorithms			&						& \checkmark	& 				&							&			\\	
+	
+&&&&& \\
+Scaling and Normalization &&&&& \\
+\hline
+Standard scaling				&						& \checkmark	& 				&							& \checkmark	\\		
+Scale in range				&						& \checkmark	& 				&							& \checkmark	\\
+Normalization				&						& \checkmark	& 				&							& 			\\
+
+
+
+&&&&& \\
+Text Cleaning &&&&& \\
+\hline
+Special character removing		& \checkmark				& \checkmark	& \checkmark		&							&		\\
+Pattern searching 			 	& \checkmark				& \checkmark	& \checkmark		&							&		\\		
+Pattern searching and replacement 	&						& \checkmark	&				&							&		\\
+\end{tabular}
+\end{table*}
+
+
+\section{Experiment}
+\subsection{Dataset}
+Three datasets are chosen for the experiments. Each of them has different properties and can be used to test different parts of the library. The summary of datasets could be found in table \ref{tab:dataset}.
+\begin{itemize}
+	\item{311 Service Requests}\cite{nycopendata1} This dataset contains all 311 Service Requests since 2010. The majority of data has string type, including both categorical  data (e.g. City, Status) and variable length data (e.g. Address, Description). This can be useful in testing the string-related features of the library.
+	\item{DOB Permit Issuance}\cite{nycopendata2} The dataset consists of a list of permits for buildings in NYC issued by Department of Building. It has diverse data types, including categorical, string, numerical, and geographical data. Hence, it provides a good test case for the versatility of the library. 
+	\item{DOB Job Application Filings}\cite{nycopendata3} The dataset stores job applications filed through the Borough Offices in NYC. There are many columns containing numerical data, such as fee and number of stories. It can be used to test the data scaling and outlier detection features. 
+\end{itemize}
 
 \subsection{Evaluation}
 We will evaluate our project by comparing it against other existing open-source libraries, including Optimus\cite{optimus}, Dask\cite{dask}, and SparkingPandas\cite{sparklingpandas}. 
@@ -235,51 +279,6 @@ Normalization    & 1 m 18.95 s     &  38.41 s & 39.48 s             \\
 
 \end{tabular}   
 \end{table}
-
-\begin{table*}
-\caption{Evaluation: Features Comparison}   
-\label{tab:features}
-\begin{tabular}{lccccc}
-						&  PySpark DataFrame\cite{pyspark} 	& SparkCleaner 	& Optimus\cite{optimus} 	& SparkingPandas\cite{sparklingpandas} 	& Dask\cite{dask}	\\
-&&&&& \\
-Data manipulation &&&&& \\
-\hline
-Data integration				& \checkmark 	        			& \checkmark   	& \checkmark		& 							& \checkmark	 \\
-Data aggregation				& \checkmark 	        			& \checkmark   	& \checkmark		& \checkmark					& \checkmark	 \\
-Data filtering					& \checkmark 	        			& \checkmark   	& \checkmark		& 							& \checkmark	 \\
-Data profiling				& \checkmark 	        			& \checkmark   	& \checkmark		& \checkmark					& \checkmark	 \\
-Data sorting					& \checkmark 	        			& \checkmark   	& \checkmark		& 							&	 		 \\
-
-&&&&& \\
-Basic data cleaning &&&&& \\
-\hline
-Missing value filling	 			& \checkmark 		  	      	& \checkmark   	& \checkmark		& 							& \checkmark	 \\
-Missing value removing			& \checkmark 	 	  	     	& \checkmark   	& \checkmark 		& 							& \checkmark	 \\
-Duplication removing 			& \checkmark 			       	& \checkmark 	& \checkmark		&							& \checkmark	\\	
-
-&&&&& \\
-Outlier Detection &&&&& \\
-\hline
-Deviation with median			&						& 			& \checkmark		&							&			\\
-Clustering algorithms			&						& \checkmark	& 				&							&			\\	
-	
-&&&&& \\
-Scaling and Normalization &&&&& \\
-\hline
-Standard scaling				&						& \checkmark	& 				&							& \checkmark	\\		
-Scale in range				&						& \checkmark	& 				&							& \checkmark	\\
-Normalization				&						& \checkmark	& 				&							& 			\\
-
-
-
-&&&&& \\
-Text Cleaning &&&&& \\
-\hline
-Special character removing		& \checkmark				& \checkmark	& \checkmark		&							&		\\
-Pattern searching 			 	& \checkmark				& \checkmark	& \checkmark		&							&		\\		
-Pattern searching and replacement 	&						& \checkmark	&				&							&		\\
-\end{tabular}
-\end{table*}
 
 \section{Conclusions}
 Due to the lack of advance data cleaning features on Spark, we propose SparkCleaner, a data cleaning toolkit built on PySpark. We provide advance data cleaning features such as outlier detection, data scaling, and text pattern searching and replacement.
