@@ -190,6 +190,11 @@ We will evaluate the performance of our library by measuring the time and space 
 We might assess the usability of our library by doing a survey among a random group of users. We will compare the installation process and APIs provided and generate scores of user experience.
 
 \subsection{Result}
+We run our experiments on Dumbo in NYU. For the comparison with other related works, we plan to migrate our setting on AWS since we have the authentication to install other packages on AWS. On Dumbo, we won't have the right to do that.
+
+\subsubsection{Features}
+
+\subsubsection{Performance}
 In the experiments on scaling and normalization functions, we chose three columns in each dataset as input to do scaling, normalization and time for each experiment. The experiment results can be found in table \ref{tab:Experiment result}.
 
 \begin{table}
@@ -198,10 +203,10 @@ In the experiments on scaling and normalization functions, we chose three column
 \begin{tabular}{lccc}   
  	                      &  311 Service  &  Permit    &  Job Application \\ &Requests&Issuance&Filings   \\  
 \hline
-standard\_scale()   & 1 m 51 s     & 48.36 s & 41.58 s            \\ 
-min\_max\_scale()  &  1 m 50 s   & 48.74 s  & 41.69 s             \\  
-max\_abs\_scale()  & 1 m 50 s     &  47.27 s  & 41.52 s             \\ 
-normalize()           &  1.8 s     &  1.2 s & 1.1 s             \\ 
+Standard Scale   & 1 m 51 s     & 48.36 s & 41.58 s            \\ 
+Min-max Scale  &  1 m 50 s   & 48.74 s  & 41.69 s             \\  
+Max-abs Scale  & 1 m 50 s     &  47.27 s  & 41.52 s             \\ 
+Normalization           &  1.8 s     &  1.2 s & 1.1 s             \\ 
 
 \end{tabular}   
 \end{table}
