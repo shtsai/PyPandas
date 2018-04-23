@@ -1,4 +1,7 @@
 #!/bin/bash
+# This shell script will download the test data to the dumbo clusters.
+# The datasets will first be downloaded to the /scracth directory, which is for large files on dumbo.
+# After the download is completed, the datasets will be uploaded to the HDFS, so that you can access them in the Spark environment.
 
 HADOOP_EXE='/usr/bin/hadoop'
 HADOOP_LIBPATH='/opt/cloudera/parcels/CDH/lib'
