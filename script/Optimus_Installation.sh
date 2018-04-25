@@ -19,7 +19,7 @@ echo '[+]Complete upgrade the pip.'
 var1=$(grep "export PYSPARK_PYTHON=python3" ~/.bashrc)
 if [ -z "$var1" ]
 then
-    echo "export PYSPARK_PYTHON=python3" | sudo tee -a  ~/.bashrc
+    echo -e "\nexport PYSPARK_PYTHON=python3" | sudo tee -a  ~/.bashrc
 fi
 var2=$(grep "export PYSPARK_DRIVER_PYTHON=python3" ~/.bashrc)
 if [ -z "$var2" ]
@@ -27,9 +27,9 @@ then
     echo "export PYSPARK_DRIVER_PYTHON=python3"  | sudo tee -a  ~/.bashrc
 fi
 wait
-source ~/.bashrc
-echo '[+]Complete adding variables to bashrc.'
 
+echo '[+]Complete adding variables to bashrc.'
+source ~/.bashrc
 #add the pythob tkinter
 sudo bash -c "sed -i -e 's/^backend.*TkAgg$/backend : agg/g' /usr/local/lib64/python3.6/site-packages/matplotlib/mpl-data/matplotlibrc"
 #install ipython
