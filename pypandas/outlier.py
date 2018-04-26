@@ -188,7 +188,7 @@ class GaussianMixtureOutlierRemover(OutlierRemover):
 
     def get_cluster(self, cluster_index):
         '''Return a dataframe that contains a summary of the given cluster, including the probability and features'''
-        columns = ["prediction", "probability"]
+        columns = ["prediction", "probability", "mahalanobis distance"]
         columns.extend(self.columns)
         return self.df.where(col("prediction") == cluster_index).select(columns)
 
@@ -200,6 +200,11 @@ class GaussianMixtureOutlierRemover(OutlierRemover):
 
     def summary(self):
         '''Show summary of the clustering and provide information to help filter outliers'''
+        # Compute average distance to cluster center
+        data = self.df.select(["prediction", "mahalanobis distance"])
+        data = data.withColumnRenamed("prediction", "cluster index")
+        avg = data.groupBy("cluster index").agg({"mahalanobis distance": "avg"})
+
         # format cluster sizes
         size = self.cluster_sizes()
         size = [[i, size[i]] for i in range(len(size))]
@@ -208,7 +213,7 @@ class GaussianMixtureOutlierRemover(OutlierRemover):
         # gaussian distribution parameters
         gaussian = self.model.gaussiansDF.withColumn("cluster index", monotonically_increasing_id())
         
-        result = size_df.join(gaussian, "cluster index").orderBy("cluster index")
+        result = size_df.join(avg, "cluster index").join(gaussian, "cluster index").orderBy("cluster index")
         result.show()
         return result
 
