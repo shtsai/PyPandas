@@ -10,7 +10,7 @@ sudo bash -c 'python3 -m pip install optimuspyspark'
 wait
 echo '[+]Completed the installation of Optimus.'
 
-#upgrade pip to the newest verison
+#upgrade pip to the latest verison
 sudo bash -c 'python3 -m pip install --upgrade pip'
 wait
 echo '[+]Complete upgrade the pip.'
@@ -37,3 +37,6 @@ sudo bash -c 'python3 -m pip install ipython'
 wait
 echo '[+]Complete install iPython Package.'
 echo '[+]Congrats. You have completed the installation and setup for Optimus.'
+
+#reload bash
+exec bash
