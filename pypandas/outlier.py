@@ -1,7 +1,7 @@
 from pyspark.sql import SparkSession
 from pyspark.ml.clustering import *
 from pyspark.ml.feature import VectorAssembler 
-from pyspark.sql.functions import udf, col
+from pyspark.sql.functions import udf, col, monotonically_increasing_id 
 from pyspark.sql.types import *
 import math
 from pypandas.preprocess import *
@@ -73,11 +73,11 @@ class KMeansOutlierRemover(OutlierRemover):
         assembler = VectorAssembler(inputCols=columns, outputCol="features")
         return assembler.transform(df)
 
-    def show_cluster(self, cluster_index):
-        '''Display a summary of the given cluster, including distance and cluster features'''
+    def get_cluster(self, cluster_index):
+        '''Return a dataframe that contains a summary of the given cluster, including distance and cluster features'''
         columns = ["prediction", "distance to cluster center"]
         columns.extend(self.columns)
-        self.df.where(col("prediction") == cluster_index).select(columns).show()
+        return self.df.where(col("prediction") == cluster_index).select(columns)
 
     def filter(self, cluster_index, distance):
         '''Filter out rows which are too far away from its cluster center'''
@@ -158,11 +158,11 @@ class GaussianMixtureOutlierRemover(OutlierRemover):
         assembler = VectorAssembler(inputCols=columns, outputCol="features")
         return assembler.transform(df)
 
-    def show_cluster(self, cluster_index):
-        '''Display a summary of the given cluster, including distance and cluster features'''
+    def get_cluster(self, cluster_index):
+        '''Return a dataframe that contains a summary of the given cluster, including the probability and features'''
         columns = ["prediction", "probability"]
         columns.extend(self.columns)
-        self.df.where(col("prediction") == cluster_index).select(columns).show()
+        return self.df.where(col("prediction") == cluster_index).select(columns)
 
     def filter(self, cluster_index, distance):
         '''Filter out rows which are too far away from its cluster center'''
@@ -172,7 +172,16 @@ class GaussianMixtureOutlierRemover(OutlierRemover):
 
     def summary(self):
         '''Show summary of the clustering and provide information to help filter outliers'''
-        # TODO
+        # format cluster sizes
+        size = self.cluster_sizes()
+        size = [[i, size[i]] for i in range(len(size))]
+        size_df = spark.createDataFrame(size, ["cluster index","size"])
+
+        # gaussian distribution parameters
+        gaussian = self.model.gaussiansDF.withColumn("cluster index", monotonically_increasing_id())
+        
+        result = size_df.join(gaussian, "cluster index").orderBy("cluster index")
+        result.show()
         return result
 
     def cluster_sizes(self):
