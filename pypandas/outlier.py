@@ -3,17 +3,20 @@ from pyspark.ml.clustering import *
 from pyspark.ml.feature import VectorAssembler 
 from pyspark.sql.functions import udf, col, monotonically_increasing_id 
 from pyspark.sql.types import *
-import math
-from pypandas.preprocess import *
 from pyspark.context import SparkContext
 from pyspark.sql.session import SparkSession
+from pypandas.preprocess import *
+from pypandas.datasets import *
+import math
+import numpy as np
+
 spark = SparkSession.builder.appName("Python Spark SQL basic example").config("spark.some.config.option", "some-value").getOrCreate()
 
 def init_gm():
-    df = load_data_job()
+    df = load_data_job("dumbo")
     gm = OutlierRemover.factory("gaussian")
     gm.set_param(k=5, maxIter=10)
-    gm.fit(df, "Initial Cost")
+    gm.fit(df, ["Initial Cost", "Total Est Fee"])
     return gm
 
 class OutlierRemover:
@@ -140,14 +143,39 @@ class GaussianMixtureOutlierRemover(OutlierRemover):
         self.maxIter = maxIter
         self.km = GaussianMixture(k=self.k, maxIter=self.maxIter)
 
+    def _udf_compute_distance(self, mean, cov): 
+        '''This wrapper function returns an user defined function for computing mahalanobis distance'''
+        # convert DenseMatrix to numpy arrays
+        mean = [m[0].toArray() for m in mean]
+        cov = [c[0].toArray() for c in cov]
+
+        def _compute_distance(features, prediction):
+            '''Compute mahalanobis distance according to its definition'''
+            m = mean[prediction]
+            c = cov[prediction]
+            diff = features - m
+
+            left = np.array([diff])
+            right = left.T
+            dist = left.dot(c).dot(right)
+            return math.sqrt(dist)
+
+        return udf(_compute_distance, DoubleType())
+
     def fit(self, df, columns):
         '''Run KMean clustering with the features'''
         df_with_features = self.create_features(df, columns)
 
         self.model = self.km.fit(df_with_features)
         # Append features and predictions to the original dataframe
-        self.df = self.model.transform(df_with_features)        
+        newdf = self.model.transform(df_with_features)        
         self._summary = self.model.summary
+
+        # Compute mahalanobis distance for each row
+        mean = self.model.gaussiansDF.select("mean").collect()
+        cov = self.model.gaussiansDF.select("cov").collect()
+        compute_distance = self._udf_compute_distance(mean, cov) 
+        self.df = newdf.withColumn("mahalanobis distance", compute_distance("features", "prediction"))
        
     def create_features(self, df, columns):
         '''Use Vector Assembler to create a new column that contains a vector of features'''
