@@ -29,7 +29,7 @@ fi
 wait
 
 echo '[+]Complete adding variables to bashrc.'
-source ~/.bashrc
+
 #add the pythob tkinter
 sudo bash -c "sed -i -e 's/^backend.*TkAgg$/backend : agg/g' /usr/local/lib64/python3.6/site-packages/matplotlib/mpl-data/matplotlibrc"
 #install ipython
