@@ -6,18 +6,10 @@ from pyspark.sql.types import *
 from pyspark.context import SparkContext
 from pyspark.sql.session import SparkSession
 from pypandas.preprocess import *
-from pypandas.datasets import *
 import math
 import numpy as np
 
 spark = SparkSession.builder.appName("Python Spark SQL basic example").config("spark.some.config.option", "some-value").getOrCreate()
-
-def init_gm():
-    df = load_data_job("dumbo")
-    gm = OutlierRemover.factory("gaussian")
-    gm.set_param(k=5, maxIter=10)
-    gm.fit(df, ["Initial Cost"])
-    return gm
 
 class OutlierRemover:
     def factory(cluster_type):
