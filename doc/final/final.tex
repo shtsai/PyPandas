@@ -60,11 +60,23 @@ There exists a number of open-source library for data cleaning and parallel data
 \section{Problem Formulation}
 In this paper, we focus on three major tasks, outlier detection, data scaling, and text pattern searching and replacement.
 \subsection{Outlier Detection}
-Outlier or anomalies detection is a challenging task in the field of data cleaning\cite{anomal}. In this paper, we simply define outlier as the data that is far away from data centroid. Hence, given a dataset $X$, a clustering algorithm $A$\cite{MMD}, a distance measurement $d$, and the user-defined threshold $t$, the outlier is simply defined as following.
+Outlier or anomalies detection is a challenging task in the field of data cleaning\cite{anomal}. In this paper, we define outlier as the data that is far away from the its cluster centroid. Hence, given a dataset $X$, a clustering algorithm $A$\cite{MMD}, a distance measurement $d$, and the user-defined threshold $t$, the outlier is defined as following.
 
 \[ outlier = \{x | x \in X, d( x, x_{A_X(x)} ) > t \}  \]
 
-where $A_X(x)$ assigns $x$ into a cluster given the dataset $X$ and $x_c$  is the centroid of cluster $c$.
+where $A_X(x)$ assigns $x$ into a cluster given the dataset $X$ and $x_{A_X(x)}$  is the centroid of cluster to which $x$ belongs.
+
+Our library implements the following clustering algorithms. 
+\begin{itemize}
+	\item{K-Means Algorithm} \\
+		The algorithm partitions data points into k clusters, where each point belongs to the clusters that is closest to that point. In this model, the distance measurement $d$ is the Euclidean Distance.
+		\[ d( x, x_{Kmeans_X(x)}) = d( x, c) = \sqrt{\sum_{i=1}^n{(x_i - c_i ) ^ 2} } \]
+		where $c$ is the cluster centroid.
+	\item{Gaussian Mixture Model} \\
+		The algorithm assumes a probabilistic model where data points are generated from some Gaussian distributions. The Gaussian distributions are parameterized by a mean $\vec{\mu}$ and a covariance matrix $S$. \\
+		The distance measurement $d$ is defined to be Mahalanobis Distance, which measures the distance between a point and a distribution.
+		\[ d( x, x_{GM_X(x)}) = D_M(\vec{x}) = \sqrt{(\vec{x}-\vec{\mu})^T S^{-1} (\vec{x}-\vec{\mu}) } \]
+\end{itemize}
 
 \subsection{Scaling and Normalization}
 Scaling and normalization are common preprocess in data cleaning. It is crucial to several machine learning models and optimization methods. Scaling increases the convergence speed and chance to find good optimum\cite{convex}. The scaling problem could be formulated as below.
@@ -112,7 +124,9 @@ The implementation of the outlier detection functionality integrates the PySpark
 
 \subsubsection{Methods}
 \begin{itemize}
-	\item{KMeans}\cite{KMeans}: Users can specify the number of clusters to use based their knowledge about the dataset. The system will choose random initial values, and perform 20 iterations of updates. Finally, a summary of the clusterings will be generated, which includes cluster centers, cluster sizes, distances, etc. User can then filter out outliers in each cluster by specifying a minimum distance from the cluster center, and all data points that are beyond that distance will be removed from the dataset.
+	\item{KMeans}\cite{KMeans}: Users can specify the number of clusters $k$ to use based their knowledge about the dataset. By default, The system will choose random initial values, and perform 20 iterations of updates. Finally, a summary of the clusterings will be generated, which includes cluster centers, cluster sizes, distances, etc. User can then filter out outliers in each cluster by specifying a minimum distance from the cluster center, and all data points that are beyond that distance will be removed from the dataset.
+	\item{Gaussian Mixture}: Similarly, users can specify the number of clusters (i.e. Gaussian distributions). The algorithm performs 20 iterations of updates by default. Users can get a  summary that contains mean, covariance matrix and average mahalanobis distance of each cluster. User can specifying a minimum distance to filter out outliers.
+
 \end{itemize}
 
 \subsection{Scaling and Normalization}
