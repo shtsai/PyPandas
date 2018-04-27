@@ -142,13 +142,13 @@ class GaussianMixtureOutlierRemover(OutlierRemover):
 
         def _compute_distance(features, prediction):
             '''Compute mahalanobis distance according to its definition'''
-            m = mean[prediction]
-            c = cov[prediction]
-            diff = features - m
+            mu = mean[prediction]
+            S = np.linalg.inv(cov[prediction])
+            diff = features - mu
 
             left = np.array([diff])
             right = left.T
-            dist = left.dot(c).dot(right)
+            dist = left.dot(S).dot(right)
             return math.sqrt(dist)
 
         return udf(_compute_distance, DoubleType())
