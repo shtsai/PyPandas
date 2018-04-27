@@ -16,7 +16,7 @@ def init_gm():
     df = load_data_job("dumbo")
     gm = OutlierRemover.factory("gaussian")
     gm.set_param(k=5, maxIter=10)
-    gm.fit(df, ["Initial Cost", "Total Est Fee"])
+    gm.fit(df, ["Initial Cost"])
     return gm
 
 class OutlierRemover:
@@ -87,7 +87,7 @@ class KMeansOutlierRemover(OutlierRemover):
         self.df = self.df.where(~((col("prediction") == cluster_index) & (col("distance to cluster center") > distance)))
 
     def summary(self):
-        '''Show summary of the clustering and provide information to help filter outliers'''
+        '''Return a summary of the clustering and provide information to help filter outliers'''
         # Compute average distance to cluster center
         data = self.df.select(["prediction", "distance to cluster center"])
         data = data.withColumnRenamed("prediction", "cluster index")
@@ -104,7 +104,6 @@ class KMeansOutlierRemover(OutlierRemover):
         center_df = spark.createDataFrame(center, ["cluster index","cluster center"])
         
         result = size_df.join(center_df, "cluster index").join(avg, "cluster index").orderBy("cluster index")
-        result.show()
         return result
 
     def cluster_centers(self):
@@ -138,7 +137,7 @@ class GaussianMixtureOutlierRemover(OutlierRemover):
         self.km = GaussianMixture()
 
     def set_param(self, k=2, maxIter=100):
-        '''Allow user to set the parameters used by KMeans clustering'''
+        '''Allow user to set the parameters used by Gaussian Mixture clustering'''
         self.k = k
         self.maxIter = maxIter
         self.km = GaussianMixture(k=self.k, maxIter=self.maxIter)
@@ -163,7 +162,7 @@ class GaussianMixtureOutlierRemover(OutlierRemover):
         return udf(_compute_distance, DoubleType())
 
     def fit(self, df, columns):
-        '''Run KMean clustering with the features'''
+        '''Run Gaussian Mixture clustering with the features'''
         df_with_features = self.create_features(df, columns)
 
         self.model = self.km.fit(df_with_features)
@@ -194,12 +193,10 @@ class GaussianMixtureOutlierRemover(OutlierRemover):
 
     def filter(self, cluster_index, distance):
         '''Filter out rows which are too far away from its cluster center'''
-        # TODO
-        # self.df = self.df.where(~((col("prediction") == cluster_index) & (col("distance to cluster center") > distance)))
-        return
+        self.df = self.df.where(~((col("prediction") == cluster_index) & (col("mahalanobis distance") > distance)))
 
     def summary(self):
-        '''Show summary of the clustering and provide information to help filter outliers'''
+        '''Return a summary of the clustering and provide information to help filter outliers'''
         # Compute average distance to cluster center
         data = self.df.select(["prediction", "mahalanobis distance"])
         data = data.withColumnRenamed("prediction", "cluster index")
@@ -214,8 +211,10 @@ class GaussianMixtureOutlierRemover(OutlierRemover):
         gaussian = self.model.gaussiansDF.withColumn("cluster index", monotonically_increasing_id())
         
         result = size_df.join(avg, "cluster index").join(gaussian, "cluster index").orderBy("cluster index")
-        result.show()
         return result
+
+    def cluster_centers(self):
+        return self.model.gaussiansDF.select("mean").collect()
 
     def cluster_sizes(self):
         return self._summary.clusterSizes
