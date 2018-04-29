@@ -68,9 +68,10 @@ def min_max_scale(dataFrame, inputColNames, Min=0.0, Max=1.0):
          raise ValueError("The inputColNames has to be string or string list.")
 
 def max_abs_scale(dataFrame, inputColNames):
-    if type(inputColNames) is str:
-        outputColName = "scaled " + inputColNames
-        assembler = VectorAssembler(inputCols=[inputColNames], \
+    
+    def scaling(dataFrame, inputColName):
+        outputColName = "scaled " + inputColName
+        assembler = VectorAssembler(inputCols=[inputColName], \
                 outputCol="features")
         assembledDF = assembler.transform(dataFrame)
         scaler=MaxAbsScaler(inputCol="features", \
@@ -80,25 +81,15 @@ def max_abs_scale(dataFrame, inputColNames):
         castVectorToFloat = udf(lambda v : float(v[0]), FloatType())
         scaledDF = scaledDF.withColumn(outputColName, castVectorToFloat(outputColName)) 
         print ("Successfully scale the column '{0:s}' to range (-1, 1) and create a new column '{1:s}'."\
-                .format(inputColNames, outputColName))
+                .format(inputColName, outputColName))
         return scaledDF
-    elif type(inputColNames) is list:
-        scaledDF = dataFrame
-        for inputColName in inputColNames:
-            outputColName = "scaled " + inputColName
-            assembler = VectorAssembler(inputCols=[inputColName], \
-                    outputCol="features")
-            assembledDF = assembler.transform(scaledDF)
-            scaler=MaxAbsScaler(inputCol="features", \
-                    outputCol=outputColName)
-            scalerModel=scaler.fit(assembledDF)
-            scaledDF = scalerModel.transform(assembledDF).drop("features")
-            castVectorToFloat = udf(lambda v : float(v[0]), FloatType())
-            scaledDF = scaledDF.withColumn(outputColName, castVectorToFloat(outputColName)) 
-            print ("Successfully scale the column '{0:s}' to range (-1, 1) and create a new column '{1:s}'."\
-                    .format(inputColName, outputColName))
 
-        return scaledDF
+    if type(inputColNames) is str:
+        return scaling(dataFrame, inputColNames)
+    elif type(inputColNames) is list:
+        for inputColName in inputColNames:
+            dataFrame = scaling(dataFrame, inputColName)
+        return dataFrame
     else:
          raise ValueError("The inputColNames has to be string or string list.")
 
@@ -132,8 +123,14 @@ def normalize(dataFrame, inputColNames, p_norm=2.0):
 
 def run():
     df=load_data_job("dumbo")
-    scaled=min_max_scale(df,"Total Est Fee")
-    scaled=min_max_scale(df,["Total Est Fee", "Initial Cost"])
+    #scaled=standard_scale(df,"Total Est Fee")
+    #scaled=standard_scale(df,["Total Est Fee", "Initial Cost"])
+
+    #scaled=min_max_scale(df,"Total Est Fee")
+    #scaled=min_max_scale(df,["Total Est Fee", "Initial Cost"])
+    
+    scaled=max_abs_scale(df,"Total Est Fee")
+    scaled=max_abs_scale(df,["Total Est Fee", "Initial Cost"])
     scaled.printSchema()
 
 
