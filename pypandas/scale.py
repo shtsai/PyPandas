@@ -6,14 +6,16 @@ from pyspark.ml.feature import MaxAbsScaler
 from pyspark.ml.feature import Normalizer
 from pyspark.sql.functions import udf
 from pyspark.sql.types import FloatType
-
+   
+from pypandas.datasets import *
+   
 def load_test():
     print("Load scale functions successfully.")
 
 def standard_scale(dataFrame, inputColNames, usr_withStd=True, usr_withMean=False):
-    if type(inputColNames) is str:
-        outputColName = "scaled " + inputColNames
-        assembler = VectorAssembler(inputCols=[inputColNames], \
+    def scaling(dataFrame, inputColName, usr_withStd, usr_withMean):
+        outputColName = "scaled " + inputColName
+        assembler = VectorAssembler(inputCols=[inputColName], \
                 outputCol="features")
         assembledDF = assembler.transform(dataFrame)
         scaler=StandardScaler(inputCol="features", \
@@ -24,25 +26,15 @@ def standard_scale(dataFrame, inputColNames, usr_withStd=True, usr_withMean=Fals
         scaledDF = scaler.transform(assembledDF).drop("features")
         castVectorToFloat = udf(lambda v : float(v[0]), FloatType())
         scaledDF = scaledDF.withColumn(outputColName, castVectorToFloat(outputColName)) 
-        print ("Successfully scale the column '{0:s}' and create a new column '{1:s}'.".format(inputColNames, outputColName))
+        print ("Successfully scale the column '{0:s}' and create a new column '{1:s}'.".format(inputColName, outputColName))
         return scaledDF
+
+    if type(inputColNames) is str:
+        return scaling(dataFrame, inputColNames, usr_withStd, usr_withMean)
     elif type(inputColNames) is list:
-        scaledDF = dataFrame
         for inputColName in inputColNames:
-            outputColName = "scaled " + inputColName
-            assembler = VectorAssembler(inputCols=[inputColName], \
-                    outputCol="features")
-            assembledDF = assembler.transform(scaledDF)
-            scaler=StandardScaler(inputCol="features", \
-                    outputCol=outputColName, \
-                    withStd=usr_withStd, \
-                    withMean=usr_withMean \
-                    ).fit(assembledDF)
-            scaledDF = scaler.transform(assembledDF).drop("features")
-            castVectorToFloat = udf(lambda v : float(v[0]), FloatType())
-            scaledDF = scaledDF.withColumn(outputColName, castVectorToFloat(outputColName)) 
-            print ("Successfully scale the column '{0:s}' and create a new column '{1:s}'.".format(inputColName, outputColName))
-        return scaledDF
+            dataFrame = scaling(dataFrame, inputColName, usr_withStd, usr_withMean)
+        return dataFrame
     else:
          raise ValueError("The inputColNames has to be string or string list.")
 
@@ -147,4 +139,11 @@ def normalize(dataFrame, inputColNames, p_norm=2.0):
         return normalizedDF
     else:
          raise ValueError("The inputColNames has to be a list of columns to generate a feature vector and then do normalization.")
+
+def run():
+    df=load_data_job("dumbo")
+    scaled=standard_scale(df,"Total Est Fee")
+    scaled=standard_scale(df,["Total Est Fee", "Initial Cost"])
+    scaled.printSchema()
+
 
