@@ -30,8 +30,14 @@ def load_data_311(where):
     spark = SparkSession.builder.appName("Test").config("spark.some.config.option", "some-value").getOrCreate()   
     df = spark.read.format("csv").option("header", "true").option("inferSchema", "true").load(datafile)
     df = clean_column_names(df)
-    df = drop_null(df, "Latitude")
-    df = drop_null(df, "Longitude")
+    cols = ["Unique Key", "Incident Zip", "X Coordinate (State Plane)", "Y Coordinate (State Plane)", "Latitude", "Longitude"]
+    double_cols = ["X Coordinate (State Plane)", "Y Coordinate (State Plane)", "Latitude", "Longitude"]
+    for col in cols:
+        df = drop_null(df, col)
+    for col in double_cols:
+        df = cast_to_double(df, col)
+    df = cast_to_int(df, "Unique Key")
+    df = cast_to_int(df, "Incident Zip")
     return df 
 
 def load_data_permit(where):
