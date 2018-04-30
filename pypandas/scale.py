@@ -108,9 +108,9 @@ def normalize(dataFrame, inputColNames, p_norm=2.0):
         for inputColName in inputColNames:
             colList += " '" + inputColName + "' "
         if(p_norm == float('inf')):
-            print ("Successfully assembled the column {0:s} to a feature vector and normalized using L^inf norm and create two new columns 'feature' and 'normalized feature'.".format(colList))
+            print ("Successfully assembled the column {0:s} to a feature vector and normalized using L^inf norm and create two new columns 'features' and 'normalized features'.".format(colList))
         else:
-            print ("Successfully assembled the column {0:s} to a feature vector and normalized using L^{1:f} norm and create two new columns 'feature' and 'normalized feature'.".format(colList, p_norm))
+            print ("Successfully assembled the column {0:s} to a feature vector and normalized using L^{1:f} norm and create two new columns 'features' and 'normalized features'.".format(colList, p_norm))
         return normalizedDF
     else:
         raise ValueError("The inputColNames has to be a list of columns to generate a feature vector and then do normalization.")

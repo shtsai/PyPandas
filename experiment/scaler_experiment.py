@@ -30,7 +30,7 @@ def test_normalize():
     starttime = time.time()
     df = load_data_job("aws")
     df = normalize(df, columns)
-    df.select("feature", "normalized feature").show(20,False)
+    df.select("features", "normalized features").show(20,False)
     print("The normalize() takes: " + str(time.time() - starttime) + " sec.")
 
 
