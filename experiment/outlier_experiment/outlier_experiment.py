@@ -8,8 +8,10 @@ remover_type = sys.argv[1]
 num_features = int(eval(sys.argv[2]))
 clusters = int(eval(sys.argv[3]))
 
-df = load_data_job("aws")
-columns = ["Job #", "Doc #", "Bin #", "Initial Cost", "Total Est Fee", "Existing Zoning Sqft", "Proposed Zoning Sqft", "Enlargement SQ Footage", "Street Frontage", "ExistingNo of Stories", "Proposed No of Stories", "Existing Height", "Proposed Height"]
+# df = load_data_job("aws")
+# columns = ["Job #", "Doc #", "Bin #", "Initial Cost", "Total Est Fee", "Existing Zoning Sqft", "Proposed Zoning Sqft", "Enlargement SQ Footage", "Street Frontage", "ExistingNo of Stories", "Proposed No of Stories", "Existing Height", "Proposed Height"]
+df = load_data_311("aws")
+columns = ["Latitude"]
 
 outlier_remover = OutlierRemover.factory(remover_type)
 outlier_remover.set_param(k = clusters)
