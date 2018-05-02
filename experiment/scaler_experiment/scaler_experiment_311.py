@@ -3,7 +3,7 @@ from pypandas.datasets import *
 from pypandas.scale import *
 from pypandas.preprocess import *
 
-columns = ["Job #", "Doc #", "Bin #", "Initial Cost", "Total Est Fee", "Existing Zoning Sqft", "Proposed Zoning Sqft", "Enlargement SQ Footage", "Street Frontage", "ExistingNo of Stories", "Proposed No of Stories", "Existing Height", "Proposed Height"]
+columns = ["Unique Key", "Incident Zip", "X Coordinate (State Plane)", "Y Coordinate (State Plane)", "Latitude", "Longitude"]
 
 def drop_na(df, cols):
     for col in cols:
@@ -12,32 +12,29 @@ def drop_na(df, cols):
 
 def test_standard_scale():
     starttime = time.time()
-    df = load_data_job("aws")
-    df = drop_na(df, columns)
+    df = load_data_311("aws")
     df = standard_scale(df, columns)
-    df.select("Initial Cost", "Total Est Fee","scaled Initial Cost", "scaled Total Est Fee").show(20,False)
+    df.select("Latitude", "Longitude", "scaled Latitude", "scaled Longitude").show(20,False)
     print("The standard_scale() takes: " + str(time.time() - starttime) + " sec.")
 
 def test_min_max_scale():
     starttime = time.time()
-    df = load_data_job("aws")
-    df = drop_na(df, columns)
+    df = load_data_311("aws")
     df = min_max_scale(df, columns)
-    df.select("Initial Cost", "Total Est Fee","scaled Initial Cost", "scaled Total Est Fee").show(20,False)
+    df.select("Latitude", "Longitude", "scaled Latitude", "scaled Longitude").show(20,False)
     print("The min_max_scale() takes: " + str(time.time() - starttime) + " sec.")
+    
 
 def test_max_abs_scale():
     starttime = time.time()
-    df = load_data_job("aws")
-    df = drop_na(df, columns)
+    df = load_data_311("aws")
     df = max_abs_scale(df, columns)
-    df.select("Initial Cost", "Total Est Fee","scaled Initial Cost", "scaled Total Est Fee").show(20,False)
+    df.select("Latitude", "Longitude", "scaled Latitude", "scaled Longitude").show(20,False)
     print("The max_abs_scale() takes: " + str(time.time() - starttime) + " sec.")
 
 def test_normalize():
     starttime = time.time()
-    df = load_data_job("aws")
-    df = drop_na(df, columns)
+    df = load_data_311("aws")
     df = normalize(df, columns)
     df.select("features", "normalized features").show(20,False)
     print("The normalize() takes: " + str(time.time() - starttime) + " sec.")
