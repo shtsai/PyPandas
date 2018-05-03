@@ -1,0 +1,23 @@
+In this experiment, we compare the performance by timing between our textcleaner and the Optimus.
+Besides, we also experiment the scalability of our textcleaner.
+
+[Compare]
+
+tools\data      data_job       data_311        data_permit
+
+Optimus         48.66 sec      81.56 sec       50.62 sec
+
+Pypandas        67.58 sec      100.39 sec      66.2 sec
+
+----
+
+[Scalability]
+
+nodes\data      data_job       data_311        data_permit
+
+   2 nodes      67.57 sec      100.39 sec      66.2 sec
+   4 nodes      79.23 sec      139.04 sec      107.88 sec
+   8 nodes      68.42 sec      124.32 sec      95.84 sec
+  10 nodes      69.22 sec      83.05 sec       67.42 sec
+
+

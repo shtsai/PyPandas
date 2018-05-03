@@ -1,7 +1,0 @@
-In this experiment, we compare the performance by timing between our textcleaner and the Optimus.
-
-tools\data      data_job       data_311        data_permit
-
-Optimus         48.66 sec      81.56 sec       50.62 sec
-
-Pypandas        67.58 sec      100.39 sec      66.2 sec
