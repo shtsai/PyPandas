@@ -3,30 +3,27 @@ import optimus as op
 from pypandas.datasets import *
 
 def clean(df):
-    starttime = time.time()
     transformer = op.DataFrameTransformer(df)
     transformer.remove_special_chars(columns='*')
     transformer.show(20, False)
-    print("The optimus takes: " + str(time.time() - starttime) + " sec to clean the columns.")
 
 def load_data():
     data = sys.argv[1]
     if data == "job":
         df = load_data_job("aws")
-        print("[data_job]: ")
     elif data == "311":
         df = load_data_311("aws")
-        print("[data_311]: ")
     elif data == "permit":
         df = load_data_permit("aws")
-        print("[data_permit]: ")
     else:
         raise ValueError("Invalid argument.")
     return df
 
 def main():
+    starttime = time.time()
     df = load_data()    
     clean(df)
+    print("The optimus takes: " + str(time.time() - starttime) + " sec to clean the data" + sys.argv[1])
 
 if __name__ == "__main__":
     main()
