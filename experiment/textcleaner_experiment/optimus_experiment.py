@@ -1,6 +1,6 @@
 import sys, time
 import optimus as op
-import pypandas.datasets import *
+from pypandas.datasets import *
 
 def clean(df):
     starttime = time.time()
