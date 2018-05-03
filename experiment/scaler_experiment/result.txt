@@ -1,0 +1,10 @@
+In this experiment, we test the scalability of the scaling functions.
+
+[Scalability]
+
+node#\func    standard_scale()       min_max_scale()      max_abs_scale()       normalize()
+   
+   2 nodes      409.95 sec             408.30 sec           405.53 sec           95.63 sec
+   4 nodes      740.00 sec             594.05 sec           709.20 sec          163.23 sec
+   8 nodes      542.02 sec             478.38 sec           432.36 sec          106.06 sec
+  10 nodes      580.58 sec             503.80 sec           447.91 sec          138.09 sec           
