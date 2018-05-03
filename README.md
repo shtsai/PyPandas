@@ -55,8 +55,8 @@ df.show()
 only showing top 20 rows
 '''
 
-# Instantiate KMeans Outlier Remover
-km = KMeansOutlierRemover()
+# Instantiate KMeans Outlier Remover from the OutlierRemover factory
+km = OutlierRemover.factory("kmeans")
 
 # Check (default) parameters
 km.k
@@ -71,7 +71,8 @@ km.k
 km.fit(df, ["Initial Cost", "Total Est Fee"])
 
 # Get clustering summary
-km.summary()
+s = km.summary()
+s.show()
 '''
 +-------------+-------+--------------------+-------------------------------+    
 |cluster index|   size|      cluster center|avg(distance to cluster center)|
@@ -85,7 +86,8 @@ km.summary()
 '''
 
 # Show a particular cluster
-km.show_cluster(3)
+cluster3 = km.get_cluster(3)
+cluster3.show()
 '''
 +----------+--------------------------+------------+-------------+
 |prediction|distance to cluster center|Initial Cost|Total Est Fee|
