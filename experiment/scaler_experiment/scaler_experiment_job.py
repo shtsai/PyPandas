@@ -44,10 +44,17 @@ def test_normalize():
 
 
 def main():
-    test_standard_scale()
-    test_min_max_scale()
-    test_max_abs_scale()
-    test_normalize()
+    func = sys.argv[1]
+    if func == "standard_scale":
+        test_standard_scale()
+    elif func == "min_max_scale":
+        test_min_max_scale()
+    elif func == "max_abs_scale":
+        test_max_abs_scale()
+    elif func == "normalize":
+        test_normalize()
+    else:
+        raise ValueError("Invalid argument.")
 
 if __name__ == "__main__":
     main()
