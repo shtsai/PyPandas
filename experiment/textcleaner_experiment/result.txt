@@ -13,7 +13,7 @@ Pypandas        67.58 sec      100.39 sec      66.2 sec
 
 [Scalability]
 
-nodes\data      data_job       data_311        data_permit
+node#\data      data_job       data_311        data_permit
 
    2 nodes      67.57 sec      100.39 sec      66.2 sec
    4 nodes      79.23 sec      139.04 sec      107.88 sec
