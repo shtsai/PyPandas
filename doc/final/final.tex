@@ -68,8 +68,8 @@ where $A_X(x)$ assigns $x$ into a cluster given the dataset $X$ and $x_{A_X(x)}$
 
 Our library implements the following clustering algorithms. 
 \begin{itemize}
-	\item{K-Means Algorithm} \\
-		The algorithm partitions data points into k clusters, where each point belongs to the clusters that is closest to that point. In this model, the distance measurement $d$ is the Euclidean Distance.
+	\item{K-Means and Bisecting K-Means Algorithm} \\
+		These two algorithms partition data points into k clusters, where each point belongs to the clusters that is closest to that point. In these two models, the distance measurement $d$ is the Euclidean Distance.
 		\[ d( x, x_{Kmeans_X(x)}) = d( x, c) = \sqrt{\sum_{i=1}^n{(x_i - c_i ) ^ 2} } \]
 		where $c$ is the cluster centroid.
 	\item{Gaussian Mixture Model} \\
@@ -120,12 +120,13 @@ In this project, we build our library on top of PySpark. We handle PySpark DataF
 Our goal in outlier detection is to integrate the existing clustering algorithms in PySpark ML module to provide user-friendly solution for outlier detection. Users are able to select existing clustering algorithms. Furthermore, users are given the power to decide their own threshold value based on their knowledge about the dataset to filter outliers. To help users identify outliers and pick a proper threshold, we provide statistics summary of the clustering. Possible future work on outlier detection is to provide framework to register user defined clustering algorithms or implementing popular clustering algorithms such as DBScan\cite{DBScan} in our library.
 
 \subsubsection{Architecture}
-The implementation of the outlier detection functionality integrates the PySpark ml package. Our architecture hides the complexity of training and tuning clustering models, while it exposes easily accessible APIs for users to remove outliers. In addition, our data cleaning library implements User Defined Functions to compute distance between data points and cluster centers, as well as other summary statistics. At this time, our current remover can handle outliers with KMeans clustering algorithm. We will refactor our architecture to integrate all existing clustering algorithms in PySpark ML module. To simplify our architecture, we will use Factory Design Pattern to construct different types of outlier removers with the generic APIs.
+The implementation of the outlier detection functionality integrates the PySpark ml package. Our architecture hides the complexity of training and tuning clustering models, while it exposes easily accessible APIs for users to remove outliers. In addition, our data cleaning library implements User Defined Functions to compute distance between data points and cluster centers, as well as other summary statistics. At this time, our outlier remover can handle outliers with KMeans clustering, Bisecting KMeans, and Gaussian Mixture Model. We use Factory Design Pattern to construct different types of outlier removers with the generic APIs.
 
 \subsubsection{Methods}
 \begin{itemize}
 	\item{KMeans}\cite{KMeans}: Users can specify the number of clusters $k$ to use based their knowledge about the dataset. By default, The system will choose random initial values, and perform 20 iterations of updates. Finally, a summary of the clusterings will be generated, which includes cluster centers, cluster sizes, distances, etc. User can then filter out outliers in each cluster by specifying a minimum distance from the cluster center, and all data points that are beyond that distance will be removed from the dataset.
-	\item{Gaussian Mixture}: Similarly, users can specify the number of clusters (i.e. Gaussian distributions). The algorithm performs 20 iterations of updates by default. Users can get a  summary that contains mean, covariance matrix and average mahalanobis distance of each cluster. User can specifying a minimum distance to filter out outliers.
+	\item{Bisecting KMeans}: This method is very similar to KMeans clustering. The only difference is that it uses the bisecting Kmeans clustering algorithm. The algorithm does not start with k clusters. Instead, it gradually divides clusters and generates k clusters after a number of iterations.
+	\item{Gaussian Mixture}: Similarly, users can specify the number of clusters (i.e. Gaussian distributions). The algorithm performs 20 iterations of updates by default. A summary that contains mean, covariance matrix and average mahalanobis distance of each cluster can be returned. User can specify a minimum distance to filter out outliers.
 
 \end{itemize}
 
@@ -239,21 +240,23 @@ Three datasets are chosen for the experiments. Each of them has different proper
 \end{itemize}
 
 \subsection{Evaluation}
-We will evaluate our project by comparing it against other existing open-source libraries, including Optimus\cite{optimus}, Dask\cite{dask}, and SparkingPandas\cite{sparklingpandas}. 
+We evaluate our project by comparing it against other existing open-source libraries, including Optimus\cite{optimus} and Dask\cite{dask}. In addition, we examine the scalability of the library.
 \subsubsection{Features}
-We will compare our data cleaning features with previous works, particularly those frequently used functionality in data science such as null value handling, special character removal, duplicate detection, etc. 
+We compare our data cleaning features with previous works, particularly those frequently used functionality in data science such as null value handling, special character removal, duplicate detection, etc. 
 \subsubsection{Performance}
-We will evaluate the performance of our library by measuring the time and space consumed and drawing comparison with existing libraries. This performance evaluation will show that this library is efficient and can be useful in production. 
-\subsubsection{Usability}
-We might assess the usability of our library by doing a survey among a random group of users. We will compare the installation process and APIs provided and generate scores of user experience.
+We evaluate the performance of our library by measuring the time and space consumed and drawing comparison with existing libraries. This performance evaluation shows that this library is efficient and can be useful in production. 
+\subsubsection{Scalability}
+We examine the scalability of our library by running the same task with different numbers of worker nodes. We measure the time consumed under different configuration and analyze the scalability. This evaluation shows how well the library can scale.
+%\subsubsection{Usability}
+%We might assess the usability of our library by doing a survey among a random group of users. We will compare the installation process and APIs provided and generate scores of user experience.
 
-\subsection{Preliminary Results}
-At current stage, our experiments were run on the Dumbo clusters of NYU. We plan to migrate our settings to AWS since we will have the privileges needed to install other packages there. While on Dumbo, we don't have such privileges. We will perform comparison with other related works after we finish migration.
+\subsection{Results}
+After running our experiments on the Dumbo clusters of NYU initially, we migrate all our settings to Amazon Web Service because we could not obtain the privileges needed on Dumbo. While on Amazon Web Service, we can obtain the privileges needed to install other packages and we are able to perform comparison with other related works. In addition, on Amazon Web Service, we are able to customize the clusters we need, such as setting the number of worker nodes. This allows us to perform the scalability experiments.
 
 \subsubsection{Features}
-In this section, we compare our features with previous works. The result is shown in table \ref{tab:features}. We find that PySpark DataFrame provide easy-to-use data manipulation functions. Since PyPandas and Optimus extend the DataFrame, both support the same data manipulation features. In SparkingPandas, the project only aims to provide grouping methods on Pandas-liked dataframe and miss other important features in data manipulation. Dask also support many features in data manipulation. 
+In this section, we compare our features with previous works. The result is shown in table \ref{tab:features}. We find that PySpark DataFrame provide easy-to-use data manipulation functions. Since PyPandas and Optimus extend the DataFrame, both of them support the same data manipulation features. In SparkingPandas, the project only aims to provide grouping methods on Pandas-liked dataframe and miss other important features in data manipulation. Dask also support many features in data manipulation. 
 
-PySpark DataFrame, Optimus, Dask, and our library all provide the basic data cleaning functions like missing value handling. In the outlier detection, Optimus detects outliers by calculating the deviation with the median of data. On the other hand, PyPandas provides advance detecting methods with clustering algorithms. Dask do support several clustering algorithms. Nonetheless, they are not integrated in their Dask DataFrame. Users have to train and tune the models to detect the outliers.
+PySpark DataFrame, Optimus, Dask, and our library PyPandas all provide the basic data cleaning functions like missing value handling. In the outlier detection, Optimus detects outliers by calculating the deviation with the median of data. On the other hand, PyPandas provides advance detection methods with clustering algorithms. Dask do support several clustering algorithms. Nonetheless, they are not integrated in their Dask DataFrame. Users have to manually train and tune the models to detect the outliers.
 
 In scaling and normalization, Dask and PyPandas provide basic scaling methods like standard scaling or min-max scaling. However, Dask does not provide normalization on their Dask ML preprocessing module.
 
@@ -290,6 +293,25 @@ Standard Scale   & 3 m 8.15 s     & 1 m 25.57 s & 1 m 19.96 s            \\
 Min-max Scale  &  3 m 7.15 s   & 1 m 25.95 s  & 1 m 20.07 s             \\  
 Max-abs Scale  & 3 m 7.15 s     &  1 m 24.48 s  & 1 m 19.90 s             \\ 
 Normalization    & 1 m 18.95 s     &  38.41 s & 39.48 s             \\ 
+
+\end{tabular}   
+\end{table}
+
+\subsubsection{Scalability} We evaluate the scalability of different functionalities of PyPandas. In our measurement, we uses the total execution times, which includes the time for Spark initialization, data loading, and data preprocessing.
+\begin{itemize}
+	\item{Outlier Detection}: This experiment is performed on the 311 Service Requests Dataset. We perform outlier detection on one particular column that contains numerical values. We use both K-Means and Gaussian Mixture Outlier Remover with k value of 5. For each outlier remover, we use 4 configurations of the clusters. The 4 configurations are exactly the same, except they have different numbers of worker nodes. On each configuration, the same task is performed 3 times, and the average time consumed is record. From the experiment, we find that PyPandas outlier remover has great scalability. Each time we double the number of worker nodes, the performance improves significantly. Note that the improvement is not perfectly linear, because we include the spark initialization and data loading time in our measurement. As the number of workers increases, the overhead of the cluster also increases. The results are shown in table \ref{tab:Outlier Detection - Scalability Experiment Result}.
+\end{itemize}
+
+\begin{table}
+\caption{Outlier Detection - Scalability Experiment Result}   
+\label{tab:Outlier Detection - Scalability Experiment Result}
+\begin{tabular}{ccc}   
+Number of Worker Nodes  &  KMeans &  Gaussian Mixture \\  
+\hline
+2   & 650.1718 s    & 1408.2266 s    \\ 
+4   & 394.6293 s    & 862.6323 s      \\  
+6   & 299.1153 s    & 622.7715 s      \\ 
+8   & 270.4852 s    & 592.1259 s      \\ 
 
 \end{tabular}   
 \end{table}
