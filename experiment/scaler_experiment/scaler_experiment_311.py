@@ -13,14 +13,14 @@ def drop_na(df, cols):
 
 def test_standard_scale():
     starttime = time.time()
-    df = load_data_311("dumbo")
+    df = load_data_311("aws")
     df = standard_scale(df, columns)
     df.count()
     print("The standard_scale() takes: " + str(time.time() - starttime) + " sec.")
 
 def test_min_max_scale():
     starttime = time.time()
-    df = load_data_311("dumbo")
+    df = load_data_311("aws")
     df = min_max_scale(df, columns)
     df.count()
     print("The min_max_scale() takes: " + str(time.time() - starttime) + " sec.")
@@ -28,14 +28,14 @@ def test_min_max_scale():
 
 def test_max_abs_scale():
     starttime = time.time()
-    df = load_data_311("dumbo")
+    df = load_data_311("aws")
     df = max_abs_scale(df, columns)
     df.count()
     print("The max_abs_scale() takes: " + str(time.time() - starttime) + " sec.")
 
 def test_normalize():
     starttime = time.time()
-    df = load_data_311("dumbo")
+    df = load_data_311("aws")
     df = normalize(df, columns)
     df.count()
     print("The normalize() takes: " + str(time.time() - starttime) + " sec.")
