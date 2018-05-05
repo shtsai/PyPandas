@@ -13,30 +13,26 @@ def drop_na(df, cols):
 def test_standard_scale():
     starttime = time.time()
     df = load_data_311("aws")
-    df = standard_scale(df, columns)
-    df.select("Latitude", "Longitude", "scaled Latitude", "scaled Longitude").show(20,False)
+    df = standard_scale(df, columns).collect()
     print("The standard_scale() takes: " + str(time.time() - starttime) + " sec.")
 
 def test_min_max_scale():
     starttime = time.time()
     df = load_data_311("aws")
-    df = min_max_scale(df, columns)
-    df.select("Latitude", "Longitude", "scaled Latitude", "scaled Longitude").show(20,False)
+    df = min_max_scale(df, columns).collect()
     print("The min_max_scale() takes: " + str(time.time() - starttime) + " sec.")
     
 
 def test_max_abs_scale():
     starttime = time.time()
     df = load_data_311("aws")
-    df = max_abs_scale(df, columns)
-    df.select("Latitude", "Longitude", "scaled Latitude", "scaled Longitude").show(20,False)
+    df = max_abs_scale(df, columns).collect()
     print("The max_abs_scale() takes: " + str(time.time() - starttime) + " sec.")
 
 def test_normalize():
     starttime = time.time()
     df = load_data_311("aws")
-    df = normalize(df, columns)
-    df.select("features", "normalized features").show(20,False)
+    df = normalize(df, columns).collect()
     print("The normalize() takes: " + str(time.time() - starttime) + " sec.")
 
 
