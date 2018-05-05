@@ -15,9 +15,9 @@ Pypandas        67.58 sec      100.39 sec      66.2 sec
 
 node#\data      data_job       data_311        data_permit
 
-   2 nodes      67.57 sec      100.39 sec      66.2 sec
-   4 nodes      79.23 sec      139.04 sec      107.88 sec
-   8 nodes      68.42 sec      124.32 sec      95.84 sec
-  10 nodes      69.22 sec      83.05 sec       67.42 sec
+   2 nodes      87.85 sec      152.39 sec      82.42 sec
+   4 nodes      65.69 sec      	74.56 sec      64.77 sec
+   8 nodes      63.12 sec      	81.51 sec      62.73 sec
+  10 nodes      62.87 sec       67.59 sec      60.67 sec
 
 
