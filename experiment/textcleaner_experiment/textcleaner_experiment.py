@@ -1,11 +1,10 @@
 import sys, time 
-from pypandas.datasets 
-import * from pypandas.textCleaner 
-import clean_text, sub_with_pattern 
+from pypandas.datasets import *
+from pypandas.textCleaner import * 
 
 def clean(df): 
     df = sub_with_pattern(df, '*', '!"#$%&/()=?', '') 
-    df.show(20, False) 
+    df.count()
 
 def load_data(): 
     data = sys.argv[1] 
