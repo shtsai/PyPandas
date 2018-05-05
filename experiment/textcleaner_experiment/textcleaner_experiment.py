@@ -4,7 +4,7 @@ from pypandas.textCleaner import *
 
 def clean(df): 
     df = sub_with_pattern(df, '*', '!"#$%&/()=?', '') 
-    df.count
+    df.count()
 
 def load_data(): 
     data = sys.argv[1] 
