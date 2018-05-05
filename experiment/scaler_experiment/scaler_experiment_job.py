@@ -15,7 +15,7 @@ def test_standard_scale():
     df = load_data_job("aws")
     df = drop_na(df, columns)
     df = standard_scale(df, columns)
-    df.select("Initial Cost", "Total Est Fee","scaled Initial Cost", "scaled Total Est Fee").show(20,False)
+    df.count()
     print("The standard_scale() takes: " + str(time.time() - starttime) + " sec.")
 
 def test_min_max_scale():
@@ -23,7 +23,7 @@ def test_min_max_scale():
     df = load_data_job("aws")
     df = drop_na(df, columns)
     df = min_max_scale(df, columns)
-    df.select("Initial Cost", "Total Est Fee","scaled Initial Cost", "scaled Total Est Fee").show(20,False)
+    df.count()
     print("The min_max_scale() takes: " + str(time.time() - starttime) + " sec.")
 
 def test_max_abs_scale():
@@ -31,7 +31,7 @@ def test_max_abs_scale():
     df = load_data_job("aws")
     df = drop_na(df, columns)
     df = max_abs_scale(df, columns)
-    df.select("Initial Cost", "Total Est Fee","scaled Initial Cost", "scaled Total Est Fee").show(20,False)
+    df.count()
     print("The max_abs_scale() takes: " + str(time.time() - starttime) + " sec.")
 
 def test_normalize():
@@ -39,7 +39,7 @@ def test_normalize():
     df = load_data_job("aws")
     df = drop_na(df, columns)
     df = normalize(df, columns)
-    df.select("features", "normalized features").show(20,False)
+    df.count()
     print("The normalize() takes: " + str(time.time() - starttime) + " sec.")
 
 
