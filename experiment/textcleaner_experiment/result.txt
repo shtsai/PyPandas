@@ -17,7 +17,7 @@ node#\data      data_job       data_311        data_permit
 
    2 nodes      87.85 sec      152.39 sec      82.42 sec
    4 nodes      65.69 sec      	74.56 sec      64.77 sec
-   8 nodes      63.12 sec      	81.51 sec      62.73 sec
-  10 nodes      62.87 sec       67.59 sec      60.67 sec
+   6 nodes      63.12 sec      	81.51 sec      62.73 sec
+   8 nodes      62.87 sec       67.59 sec      60.67 sec
 
 
