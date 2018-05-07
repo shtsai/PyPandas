@@ -237,34 +237,47 @@ from pypandas.textCleaner import clean_text, sub_with_pattern
 spark = SparkSession.builder.getOrCreate()
 
 # Setup data
-data = [('    abc$@#$     0079   $#@$SFSmck    ', 'Hi, I like https://www.google.com.', '_____a__c__ac')]
-df = spark.createDataFrame(data)
+data = [(
+    '    You can find the cheapest good on https://www.amazon.com/.    ',
+    'See, this iPhoneX only cost $20 dollar!!! ',
+    ' What the ______ :)) '
+)]
+
+df = spark.createDataFrame(data, schema=['1', '2', '3'])
 
 df.show()
 '''
-+--------------------+--------------------+-------------+
-|                  _1|                  _2|           _3|
-+--------------------+--------------------+-------------+
-|    abc$@#$     0...|Hi, I like https:...|_____a__c__ac|
-+--------------------+--------------------+-------------+
++--------------------+--------------------+--------------------+
+|                   1|                   2|                   3|
++--------------------+--------------------+--------------------+
+|    You can find ...|See, this iPhoneX...| What the ______ ...|
++--------------------+--------------------+--------------------+
 '''
 
 # General cleaning feature
 # Clean all column with '*' column
 clean_text(df, '*').collect()
-# [Row(_1='abc _number_ SFSmck', _2='Hi I like _url_', _3='_a_c_ac')]
+# [Row(
+#     1='You can find the cheapest good on _url_',
+#     2='See this iPhoneX only cost _number_ dollar',
+#     3='What the _ '
+# )]
 
 # Clean specific columns
-clean_text(df, ['_1', '_2']).collect()
-# [Row(_1='abc _number_ SFSmck', _2='Hi I like _url_', _3='_____a__c__ac')]
+clean_text(df, ['1', '2']).collect()
+# [Row(
+#     1='You can find the cheapest good on _url_',
+#     2='See this iPhoneX only cost _number_ dollar',
+#     3=' What the ______ :)) '
+# )]
 
 # Customize your own cleaning ways
-# For example, removing stopwords I
-sub_with_pattern(df, ['_2'], 'I', '').select('_2').collect()
-# [Row(_2='Hi,  like https://www.google.com.')]
+# For example, removing dollar sign
+sub_with_pattern(df, ['2'], '\$', '').select('2').collect()
+# [Row(2='See, this iPhoneX only cost 20 dollar!!! ')]
 
 # You can apply your own regular expression in our framework
 # For example, replacing consecutive white spaces to a single white space
-sub_with_pattern(df, ['_1'], ' +', ' ').select('_1').collect()
-# [Row(_1=' abc$@#$ 0079 $#@$SFSmck ')]
+sub_with_pattern(df, ['1'], ' +', ' ').select('1').collect()
+# [Row(1=' You can find the cheapest good on https://www.amazon.com/. ')]
 ```
