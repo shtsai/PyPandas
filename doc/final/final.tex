@@ -24,7 +24,7 @@
 \email{st3127@nyu.edu}
 
 \begin{abstract}
-Data cleaning is a huge challenge in data mining and machine learning tasks. In this paper, we propose PyPandas, a data cleaning toolkits running on Spark, to provide further solutions to data cleaning tasks. PyPandas provides advance cleaning features such as outlier detection, data scaling and text pattern searching and replacement. We have released PyPandas on GitHub\footnote{https://github.com/shtsai7/PyPandas}\footnote{Verison 0.2.1 for milestone report} and Python package manager pip.
+Data cleaning is a huge challenge in data mining and machine learning tasks. In this paper, we propose PyPandas, a data cleaning toolkits running on Spark, to provide further solutions to data cleaning tasks. PyPandas provides advance cleaning features such as outlier detection, data scaling and text pattern searching and replacement. We have released PyPandas on GitHub\footnote{https://github.com/shtsai7/PyPandas} and Python Package Index (PyPI).\footnote{PyPandas can be installed by pip.}
 \end{abstract}
 
 \maketitle
@@ -40,7 +40,7 @@ However, PySpark DataFrame does not support advance data processing features lik
 
 In this paper, we propose PyPandas, a data cleaning toolkits built on top of PySpark, that integrates PySpark ML module to support user friendly data processing features such as outlier detection and numerical data scaling. These features are important for the machine learning tasks and are supported in Scikit-Learn\cite{scikit-learn}, a mainstream machine learning library, as well.
 	
-Furthermore, text data is another common data type in our storage. Text data is hard to process because of different languages, newly invented words, typos, abbreviations, urls and emoji etc. Although we have NLTK\cite{nltk}, a popular text cleaning library, there is no intergation with PySpark DataFrame. In this paper, we also intergate NLTK within our toolkits and provide customized tools for users to clean text data easily. 
+Furthermore, text data is another common data type in our storage. Text data is hard to process because of different languages, newly invented words, typos, abbreviations, urls and emoji etc.  In this paper, we also implement easy to use text cleaning methods and provide flexibility for users to customize their cleaning processing. 
 	
 The features of our library are summarized below.
 \begin{itemize}
@@ -62,20 +62,18 @@ In this paper, we focus on three major tasks, outlier detection, data scaling, a
 \subsection{Outlier Detection}
 Outlier or anomalies detection is a challenging task in the field of data cleaning\cite{anomal}. In this paper, we define outlier as the data that is far away from the its cluster centroid. Hence, given a dataset $X$, a clustering algorithm $A$\cite{MMD}, a distance measurement $d$, and the user-defined threshold $t$, the outlier is defined as following.
 
-\[ outlier = \{x | x \in X, d( x, x_{A_X(x)} ) > t \}  \]
+\[ outlier = \{x | x \in X, d( x, c_{A_X(x)} ) > t \}  \]
 
-where $A_X(x)$ assigns $x$ into a cluster given the dataset $X$ and $x_{A_X(x)}$  is the centroid of cluster to which $x$ belongs.
-
+where $A_X(x)$ assigns $x$ into a cluster given the dataset $X$ and $c_{A_X(x)}$  is the centroid of cluster to which $x$ belongs.
 Our library implements the following clustering algorithms. 
 \begin{itemize}
-	\item{K-Means and Bisecting K-Means Algorithm} \\
+	\item{K-Means and Bisecting K-Means Algorithm}\cite{KMeans, biKmeans} \\
 		These two algorithms partition data points into k clusters, where each point belongs to the clusters that is closest to that point. In these two models, the distance measurement $d$ is the Euclidean Distance.
-		\[ d( x, x_{Kmeans_X(x)}) = d( x, c) = \sqrt{\sum_{i=1}^n{(x_i - c_i ) ^ 2} } \]
-		where $c$ is the cluster centroid.
-	\item{Gaussian Mixture Model} \\
-		The algorithm assumes a probabilistic model where data points are generated from some Gaussian distributions. The Gaussian distributions are parameterized by a mean $\vec{\mu}$ and a covariance matrix $S$. \\
+		\[ d( x, c_{KMeans_X(x)}) = \sqrt{\sum_{i=1}^n{(x_i - c_i ) ^ 2} } \]
+	\item{Gaussian Mixture Model}\cite{GMM} \\
+		The algorithm assumes a probabilistic model where data points are generated from some Gaussian distributions. The Gaussian distributions are parameterized by a mean $\vec{\mu}$ and a covariance matrix $S$.
 		The distance measurement $d$ is defined to be Mahalanobis Distance, which measures the distance between a point and a distribution.
-		\[ d( x, x_{GM_X(x)}) = D_M(\vec{x}) = \sqrt{(\vec{x}-\vec{\mu})^T S^{-1} (\vec{x}-\vec{\mu}) } \]
+		\[ d( x, c_{GMM_X(x)}) = \sqrt{(\vec{x}-\vec{\mu})^T S^{-1} (\vec{x}-\vec{\mu}) } \]
 \end{itemize}
 
 \subsection{Scaling and Normalization}
@@ -117,7 +115,8 @@ In this project, we build our library on top of PySpark. We handle PySpark DataF
 
 \subsection{Outlier Detection}
 \subsubsection{Design} 
-Our goal in outlier detection is to integrate the existing clustering algorithms in PySpark ML module to provide user-friendly solution for outlier detection. Users are able to select existing clustering algorithms. Furthermore, users are given the power to decide their own threshold value based on their knowledge about the dataset to filter outliers. To help users identify outliers and pick a proper threshold, we provide statistics summary of the clustering. Possible future work on outlier detection is to provide framework to register user defined clustering algorithms or implementing popular clustering algorithms such as DBScan\cite{DBScan} in our library.
+Our goal in outlier detection is to integrate the existing clustering algorithms in PySpark ML module to provide user-friendly solution for outlier detection. Users are able to select existing clustering algorithms. Furthermore, users are given the power to decide their own threshold value based on their knowledge about the dataset to filter outliers. To help users identify outliers and pick a proper threshold, we provide statistics summary of the clustering. 
+%Possible future work on outlier detection is to provide framework to register user defined clustering algorithms or implementing popular clustering algorithms such as DBScan\cite{DBScan} in our library.
 
 \subsubsection{Architecture}
 The implementation of the outlier detection functionality integrates the PySpark ml package. Our architecture hides the complexity of training and tuning clustering models, while it exposes easily accessible APIs for users to remove outliers. In addition, our data cleaning library implements User Defined Functions to compute distance between data points and cluster centers, as well as other summary statistics. At this time, our outlier remover can handle outliers with KMeans clustering, Bisecting KMeans, and Gaussian Mixture Model. We use Factory Design Pattern to construct different types of outlier removers with the generic APIs.
@@ -125,8 +124,8 @@ The implementation of the outlier detection functionality integrates the PySpark
 \subsubsection{Methods}
 \begin{itemize}
 	\item{KMeans}\cite{KMeans}: Users can specify the number of clusters $k$ to use based their knowledge about the dataset. By default, The system will choose random initial values, and perform 20 iterations of updates. Finally, a summary of the clusterings will be generated, which includes cluster centers, cluster sizes, distances, etc. User can then filter out outliers in each cluster by specifying a minimum distance from the cluster center, and all data points that are beyond that distance will be removed from the dataset.
-	\item{Bisecting KMeans}: This method is very similar to KMeans clustering. The only difference is that it uses the bisecting Kmeans clustering algorithm. The algorithm does not start with k clusters. Instead, it gradually divides clusters and generates k clusters after a number of iterations.
-	\item{Gaussian Mixture}: Similarly, users can specify the number of clusters (i.e. Gaussian distributions). The algorithm performs 20 iterations of updates by default. A summary that contains mean, covariance matrix and average mahalanobis distance of each cluster can be returned. User can specify a minimum distance to filter out outliers.
+	\item{Bisecting KMeans}\cite{biKmeans}: This method is very similar to KMeans clustering. The only difference is that it uses the bisecting Kmeans clustering algorithm. The algorithm does not start with k clusters. Instead, it gradually divides clusters and generates k clusters after a number of iterations.
+	\item{Gaussian Mixture}\cite{GMM}: Similarly, users can specify the number of clusters (i.e. Gaussian distributions). The algorithm performs 20 iterations of updates by default. A summary that contains mean, covariance matrix and average mahalanobis distance of each cluster can be returned. User can specify a minimum distance to filter out outliers.
 
 \end{itemize}
 
