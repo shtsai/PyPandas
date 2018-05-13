@@ -124,17 +124,18 @@ The implementation of the outlier detection functionality integrates the PySpark
 \subsubsection{Methods}
 \begin{itemize}
 	\item{KMeans}\cite{KMeans}: Users can specify the number of clusters $k$ to use based their knowledge about the dataset. By default, The system will choose random initial values, and perform 20 iterations of updates. Finally, a summary of the clusterings will be generated, which includes cluster centers, cluster sizes, distances, etc. User can then filter out outliers in each cluster by specifying a minimum distance from the cluster center, and all data points that are beyond that distance will be removed from the dataset.
-	\item{Bisecting KMeans}\cite{biKmeans}: This method is very similar to KMeans clustering. The only difference is that it uses the bisecting Kmeans clustering algorithm. The algorithm does not start with k clusters. Instead, it gradually divides clusters and generates k clusters after a number of iterations.
+	\item{Bisecting KMeans}\cite{biKmeans}: Bisecting Kmeans clustering algorithm is similar to KMeans. However, the algorithm does not start with k clusters. Instead, it gradually divides clusters and generates k clusters after a number of iterations.
 	\item{Gaussian Mixture}\cite{GMM}: Similarly, users can specify the number of clusters (i.e. Gaussian distributions). The algorithm performs 20 iterations of updates by default. A summary that contains mean, covariance matrix and average mahalanobis distance of each cluster can be returned. User can specify a minimum distance to filter out outliers.
 
 \end{itemize}
 
 \subsection{Scaling and Normalization}
 \subsubsection{Design}
-Standardization is a common requirement for many machine learning algorithms, since some optimization methods will not work properly without scaling or normalization\cite{convex}. Our goal in scaling and normalization is similar to the goal of outlier detection. We will intergrate existing scaling algorithms in PySpark ML module into our library. User can choose existing scaling algorithms to scale their datasets. The future works is to provide framework to register user defined scaling algorithms.
+Standardization is a common requirement for many machine learning algorithms, since some optimization methods will not work properly without scaling or normalization\cite{convex}. Our goal in scaling and normalization is similar to the goal of outlier detection. We will intergrate existing scaling algorithms in PySpark ML module into our library. User can choose existing scaling algorithms to scale their datasets. %The future works is to provide framework to register user defined scaling algorithms.
 
 \subsubsection{Architecture}
-Since the design is similar with the design of outlier detection, we will follow the architecture of outlier detection. We will use the Factory Design Pattern to allow users construct their desired scaling models. We are considering to implement a single interface between any existing models in PySpark ML module to DataFrame in PySpark SQL module. Hence, we will be able to provide any feature transformation with the existing machine learning models in PySpark ML module.
+The architecture of scaling is simple. We wrap scaling logic into single function which allows user to transform their PySpark DataFrame easily.
+%Since the design is similar with the design of outlier detection, we will follow the architecture of outlier detection. We will use the Factory Design Pattern to allow users construct their desired scaling models. We are considering to implement a single interface between any existing models in PySpark ML module to DataFrame in PySpark SQL module. Hence, we will be able to provide any feature transformation with the existing machine learning models in PySpark ML module.
 
 \subsubsection{Methods}
 \begin{itemize}
@@ -146,11 +147,11 @@ Since the design is similar with the design of outlier detection, we will follow
 
 \subsection{Pattern Searching and Replacement}
 \subsubsection{Design} 
-To provide a useful text cleaning toolkits, we need to have the flexibility for user to search any pattern and replace the matched ones with any user defined string. At the same time, we have to provide common patterns so that users won't need to reinvent the wheel. For example, url pattern, leading space, trailing space or numbers are common search patterns that we should provide. Moreover, we would like to integrate NLTK\cite{nltk}, a popular natural language toolkit, into our library. With NLTK, we would be able to perform advanced cleaning tasks or feature transformation.
+To provide a useful text cleaning toolkits, we need to have the flexibility for user to search any pattern and replace the matched ones with any user defined string. At the same time, we have to provide common patterns so that users won't need to reinvent the wheel. For example, url pattern, leading space, trailing space or numbers are common search patterns that we should provide. Moreover, users should be able to organize their cleaning logic and apply them to the text dataset easily.%Moreover, we would like to integrate NLTK\cite{nltk}, a popular natural language toolkit, into our library. With NLTK, we would be able to perform advanced cleaning tasks or feature transformation.
 %%to follow the don't repeat yourself (DRY) principle 
 
 \subsubsection{Architecture}
-In order to achieve those design issues, we extract the common logic and column feature transformation into our core functions. We design the architecture such that user defined functions can be applied on a single or multiple columns, and a new DataFrame will be provided. The user defined function could be a regular expression substitution function, a column scaling function or a natural language processing function in NLTK. Our architecture ensures the flexibility to various customized processing methods.
+In order to achieve those design issues, we extract the common logic and column feature transformation into our core functions. We design the architecture such that user defined functions can be applied on a single or multiple columns, and a new DataFrame will be provided. The user defined function could be a regular expression substitution function, a column scaling function or a natural language processing function in NLTK\cite{nltk}. Our architecture ensures the flexibility to various customized processing methods. Futhermore, we apply Decorator Design Pattern to enable users to register processing functions and customize their cleaning process.
 
 \subsubsection{Methods}
 We define several common regular expression patterns in table \ref{tab:reg} and provide simple cleaning functions to handle those patterns in text data.
