@@ -263,10 +263,10 @@ In scaling and normalization, Dask and PyPandas provide basic scaling methods li
 
 For the text cleaning, PyPandas provides more powerful pattern searching and replacement feature to let user find out any pattern and replace the matched one with their desired value. Moreover, PyPandas defines several common patterns for users to clean their text quickly without repeating themselves. In summary, PyPandas extends PySpark DataFrame and provides more easy-to-use features for users to clean their data.
 
-\subsubsection{Performance} We compare the performance of our library against other existing data cleaning works. The total of execution times of each task, including the time for Spark initialization, data loading, and data preprocessing, were all recorded and listed below.
+\subsubsection{Performance} We compare the performance of functions including min max scaling, normalization and special character cleaning in our library against those in Optimus on AWS EMR with the identical environment configuration. The total of execution times of each task, including the time for Spark initialization, data loading, and data preprocessing, are all recorded and listed below. Even though the execution times seems to be slightly slower than Optimus, we do provide more features in PyPandas.
 \begin{itemize}
-	\item{Scaling and Normalization}: TODO by Charson. The experiment results can be found in table \ref{tab:Scaling and Normalization Experiment Result}.
-	\item{Special Character Cleaning}:  TODO by Charson. The results are shown in table \ref{tab:Special Character Cleaning Experiment Result}.
+	\item{Scaling and Normalization}: In this experiment, the min max scaling and the normalization are performed on the 311 Service Requests Dataset. We select all the numeric columns in the dataset to do the experiment. The experiment results can be found in table \ref{tab:Scaling and Normalization Experiment Result}.
+	\item{Special Character Cleaning}: In this experiment, the special character cleaning is performed on the 311 Service Requests Dataset. We execute the cleaning function to the entire dataset. The results are shown in table \ref{tab:Special Character Cleaning Experiment Result}.
 \end{itemize}
 
 \begin{table}
@@ -300,8 +300,8 @@ For each task, we use 4 configurations of the clusters. The 4 configurations are
 From the experiment, we find that PyPandas outlier remover has great scalability. Each time we double the number of worker nodes, the performance improves significantly. Note that the improvement is not perfectly linear, because we include the spark initialization and data loading time in our measurement. As the number of workers increases, the overhead of the cluster also increases.
 \begin{itemize}
 	\item{Outlier Detection}: This experiment is performed on the 311 Service Requests Dataset. We perform outlier detection on one particular column that contains numerical values. We use both K-Means and Gaussian Mixture Outlier Remover with k value of 5.  The results are shown in table \ref{tab:Outlier Detection - Scalability Experiment Result}.
-	\item{Scaling and Normalization}: TODO by Charson. The results are shown in table \ref{tab:Scaling and Normalization - Scalability Experiment Result}.
-	\item{Text Cleaner}: TODO by Charson. The results are shown in table \ref{tab:Text Cleaner - Scalability Experiment Result}.
+	\item{Scaling and Normalization}: This experiment is performed on the 311 Service Requests Dataset. We choose all the columns containing numeric values in the dataset to do scaling and normalization. The results are shown in table \ref{tab:Scaling and Normalization - Scalability Experiment Result}.
+	\item{Text Cleaner}: This experiment is performed on the 311 Service Requests Dataset. We perform the sub\_with\_pattern function to replace all the special characters appear in the dataset with empty value. The results are shown in table \ref{tab:Text Cleaner - Scalability Experiment Result}.
 \end{itemize}
 
 \begin{table}
