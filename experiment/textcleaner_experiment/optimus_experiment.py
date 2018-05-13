@@ -5,7 +5,7 @@ from pypandas.datasets import *
 def clean(df):
     transformer = op.DataFrameTransformer(df)
     transformer.remove_special_chars(columns='*')
-    transformer.show(20, False)
+    transformer.df().count()
 
 def load_data():
     data = sys.argv[1]
