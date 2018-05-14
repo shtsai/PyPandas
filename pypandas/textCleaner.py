@@ -2,6 +2,49 @@ import re
 import pyspark.sql
 from pyspark.sql.functions import udf
 from pypandas.core import apply_udf
+import pypandas.common_patterns as patterns
+
+class TextCleaner:
+    def __init__(self):
+        self.clean_functions = []
+
+    def register(self, clean_function):
+        self.clean_functions.append(clean_function)
+
+    def register_re_sub(self, to_replace, value):
+        def re_sub_function(text):
+            return re.sub(to_replace, value, text)
+        self.register(re_sub_function)
+
+    def clean(self, raw_text):
+        processed_text = raw_text
+        for f in self.clean_functions:
+            processed_text = f(processed_text)
+        return processed_text
+
+def clean_with_text_cleaner(dataframe, columns, cleaner):
+    def clean_with_cleaner(datum):
+        if datum is not None:
+            if type(datum) is str:
+                return cleaner.clean(datum)
+            else:
+                return datum
+        else:
+            return None
+
+    cleaner_udf = udf(clean_with_cleaner)
+    return apply_udf(dataframe, columns, cleaner_udf)
+
+def clean_text_with_cleaner(dataframe, columns):
+    cleaner = TextCleaner()
+    cleaner.register_re_sub(patterns.LEADING_SPACE, '')
+    cleaner.register_re_sub(patterns.TRAILING_SPACE, '')
+    cleaner.register_re_sub(patterns.URL, '_url_')
+    cleaner.register_re_sub(patterns.BLANKS, '_')
+    cleaner.register_re_sub(patterns.NOT_A_WORD, '')
+    cleaner.register_re_sub(patterns.NUMBER, '_number_')
+    cleaner.register_re_sub(patterns.CONSECUTIVE_SPACE, ' ')
+    return clean_with_text_cleaner(dataframe, columns, cleaner)
 
 def clean_text(dataframe, columns):
     df = clean_leading_space(dataframe, columns)
