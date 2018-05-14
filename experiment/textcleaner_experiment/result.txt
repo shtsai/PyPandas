@@ -3,11 +3,21 @@ Besides, we also experiment the scalability of our textcleaner.
 
 [Compare]
 
+---- With data loading time
+
 tools\data      data_job       data_311        data_permit
 
 Optimus         48.66 sec      81.56 sec       50.62 sec
 
 Pypandas        67.58 sec      100.39 sec      66.2 sec
+
+---- Without data loading time
+
+tools\data      data_job       data_311        data_permit
+
+Optimus         10.35 sec      32.32 sec       9.77 sec
+
+Pypandas        10.80 sec      31.92 sec       10.29 sec
 
 ----
 
