@@ -5,7 +5,7 @@ from pypandas.datasets import *
 def clean(df):
     transformer = op.DataFrameTransformer(df)
     transformer.remove_special_chars(columns='*')
-    transformer.df().count()
+    transformer.df.count()
 
 def load_data():
     data = sys.argv[1]
@@ -20,8 +20,8 @@ def load_data():
     return df
 
 def main():
-    starttime = time.time()
     df = load_data()    
+    starttime = time.time()
     clean(df)
     print("The optimus takes: " + str(time.time() - starttime) + " sec to clean the data" + sys.argv[1])
 
