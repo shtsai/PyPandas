@@ -1,5 +1,23 @@
 In this experiment, we test the scalability of the scaling functions.
 
+[Performance]
+
+---- With data loading time
+
+tools\data	Min-Max Scaling		Normalization
+
+Optimus		142.66 sec		61.92 sec
+
+PyPandas	391.11 sec		105.90 sec
+
+---- Without data loading time
+
+tools\data	Min-Max Scaling		Normalization
+
+Optimus		85.24 sec		31.21 sec
+
+PyPandas	319.08 sec		32.87 sec
+
 [Scalability]
 
 node#\func    standard_scale()       min_max_scale()      max_abs_scale()       normalize()
