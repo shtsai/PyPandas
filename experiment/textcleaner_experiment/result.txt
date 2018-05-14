@@ -1,7 +1,7 @@
 In this experiment, we compare the performance by timing between our textcleaner and the Optimus.
 Besides, we also experiment the scalability of our textcleaner.
 
-[Compare]
+[Performance]
 
 ---- With data loading time
 
