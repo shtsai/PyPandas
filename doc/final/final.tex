@@ -263,11 +263,13 @@ In scaling and normalization, Optimus, Dask and PyPandas provide basic scaling m
 
 For the text cleaning, Optimus and PyPandas provides more powerful pattern searching and replacement feature to let user find out any pattern and replace the matched one with their desired value. Moreover, PyPandas defines several common patterns for users to clean their text quickly without repeating themselves and users are able to register their cleaning logic to customize their process in text cleaning. In summary, PyPandas extends PySpark DataFrame and provides more easy-to-use features for users to clean their data.
 
-\subsubsection{Performance} We compare the performance of functions including min max scaling, normalization and special character cleaning in our library against those in Optimus on AWS EMR with the identical environment configuration. The total of execution times of each task, including the time for Spark initialization, data loading, and data preprocessing, are all recorded and listed below. Even though the execution times seems to be slightly slower than Optimus, we do provide more features in PyPandas.
+\subsubsection{Performance} We compare the performance of functions including min max scaling, normalization and special character cleaning in our library against those in Optimus on AWS EMR with the identical environment configuration. The data processing time and total execution time, including the time for Spark initialization, data loading, and data processing, are all recorded and listed below. Even though the execution times seems to be slightly slower than Optimus, we do provide more features in PyPandas.
 \begin{itemize}
 	\item{Scaling and Normalization}: In this experiment, the min max scaling and the normalization are performed on the 311 Service Requests Dataset. We select all the numeric columns in the dataset to do the experiment. The experiment results can be found in table \ref{tab:Scaling and Normalization Experiment Result}.
 	\item{Special Character Cleaning}: In this experiment, the special character cleaning is performed on the 311 Service Requests Dataset. We execute the cleaning function to the entire dataset. The results are shown in table \ref{tab:Special Character Cleaning Experiment Result}.
 \end{itemize}
+
+
 
 \begin{table}
 \caption{Scaling and Normalization Experiment Result}   
@@ -275,9 +277,9 @@ For the text cleaning, Optimus and PyPandas provides more powerful pattern searc
 \begin{tabular}{lcc}   
  	         &  Min-Max Scaling  &  Normalization \\
 \hline
-PyPandas   &  391.11s   & 105.90s  \\ 
-Optimus     &  142.46s   & 61.92s   \\  
-\end{tabular}   
+PyPandas   &  319.08s / 391.11s  & 32.87s / 105.90s  \\ 
+Optimus     &   85.24s / 142.46s   & 31.21s / 61.92s   \\
+\end{tabular}
 \end{table}
 
 \begin{table}
@@ -287,8 +289,8 @@ Optimus     &  142.46s   & 61.92s   \\
                  & 311 Service  & Permit     & Job Application \\  
 		 &	Requests  & Issuance  & Filings  \\ 
 \hline
-PyPandas   & 104.18s  & 62.35s   & 60.07s             \\ 
-Optimus     & 86.19s    & 43.67s   & 43.04s             \\  
+PyPandas   &  31.92s / 104.18s  & 10.29s / 62.35s   & 10.80s / 60.07s             \\ 
+Optimus     & 32.32s / 86.19s    & 9.77s / 43.67s   & 10.35s / 43.04s             \\  
 \end{tabular}   
 \end{table}
 
@@ -308,7 +310,7 @@ From the experiment, we find that PyPandas outlier remover has great scalability
 \caption{Outlier Detection - Scalability Experiment Result}   
 \label{tab:Outlier Detection - Scalability Experiment Result}
 \begin{tabular}{ccc}   
-Number of      &  KMeans &  Gaussian Mixture \\  
+Number of      &  KMeans &  Gaussian Mixture Model \\  
 Worker Nodes &              &             \\
 \hline
 2   & 650.1718 s    & 1408.2266 s    \\ 
