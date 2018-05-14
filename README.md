@@ -231,7 +231,7 @@ normalized_df.show(3,False)
 
 ```python
 from pyspark.sql import SparkSession
-from pypandas.textCleaner import clean_text, sub_with_pattern
+from pypandas.text_cleaner import clean_text, sub_with_pattern, TextCleaner
 
 # Create Spark Session
 spark = SparkSession.builder.getOrCreate()
@@ -280,4 +280,14 @@ sub_with_pattern(df, ['2'], '\$', '').select('2').collect()
 # For example, replacing consecutive white spaces to a single white space
 sub_with_pattern(df, ['1'], ' +', ' ').select('1').collect()
 # [Row(1=' You can find the cheapest good on https://www.amazon.com/. ')]
+
+# To customize your cleaning process, you can use TextCleaner
+cleaner = TextCleaner()
+# First, remove leading space
+cleaner.register_re_sub('^ +', '')
+# Then, remove trailing space
+cleaner.register_re_sub(' +$', '')
+# Clean dataframe
+cleaner.clean(df, ['1']).select('1').collect()
+# [Row(1='You can find the cheapest good on https://www.amazon.com/.')]
 ```
