@@ -9,7 +9,7 @@ from pypandas.preprocess import *
 import math
 import numpy as np
 
-spark = SparkSession.builder.appName("Python Spark SQL basic example").config("spark.some.config.option", "some-value").getOrCreate()
+spark = SparkSession.builder.appName("PyPandas outlier detection").config("spark.some.config.option", "some-value").getOrCreate()
 
 class OutlierRemover:
     def factory(cluster_type):
