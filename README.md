@@ -55,7 +55,8 @@ df.show()
 only showing top 20 rows
 '''
 
-# Instantiate KMeans Outlier Remover from the OutlierRemover factory
+# Instantiate Outlier Remover from the factory
+# Available choices are "kmeans", "bisectingkmeans", and "gaussian"
 km = OutlierRemover.factory("kmeans")
 
 # Check (default) parameters
