@@ -4,34 +4,43 @@ from pyspark.ml.feature import StandardScaler
 from pyspark.ml.feature import MinMaxScaler
 from pyspark.ml.feature import MaxAbsScaler
 from pyspark.ml.feature import Normalizer
-from pyspark.sql.functions import udf
+from pyspark.sql.functions import udf, col, lit
 from pyspark.sql.types import FloatType
    
 def load_test():
     print("Load scale functions successfully.")
 
+def unpack_vector(dataFrame, column, featureNames):
+    if type(featureNames) is not list: 
+        raise ValueError("The featureNames has to be a list.")
+    unpack = udf(lambda x, index: x[index])
+    # Recursive helper function
+    buf = []
+    def helper(column, buf, featureNames, index):
+        if index == 0:
+            return [unpack(col(column), lit(index)).alias(featureNames[index])]
+        else:
+            return helper(column, buf, featureNames, index - 1) + [unpack(col(column), lit(index)).alias(featureNames[index])]
+    dataFrame = dataFrame.select([x for x in dataFrame.columns] + [*helper(column, buf, featureNames, len(featureNames) - 1)]).drop(column)
+    return dataFrame
+
 def standard_scale(dataFrame, inputColNames, usr_withStd=True, usr_withMean=False):
     
     def scaling(dataFrame, inputColName, usr_withStd, usr_withMean):
-        outputColName = "scaled " + inputColName
-        assembler = VectorAssembler(inputCols=[inputColName], \
+        assembler = VectorAssembler(inputCols=inputColName, \
                                     outputCol="features")
         assembledDF = assembler.transform(dataFrame)
         scaler=StandardScaler(inputCol="features", \
-                              outputCol=outputColName, \
+                              outputCol="scaled features", \
                               withStd=usr_withStd, \
                               withMean=usr_withMean).fit(assembledDF)
-        scaledDF = scaler.transform(assembledDF).drop("features")
-        castVectorToFloat = udf(lambda v : float(v[0]), FloatType())
-        scaledDF = scaledDF.withColumn(outputColName, castVectorToFloat(outputColName)) 
-        print ("Successfully scale the column '{0:s}' and create a new column '{1:s}'.".format(inputColName, outputColName))
+        scaledDF = scaler.transform(assembledDF)
         return scaledDF
 
     if type(inputColNames) is str:
         return scaling(dataFrame, inputColNames, usr_withStd, usr_withMean)
     elif type(inputColNames) is list:
-        for inputColName in inputColNames:
-            dataFrame = scaling(dataFrame, inputColName, usr_withStd, usr_withMean)
+        dataFrame = scaling(dataFrame, inputColNames, usr_withStd, usr_withMean)
         return dataFrame
     else:
         raise ValueError("The inputColNames has to be string or string list.")
