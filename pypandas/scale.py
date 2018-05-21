@@ -67,16 +67,11 @@ def normalize(dataFrame, inputColNames, p_norm=2.0):
             raise ValueError("The p_norm has to be float or 'inf'.")
     if type(inputColNames) is list:
         outputColName = "normalized features"
-        assembler = VectorAssembler(inputCols=inputColNames, \
-                                    outputCol="features")
-        assembledDF = assembler.transform(dataFrame)
+        assembledDF = getAssembledDataFrame(dataFrame, inputColNames)
         normalizer=Normalizer(inputCol="features", \
                               outputCol=outputColName, \
                               p = p_norm)
         normalizedDF = normalizer.transform(assembledDF).drop("features")
-        colList = ""
-        for inputColName in inputColNames:
-            colList += " '" + inputColName + "' "
         return normalizedDF
     else:
         raise ValueError("The inputColNames has to be a list of columns to generate a feature vector and then do normalization.")
