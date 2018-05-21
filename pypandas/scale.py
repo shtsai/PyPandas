@@ -37,7 +37,7 @@ def standard_scale(dataFrame, inputColNames, usr_withStd=True, usr_withMean=Fals
                           outputCol="scaled features", \
                           withStd=usr_withStd, \
                           withMean=usr_withMean).fit(assembledDF)
-    scaledDF = scaler.transform(assembledDF)
+    scaledDF = scaler.transform(assembledDF).drop("features")
     return scaledDF
 
 def min_max_scale(dataFrame, inputColNames, Min=0.0, Max=1.0):
@@ -47,7 +47,7 @@ def min_max_scale(dataFrame, inputColNames, Min=0.0, Max=1.0):
                         outputCol="scaled features")
     scaler.setMax(Max).setMin(Min)
     scalerModel=scaler.fit(assembledDF)
-    scaledDF = scalerModel.transform(assembledDF)
+    scaledDF = scalerModel.transform(assembledDF).drop("features")
     return scaledDF
 
 def max_abs_scale(dataFrame, inputColNames):
@@ -73,14 +73,10 @@ def normalize(dataFrame, inputColNames, p_norm=2.0):
         normalizer=Normalizer(inputCol="features", \
                               outputCol=outputColName, \
                               p = p_norm)
-        normalizedDF = normalizer.transform(assembledDF)
+        normalizedDF = normalizer.transform(assembledDF).drop("features")
         colList = ""
         for inputColName in inputColNames:
             colList += " '" + inputColName + "' "
-        if(p_norm == float('inf')):
-            print ("Successfully assembled the column {0:s} to a feature vector and normalized using L^inf norm and create two new columns 'features' and 'normalized features'.".format(colList))
-        else:
-            print ("Successfully assembled the column {0:s} to a feature vector and normalized using L^{1:f} norm and create two new columns 'features' and 'normalized features'.".format(colList, p_norm))
         return normalizedDF
     else:
         raise ValueError("The inputColNames has to be a list of columns to generate a feature vector and then do normalization.")
