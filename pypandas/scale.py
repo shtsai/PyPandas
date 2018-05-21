@@ -13,7 +13,7 @@ def load_test():
 def unpack_vector(dataFrame, column, featureNames):
     if type(featureNames) is not list: 
         raise ValueError("The featureNames has to be a list.")
-    unpack = udf(lambda x, index: x[index])
+    unpack = udf(lambda x, index: float(x[index]), FloatType())
     # Recursive helper function
     buf = []
     def helper(column, buf, featureNames, index):
