@@ -139,7 +139,6 @@ df = spark.createDataFrame([(1, 1.22, 2.34, 1.1, 3.5),\
                             (2, -0.23, 5.23, 4.22, 2.34),\
                             (3, 0.67, 1.34, -3.56, 7.45)],\
                             ["id","col1","col2","col3","col4"]) 
-
 df.show()
 '''
 +---+-----+----+-----+----+
@@ -150,13 +149,13 @@ df.show()
 |  3| 0.67|1.34|-3.56|7.45|
 +---+-----+----+-----+----+
 '''
+
 # Use the standard_scale() function
 # Users could optionally set the variable withStd and withMean
 # withStd: True by default. Scales the data to unit standard deviation.
 # withMean: False by default. Centers the data with mean before scaling. It will build a dense output, so take care when applying to sparse input.
 
 scaled_df = standard_scale(df, ["col1", "col2", "col3", "col4"])
-
 scaled_df.show(3,False)
 '''
 +---+-----+----+-----+----+-------------------------------------------------------------------------------+
@@ -167,13 +166,13 @@ scaled_df.show(3,False)
 |3  |0.67 |1.34|-3.56|7.45|[0.9152925749000619,0.6633419519008028,-0.9092487190092305,2.78095445718746]   |
 +---+-----+----+-----+----+-------------------------------------------------------------------------------+
 '''
+
 # Use the min_max_scale() function
 # Users could optionally set the variables min and max
 # min: 0.0 by default. Lower bound after transformation, shared by all features.
 # max: 1.0 by default. Upper bound after transformation, shared by all features.
 
 scaled_df = min_max_scale(df,  ["col1", "col2", "col3", "col4"])
-
 scaled_df.show(3,False)
 '''
 +---+-----+----+-----+----+---------------------------------------------------------------+
@@ -184,9 +183,10 @@ scaled_df.show(3,False)
 |3  |0.67 |1.34|-3.56|7.45|[0.6206896551724138,0.0,0.0,1.0]                               |
 +---+-----+----+-----+----+---------------------------------------------------------------+
 '''
-# Use the max_abs_scale() function
-scaled_df = max_abs_scale(df,  ["col1", "col2", "col3", "col4"])
 
+# Use the max_abs_scale() function
+
+scaled_df = max_abs_scale(df,  ["col1", "col2", "col3", "col4"])
 scaled_df.show(3,False)
 '''
 +---+-----+----+-----+----+----------------------------------------------------------------+
@@ -197,12 +197,12 @@ scaled_df.show(3,False)
 |3  |0.67 |1.34|-3.56|7.45|[0.5491803278688525,0.25621414913957935,-0.8436018957345972,1.0]|
 +---+-----+----+-----+----+----------------------------------------------------------------+
 '''
+
 # Use the normalize() function
 # Users could optionally set p-norm variable
 # p-norm: 2 by default, used for normalization
 
 normalized_df = normalize(df, ["col1", "col2", "col3", "col4"])
-
 normalized_df.show(3,False)
 '''
 +---+-----+----+-----+----+--------------------------------------------------------------------------------+
@@ -213,10 +213,11 @@ normalized_df.show(3,False)
 |3  |0.67 |1.34|-3.56|7.45|[0.07984081144863289,0.15968162289726578,-0.4242287891897508,0.8877821571527089]|
 +---+-----+----+-----+----+--------------------------------------------------------------------------------+
 '''
-# This function enable user unpack the dense vector into columns
+
+# Use the unpack_vector() function
+# The function unpack_vector() enables user unpack the dense vector into columns.
 
 unpack_df=unpack_vector(normalized_df,"normalized features",["norm col1", "norm col2", "norm col3", "norm col4"])
-
 unpack_df.show(3,False)
 '''
 +---+-----+----+-----+----+--------------------------------------------------------------------------------+
@@ -226,8 +227,6 @@ unpack_df.show(3,False)
 |2  |-0.23|5.23|4.22 |2.34|[-0.032304836487058015,0.7345838905535367,0.592723521632108,0.328666597303112]  |
 |3  |0.67 |1.34|-3.56|7.45|[0.07984081144863289,0.15968162289726578,-0.4242287891897508,0.8877821571527089]|
 +---+-----+----+-----+----+--------------------------------------------------------------------------------+
-                            |
-                            |
                             |
                             |
                             v
